@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/TextFieldDelegate.qml</file>
+        <file>qml/SqlTableView.qml</file>
     </qresource>
 </RCC>
