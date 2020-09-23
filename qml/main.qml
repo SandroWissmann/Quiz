@@ -10,7 +10,32 @@ ApplicationWindow {
     height: 480
     title: qsTr("Quiz")
 
-    SqlTableView{}
+    Loader{
+        id: loader
+        anchors.fill: parent
+    }
+
+    menuBar: ToolBar {
+        Flow {
+            anchors.fill: parent
+            ToolButton {
+                text: qsTr("New Quiz")
+                icon.name: "address-book-new"
+            }
+            ToolButton {
+                text: qsTr("Show Table")
+                icon.name: "document-open"
+                onClicked: {
+                    console.log("clicked")
+                    loader.source = "SqlTableView.qml"
+                }
+            }
+            ToolButton {
+                text: qsTr("Add Question")
+                icon.name: "document-new"
+            }
+        }
+    }
 }
 
 
