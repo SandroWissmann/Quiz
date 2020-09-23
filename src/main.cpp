@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include <QDir>
 #include <QDebug>
+#include <QQuickStyle>
 
 #include "include/questionsqltablemodel.h"
 #include "include/questionsqlcolumnnames.h"
@@ -87,6 +88,8 @@ int main(int argc, char *argv[])
 
 
     qDebug() << questionSqlTableModel->rowCount();
+
+    QQuickStyle::setStyle("Fusion Style");
 
     QQmlApplicationEngine engine;
 

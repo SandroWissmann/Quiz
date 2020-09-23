@@ -1,4 +1,4 @@
-QT += quick
+QT += quick quickcontrols2
 QT += sql
 
 CONFIG += c++17
