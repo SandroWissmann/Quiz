@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
+import Qt.labs.qmlmodels 1.0
 
 ApplicationWindow {
     visible: true
@@ -8,6 +9,9 @@ ApplicationWindow {
     width: 1700
     height: 480
     title: qsTr("Quiz")
+
+
+    // tableView.columnWidthProvider(tableView.column)
 
     TableView {
         id: tableView
@@ -33,20 +37,34 @@ ApplicationWindow {
 
         model: questionSqlTableModel
 
-        delegate: Rectangle{
-            id: rect
-            implicitHeight: 50
+        delegate: TextFieldDelegate{
             implicitWidth: tableView.columnWidthProvider(tableView.column)
-            border.width: 1
-
-            TextEdit{
-                //height: rect.implicitHeight
-                width: rect.implicitWidth
-                id: displayText
-                text: modelData
-                wrapMode: TextEdit.WordWrap
-            }
         }
+
+//        delegate: Component{
+//            Rectangle{
+//            id: rect
+//            implicitHeight: 50
+//            implicitWidth: tableView.columnWidthProvider(tableView.column)
+//            border.width: 1
+
+//            TextArea{
+//                width: rect.implicitWidth
+//                id: displayText
+//                text: modelData
+//                wrapMode: TextArea.WordWrap
+//            }
+//        }
+//        }
+
+//        DelegateChooser {
+//            id: chooser
+//            role: "column"
+//            DelegateChoice
+//        }
+
+
+
 
         ScrollIndicator.vertical: ScrollIndicator { }
 
