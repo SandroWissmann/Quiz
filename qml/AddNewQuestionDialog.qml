@@ -1,21 +1,24 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
-import QtQuick.Dialogs 1.2 as Dialogs
+import QtQuick.Controls 2.15
 
-Controls.Dialog {
+Dialog {
     id: dialog
     x: 100
     y: 100
     width: 500
-    height: 500
+    height: 600
     modal: true
     focus: true
-    closePolicy: Controls.Popup.CloseOnEscape | Controls.Popup.CloseOnPressOutsideParent
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
     title: "Enter new Question"
 
-    Controls.ButtonGroup {
+    onOpened: {
+        standardButton(Dialog.Ok).enabled = false;
+    }
+
+    ButtonGroup {
         id: radioGroup
     }
 
@@ -26,26 +29,34 @@ Controls.Dialog {
             Text{
                 text: qsTr("Question:")
             }
-            TextInput{
+            TextField{
+                id: questionTextField
                 Layout.fillWidth: true
-                id: questionTextInput
-                text: qsTr("question")
                 selectByMouse: true
+                onTextChanged: {
+                    if(dataIsValid()) {
+                        dialog.standardButton(Dialog.Ok).enabled = true
+                    }
+                }
             }
         }
         RowLayout{
             Text{
                 text: qsTr("Answer1:")
             }
-            TextInput{
+            TextField{
+                id: answer1TextField
                 Layout.fillWidth: true
-                id: answer1TextInput
-                text: qsTr("answer1")
                 selectByMouse: true
+                onTextChanged: {
+                    if(dataIsValid()) {
+                        dialog.standardButton(Dialog.Ok).enabled = true
+                    }
+                }
             }
-            Controls.RadioButton{
+            RadioButton{
                 id: radioButtonAnswer1
-                Controls.ButtonGroup.group: radioGroup
+                ButtonGroup.group: radioGroup
                 checked: true
             }
         }
@@ -53,45 +64,57 @@ Controls.Dialog {
             Text{
                 text: qsTr("Answer2:")
             }
-            TextInput{
+            TextField{
+                id: answer2TextField
                 Layout.fillWidth: true
-                id: answer2TextInput
-                text: qsTr("answer2")
                 selectByMouse: true
+                onTextChanged: {
+                    if(dataIsValid()) {
+                        dialog.standardButton(Dialog.Ok).enabled = true
+                    }
+                }
             }
-            Controls.RadioButton{
+            RadioButton{
                 id: radioButtonAnswer2
-                Controls.ButtonGroup.group: radioGroup
+                ButtonGroup.group: radioGroup
             }
         }
         RowLayout{
             Text{
                 text: qsTr("Answer3:")
             }
-            TextInput{
+            TextField{
+                id: answer3TextField
                 Layout.fillWidth: true
-                id: answer3TextInput
-                text: qsTr("answer3")
                 selectByMouse: true
+                onTextChanged: {
+                    if(dataIsValid()) {
+                        dialog.standardButton(Dialog.Ok).enabled = true
+                    }
+                }
             }
-            Controls.RadioButton{
+            RadioButton{
                 id: radioButtonAnswer3
-                Controls.ButtonGroup.group: radioGroup
+                ButtonGroup.group: radioGroup
             }
         }
         RowLayout{
             Text{
                 text: qsTr("Answer4:")
             }
-            TextInput{
+            TextField{
+                id: answer4TextField
                 Layout.fillWidth: true
-                id: answer4TextInput
-                text: qsTr("answer4")
                 selectByMouse: true
+                onTextChanged: {
+                    if(dataIsValid()) {
+                        dialog.standardButton(Dialog.Ok).enabled = true
+                    }
+                }
             }
-            Controls.RadioButton{
+            RadioButton{
                 id: radioButtonAnswer4
-                Controls.ButtonGroup.group: radioGroup
+                ButtonGroup.group: radioGroup
             }
         }
         RowLayout{
@@ -100,38 +123,41 @@ Controls.Dialog {
             }
         }
         RowLayout{
-            TextInput{
+            TextField{
+                id: imagePathTextField
                 Layout.fillWidth: true
-                id: imagePathTextInput
                 selectByMouse: true
             }
-            Controls.Button{
+            Button{
                 id: fileDialogButton
                 text: qsTr("select Image")
-                onPressed: fileDialog.open()
+                onPressed: pictureFileDialog.open()
             }
         }
-
-
-        Dialogs.FileDialog {
-            id: fileDialog
-            title: qsTr("Please choose a file")
-            folder: shortcuts.home
+        Image{
+            id: previewPictureImage
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+        PictureFileDialog{
+            id: pictureFileDialog
             onAccepted: {
-                console.log("You chose: " + fileDialog.fileUrls)
-            }
-            onRejected: {
-                console.log("Canceled")
+                imagePathTextField.text = pictureFileDialog.fileUrl
+                previewPictureImage.source = pictureFileDialog.fileUrl
             }
         }
     }
 
-
-
-
-
-    standardButtons: Controls.Dialog.Ok | Controls.Dialog.Cancel
+    standardButtons: Dialog.Ok | Dialog.Cancel
 
     onAccepted: console.log("Ok clicked")
     onRejected: console.log("Cancel clicked")
+
+    function dataIsValid() {
+        return questionTextField.text !== ""
+                && answer1TextField.text !== ""
+                && answer2TextField.text !== ""
+                && answer3TextField.text !== ""
+                && answer4TextField.text !== "";
+    }
 }
