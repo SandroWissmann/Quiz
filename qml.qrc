@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/TextFieldDelegate.qml</file>
-        <file>qml/SqlTableView.qml</file>
-        <file>qml/AddNewQuestionDialog.qml</file>
-        <file>qml/PictureFileDialog.qml</file>
+        <file>qml/add_new_question_dialog/AddNewQuestionDialog.qml</file>
+        <file>qml/add_new_question_dialog/PictureFileDialog.qml</file>
+        <file>qml/sql_table_view/SqlTableView.qml</file>
+        <file>qml/sql_table_view/TextFieldDelegate.qml</file>
     </qresource>
 </RCC>

@@ -3,6 +3,9 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
 
+import "add_new_question_dialog"
+import "sql_table_view"
+
 ApplicationWindow {
     visible: true
     //width: 640
@@ -27,7 +30,7 @@ ApplicationWindow {
                 icon.name: "document-open"
                 onClicked: {
                     console.log("clicked")
-                    loader.source = "SqlTableView.qml"
+                    loader.source = "sql_table_view/SqlTableView.qml"
                 }
             }
             ToolButton {
