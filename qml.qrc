@@ -4,5 +4,6 @@
         <file>qml/TextFieldDelegate.qml</file>
         <file>qml/SqlTableView.qml</file>
         <file>qml/AddNewQuestionDialog.qml</file>
+        <file>qml/PictureFileDialog.qml</file>
     </qresource>
 </RCC>
