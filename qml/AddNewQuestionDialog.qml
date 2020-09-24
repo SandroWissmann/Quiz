@@ -18,6 +18,8 @@ Dialog {
         standardButton(Dialog.Ok).enabled = false;
     }
 
+
+
     ButtonGroup {
         id: radioGroup
     }
@@ -150,8 +152,19 @@ Dialog {
 
     standardButtons: Dialog.Ok | Dialog.Cancel
 
-    onAccepted: console.log("Ok clicked")
-    onRejected: console.log("Cancel clicked")
+    onAccepted: {
+        var added = questionSqlTableModel.addNewEntry(
+                    questionTextField.text,
+                    answer1TextField.text,
+                    answer2TextField.text,
+                    answer3TextField.text,
+                    answer4TextField.text,
+                    correctAnswerAsInt(),
+                    imagePathTextField.text);
+        if(!added) {
+            console.log("Could not add to database")
+        }
+    }
 
     function dataIsValid() {
         return questionTextField.text !== ""
@@ -159,5 +172,21 @@ Dialog {
                 && answer2TextField.text !== ""
                 && answer3TextField.text !== ""
                 && answer4TextField.text !== "";
+    }
+
+    function correctAnswerAsInt() {
+        if(radioButtonAnswer1.checked) {
+            return 1;
+        }
+        if(radioButtonAnswer2.checked) {
+            return 2;
+        }
+        if(radioButtonAnswer3.checked) {
+            return 3;
+        }
+        if(radioButtonAnswer4.checked) {
+            return 4;
+        }
+        return -1;
     }
 }
