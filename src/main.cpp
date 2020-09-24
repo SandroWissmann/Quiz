@@ -66,6 +66,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("somename");
+    app.setOrganizationDomain("somename");
 
     static constexpr auto database_name = "quiz.db";
     static constexpr auto table_name = "questions";
@@ -89,7 +91,7 @@ int main(int argc, char *argv[])
 
     qDebug() << questionSqlTableModel->rowCount();
 
-    QQuickStyle::setStyle("Fusion Style");
+    QQuickStyle::setStyle("Universal");
 
     QQmlApplicationEngine engine;
 
