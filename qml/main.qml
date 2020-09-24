@@ -7,7 +7,7 @@ ApplicationWindow {
     visible: true
     //width: 640
     width: 1700
-    height: 480
+    height: 800
     title: qsTr("Quiz")
 
     Loader{
@@ -33,7 +33,12 @@ ApplicationWindow {
             ToolButton {
                 text: qsTr("Add Question")
                 icon.name: "document-new"
+                onClicked: addQuestionDialog.open()
             }
+        }
+
+        AddNewQuestionDialog{
+            id: addQuestionDialog
         }
     }
 }

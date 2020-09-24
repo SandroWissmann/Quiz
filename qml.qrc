@@ -3,5 +3,6 @@
         <file>qml/main.qml</file>
         <file>qml/TextFieldDelegate.qml</file>
         <file>qml/SqlTableView.qml</file>
+        <file>qml/AddNewQuestionDialog.qml</file>
     </qresource>
 </RCC>
