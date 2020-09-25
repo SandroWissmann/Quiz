@@ -24,12 +24,14 @@ ApplicationWindow {
             ToolButton {
                 text: qsTr("New Quiz")
                 icon.name: "address-book-new"
+                onClicked: {
+                    loader.source = "quiz/Quiz.qml"
+                }
             }
             ToolButton {
                 text: qsTr("Show Table")
                 icon.name: "document-open"
                 onClicked: {
-                    console.log("clicked")
                     loader.source = "sql_table_view/SqlTableView.qml"
                 }
             }

@@ -5,5 +5,6 @@
         <file>qml/add_new_question_dialog/PictureFileDialog.qml</file>
         <file>qml/sql_table_view/SqlTableView.qml</file>
         <file>qml/sql_table_view/TextFieldDelegate.qml</file>
+        <file>qml/quiz/Quiz.qml</file>
     </qresource>
 </RCC>
