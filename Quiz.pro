@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
+        src/question.cpp \
         src/questionsqltablemodel.cpp
 
 RESOURCES += qml.qrc
@@ -33,5 +34,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+        include/question.h \
         include/questionsqltablemodel.h \
         include/questionsqlcolumnnames.h
