@@ -4,11 +4,15 @@
 #include "question.h"
 
 #include <QSqlTableModel>
+#include <QQmlListProperty>
 
 
 class QuestionSqlTableModel : public QSqlTableModel
 {
     Q_OBJECT
+    Q_PROPERTY(QQmlListProperty<Question> randomQuestions
+               READ getRandomQuestions
+               NOTIFY randomQuestionsChanged)
 public:
     explicit QuestionSqlTableModel(QObject *parent = nullptr,
                                    const QSqlDatabase &db = QSqlDatabase());
@@ -24,7 +28,27 @@ public:
         int correctAnswer,
         const QString& picturePath);
 
-    Q_INVOKABLE QVector<Question> getRandomQuestions(int count) const;
+    Q_INVOKABLE void generateNewRandomQuestions(int count);
+
+    QQmlListProperty <Question> getRandomQuestions();
+
+signals:
+    void randomQuestionsChanged();
+
+private:
+    void appendRandomQuestion(Question *question);
+    int randomQuestionsCount() const;
+    Question* randomQuestionAt(int index) const;
+    void randomQuestionsClear();
+
+    static void appendRandomQuestion(
+            QQmlListProperty<Question>* list, Question *question);
+    static int randomQuestionsCount(QQmlListProperty<Question>* list);
+    static Question* randomQuestionAt(
+            QQmlListProperty<Question>* list, int index);
+    static void randomQuestionsClear(QQmlListProperty<Question>* list);
+
+    QVector<Question*> mRandomQuestions;
 };
 
 #endif // QUESTIONSQLTABLEMODEL_H
