@@ -2,6 +2,8 @@
 
 #include "../include/questionsqlcolumnnames.h"
 
+#include "../include/question.h"
+
 #include <QDebug>
 #include <QPixmap>
 #include <QBuffer>
@@ -10,6 +12,9 @@
 #include <QSqlError>
 #include <QSqlField>
 #include <QSqlRelationalDelegate>
+
+#include <algorithm>
+#include <random>
 
 QuestionSqlTableModel::QuestionSqlTableModel(
     QObject *parent, const QSqlDatabase &db)
@@ -75,5 +80,40 @@ bool QuestionSqlTableModel::addNewEntry(const QString& askedQuestion,
             qDebug() << "Database Write Error" <<
                  "The database reported an error: " <<
                    lastError().text();
-    return false;
+            return false;
+}
+
+QVector<Question> QuestionSqlTableModel::getRandomQuestions(int count) const
+{
+    QVector<int> rows(rowCount());
+    std::iota(std::begin(rows), std::end(rows), 0);
+    std::shuffle(std::begin(rows), std::end(rows),
+                 std::mt19937(std::random_device()()));
+
+    QVector<QSqlRecord> sqlRecords;
+    for(auto it = rows.begin();
+        it < rows.end() && it < (rows.begin() + count); ++it) {
+        auto sqlRecord = record(*it);
+        sqlRecords.push_back(sqlRecord);
+    }
+
+    QVector<Question> questions;
+    questions.reserve(sqlRecords.size());
+
+    for(const auto& sqlRecord : sqlRecords) {
+        Question question{
+            sqlRecord.value(QuestionColumn::id).toInt(),
+            sqlRecord.value(QuestionColumn::askedQuestion).toString(),
+            sqlRecord.value(QuestionColumn::answer1).toString(),
+            sqlRecord.value(QuestionColumn::answer2).toString(),
+            sqlRecord.value(QuestionColumn::answer3).toString(),
+            sqlRecord.value(QuestionColumn::answer4).toString(),
+            static_cast<Question::Correct>(
+                sqlRecord.value(QuestionColumn::correct_answer).toInt()),
+            sqlRecord.value(QuestionColumn::picture).toByteArray()
+        };
+
+        questions.push_back(question);
+    }
+    return questions;
 }

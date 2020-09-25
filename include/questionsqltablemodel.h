@@ -1,7 +1,10 @@
 #ifndef QUESTIONSQLTABLEMODEL_H
 #define QUESTIONSQLTABLEMODEL_H
 
+#include "question.h"
+
 #include <QSqlTableModel>
+
 
 class QuestionSqlTableModel : public QSqlTableModel
 {
@@ -20,6 +23,8 @@ public:
         const QString& answer4,
         int correctAnswer,
         const QString& picturePath);
+
+    Q_INVOKABLE QVector<Question> getRandomQuestions(int count) const;
 };
 
 #endif // QUESTIONSQLTABLEMODEL_H
