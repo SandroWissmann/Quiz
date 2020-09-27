@@ -18,7 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         src/main.cpp \
         src/question.cpp \
-        src/questionsqltablemodel.cpp
+        src/questionsqltablemodel.cpp \
 
 RESOURCES += qml.qrc
 
