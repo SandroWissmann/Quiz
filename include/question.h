@@ -7,14 +7,14 @@
 class Question : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int id READ getId)
-    Q_PROPERTY(QString askedQuestion READ getAskedQuestion)
-    Q_PROPERTY(QString answer1 READ getAnswer1)
-    Q_PROPERTY(QString answer2 READ getAnswer2)
-    Q_PROPERTY(QString answer3 READ getAnswer3)
-    Q_PROPERTY(QString answer4 READ getAnswer4)
-    Q_PROPERTY(int correctAnswer READ getCorrectAnswer)
-    Q_PROPERTY(QByteArray picture READ getPicture)
+    Q_PROPERTY(int id READ getId CONSTANT)
+    Q_PROPERTY(QString askedQuestion READ getAskedQuestion CONSTANT)
+    Q_PROPERTY(QString answer1 READ getAnswer1 CONSTANT)
+    Q_PROPERTY(QString answer2 READ getAnswer2 CONSTANT)
+    Q_PROPERTY(QString answer3 READ getAnswer3 CONSTANT)
+    Q_PROPERTY(QString answer4 READ getAnswer4 CONSTANT)
+    Q_PROPERTY(int correctAnswer READ getCorrectAnswer CONSTANT)
+    Q_PROPERTY(QString picture READ getPicture CONSTANT)
 public:
     enum class Correct{
         Answer1 = 1,
@@ -32,7 +32,7 @@ public:
              QString answer3,
              QString answer4,
              Correct correctAnswer,
-             QByteArray picture = QByteArray{});
+             QString picture = QString{});
 
     int getId() const;
     QString getAskedQuestion() const;
@@ -41,7 +41,7 @@ public:
     QString getAnswer3() const;
     QString getAnswer4() const;
     int getCorrectAnswer() const;
-    QByteArray getPicture() const;
+    QString getPicture() const;
 
 private:
     int mId;
@@ -51,7 +51,7 @@ private:
     QString mAnswer3;
     QString mAnswer4;
     Correct mCorrectAnswer;
-    QByteArray mPicture;
+    QString mPicture;
 };
 
 #endif // QUESTION_H

@@ -25,6 +25,7 @@ ApplicationWindow {
                 text: qsTr("New Quiz")
                 icon.name: "address-book-new"
                 onClicked: {
+                    questionSqlTableModel.generateNewRandomQuestions(10)
                     loader.source = "quiz/Quiz.qml"
                 }
             }

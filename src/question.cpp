@@ -6,7 +6,7 @@ Question::Question(int id, QString question,
                    QString answer3,
                    QString answer4,
                    Question::Correct correctAnswer,
-                   QByteArray picture)
+                   QString picture)
     : mId{id},
       mAskedQuestion{std::move( question )},
       mAnswer1{std::move( answer1 )},
@@ -53,7 +53,7 @@ int Question::getCorrectAnswer() const
     return static_cast<int>(mCorrectAnswer);
 }
 
-QByteArray Question::getPicture() const
+QString Question::getPicture() const
 {
     return mPicture;
 }
