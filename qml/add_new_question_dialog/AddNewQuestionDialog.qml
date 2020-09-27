@@ -18,8 +18,6 @@ Dialog {
         standardButton(Dialog.Ok).enabled = false;
     }
 
-
-
     ButtonGroup {
         id: radioGroup
     }
@@ -153,6 +151,10 @@ Dialog {
     standardButtons: Dialog.Ok | Dialog.Cancel
 
     onAccepted: {
+
+        var imagePath = imagePathTextField.text;
+        imagePath = imagePath.replace("file://", "")
+
         var added = questionSqlTableModel.addNewEntry(
                     questionTextField.text,
                     answer1TextField.text,
@@ -160,7 +162,7 @@ Dialog {
                     answer3TextField.text,
                     answer4TextField.text,
                     correctAnswerAsInt(),
-                    imagePathTextField.text);
+                    imagePath);
         if(!added) {
             console.log("Could not add to database")
         }
