@@ -6,5 +6,7 @@
         <file>qml/sql_table_view/SqlTableView.qml</file>
         <file>qml/sql_table_view/TextFieldDelegate.qml</file>
         <file>qml/quiz/Quiz.qml</file>
+        <file>qml/quiz/QuestionPage.qml</file>
+        <file>qml/quiz/AnswerTextField.qml</file>
     </qresource>
 </RCC>
