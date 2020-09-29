@@ -26,14 +26,16 @@ ApplicationWindow {
                 icon.name: "address-book-new"
                 onClicked: {
                     questionSqlTableModel.generateNewRandomQuestions(10)
-                    loader.source = "quiz/Quiz.qml"
+                    loader.setSource("quiz/Quiz.qml",
+                                     {"randomQuestions":
+                                         questionSqlTableModel.randomQuestions})
                 }
             }
             ToolButton {
                 text: qsTr("Show Table")
                 icon.name: "document-open"
                 onClicked: {
-                    loader.source = "sql_table_view/SqlTableView.qml"
+                    loader.setSource("sql_table_view/SqlTableView.qml")
                 }
             }
             ToolButton {
