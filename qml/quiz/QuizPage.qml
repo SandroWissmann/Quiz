@@ -14,6 +14,9 @@ Item{
 
     width: parent.width
     height: parent.height
+    anchors.fill: parent
+
+
     Rectangle {
         id: dialog
 
@@ -24,11 +27,11 @@ Item{
             checkButton.enabled = false;
             nextQuestionButton.enabled = false;
 
-            __shuffledAnswers = makeAnswerArray(question.answer1,
+            root.__shuffledAnswers = makeAnswerArray(question.answer1,
                                                 question.answer2,
                                                 question.answer3,
                                                 question.answer4);
-            shuffleArray(__shuffledAnswers);
+            shuffleArray(root.__shuffledAnswers);
 
             answer1TextField.text = root.__shuffledAnswers[0];
             answer2TextField.text = root.__shuffledAnswers[1];
