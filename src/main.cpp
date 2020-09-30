@@ -95,7 +95,8 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterType<Question>("sandro.custom.types",1,0,"Question");
+    qmlRegisterAnonymousType<Question>("sandro.custom.types",1);
+    //qmlRegisterType<Question>("sandro.custom.types",1,0,"Question");
 
     auto context = engine.rootContext();
     context->setContextProperty("questionSqlTableModel", questionSqlTableModel);
