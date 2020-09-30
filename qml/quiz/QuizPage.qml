@@ -6,16 +6,16 @@ Item{
     id: root
 
     required property var question
+    required property int index
+
     property var __shuffledAnswers
     property bool __correctAnswer: false
 
     signal answeredCorrectly()
     signal answeredWrong()
 
-    width: parent.width
-    height: parent.height
-    anchors.fill: parent
-
+    implicitWidth: parent.width
+    implicitHeight: parent.height
 
     Rectangle {
         id: dialog
