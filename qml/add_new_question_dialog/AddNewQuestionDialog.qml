@@ -138,6 +138,7 @@ Dialog {
             id: previewPictureImage
             Layout.fillWidth: true
             Layout.fillHeight: true
+            fillMode: Image.PreserveAspectFit
         }
         PictureFileDialog{
             id: pictureFileDialog
