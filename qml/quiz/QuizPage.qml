@@ -27,10 +27,10 @@ Item{
             checkButton.enabled = false;
             nextQuestionButton.enabled = false;
 
-            root.__shuffledAnswers = makeAnswerArray(question.answer1,
-                                                question.answer2,
-                                                question.answer3,
-                                                question.answer4);
+            root.__shuffledAnswers = makeAnswerArray(root.question.answer1,
+                                                root.question.answer2,
+                                                root.question.answer3,
+                                                root.question.answer4);
             shuffleArray(root.__shuffledAnswers);
 
             answer1TextField.text = root.__shuffledAnswers[0];
@@ -53,15 +53,16 @@ Item{
             }
             RowLayout{
                 Text{
-                    text: qsTr(question.askedQuestion)
+                    text: qsTr(root.question.askedQuestion)
                 }
             }
             RowLayout{
                 Image{
                     id: image
 
-                    source: question.picture.length > 0 ?
-                                "data:image/png;base64," + question.picture: ""
+                    source: root.question.picture.length > 0 ?
+                                "data:image/png;base64,"
+                                + root.question.picture: ""
                 }
             }
             RowLayout{
@@ -72,10 +73,10 @@ Item{
                         if(checked) {
                             checkButton.enabled = true
                             if(root.question.correctAnswer === 1) {
-                                __correctAnswer = true
+                                root.__correctAnswer = true
                             }
                             else {
-                                __correctAnswer = false
+                                root.__correctAnswer = false
                             }
                         }
                     }
@@ -93,10 +94,10 @@ Item{
                         if(checked) {
                             checkButton.enabled = true
                             if(root.question.correctAnswer === 2) {
-                                __correctAnswer = true
+                                root.__correctAnswer = true
                             }
                             else {
-                                __correctAnswer = false
+                                root.__correctAnswer = false
                             }
                         }
                     }
@@ -114,10 +115,10 @@ Item{
                         if(checked) {
                             checkButton.enabled = true
                             if(root.question.correctAnswer === 3) {
-                                __correctAnswer = true
+                                root.__correctAnswer = true
                             }
                             else {
-                                __correctAnswer = false
+                                root.__correctAnswer = false
                             }
                         }
                     }
@@ -135,10 +136,10 @@ Item{
                         if(checked) {
                             checkButton.enabled = true
                             if(root.question.correctAnswer === 4) {
-                                __correctAnswer = true
+                                root.__correctAnswer = true
                             }
                             else {
-                                __correctAnswer = false
+                                root.__correctAnswer = false
                             }
                         }
                     }
