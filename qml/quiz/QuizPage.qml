@@ -6,7 +6,6 @@ Item{
     id: root
 
     required property var question
-    required property int index
 
     property var __shuffledAnswers
     property bool __correctAnswer: false
@@ -48,7 +47,7 @@ Item{
 
             RowLayout{
                 Text{
-                    text: qsTr("Question: " + question.id)
+                    text: qsTr("Question: " + root.question.id)
                 }
             }
             RowLayout{
