@@ -49,6 +49,17 @@ ApplicationWindow {
             id: addQuestionDialog
         }
     }
+
+    Connections {
+        id: quizConnections
+        target: loader.item
+        ignoreUnknownSignals: true
+
+        function onFinnished(correctAnswers) {
+            console.log("correct Answer: " +  correctAnswers)
+            loader.setSource("result/Result.qml")
+        }
+    }
 }
 
 
