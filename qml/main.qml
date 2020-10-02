@@ -52,8 +52,8 @@ ApplicationWindow {
 
     Connections {
         id: quizConnections
-        target: loader.item
-        ignoreUnknownSignals: true
+        enabled: loader.source === "quiz/Quiz.qml"
+        ignoreUnknownSignals: loader.source !== "quiz/Quiz.qml"
 
         function onFinnished(correctAnswers) {
             console.log("correct Answer: " +  correctAnswers)
