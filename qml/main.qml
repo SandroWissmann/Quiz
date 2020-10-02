@@ -13,6 +13,8 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
+    readonly property int countOfQuestions: 1
+
     Loader{
         id: loader
         anchors.fill: parent
@@ -25,7 +27,8 @@ ApplicationWindow {
                 text: qsTr("New Quiz")
                 icon.name: "address-book-new"
                 onClicked: {
-                    questionSqlTableModel.generateNewRandomQuestions(10)
+                    questionSqlTableModel.generateNewRandomQuestions(
+                                countOfQuestions)
                     loader.setSource("quiz/Quiz.qml",
                                      {"randomQuestions":
                                          questionSqlTableModel.randomQuestions})
@@ -52,12 +55,13 @@ ApplicationWindow {
 
     Connections {
         id: quizConnections
-        enabled: loader.source === "quiz/Quiz.qml"
+        target: loader.item
         ignoreUnknownSignals: loader.source !== "quiz/Quiz.qml"
 
         function onFinnished(correctAnswers) {
-            console.log("correct Answer: " +  correctAnswers)
-            loader.setSource("result/Result.qml")
+            loader.setSource("result/Result.qml",
+                             {"correctAnswers": correctAnswers,
+                                "countOfQuestions": countOfQuestions});
         }
     }
 }
