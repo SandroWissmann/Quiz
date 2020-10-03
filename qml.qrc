@@ -9,5 +9,6 @@
         <file>qml/quiz/QuizPage.qml</file>
         <file>qml/quiz/AnswerTextField.qml</file>
         <file>qml/result/Result.qml</file>
+        <file>qml/quiz/Answer.qml</file>
     </qresource>
 </RCC>

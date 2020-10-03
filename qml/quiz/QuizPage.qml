@@ -7,7 +7,6 @@ Item{
 
     required property var question
 
-    property var __shuffledAnswers
     property bool __correctAnswer: false
 
     signal answeredCorrectly()
@@ -23,19 +22,46 @@ Item{
         height: parent.height
 
         Component.onCompleted: {
-            checkButton.enabled = false;
-            nextQuestionButton.enabled = false;
+            var correctAnwer = root.question.correctAnswer
 
-            root.__shuffledAnswers = makeAnswerArray(root.question.answer1,
+            var shuffledAnswers = makeAnswerArray(root.question.answer1,
                                                 root.question.answer2,
                                                 root.question.answer3,
                                                 root.question.answer4);
-            shuffleArray(root.__shuffledAnswers);
+            var correctAnswerText =
+                    shuffledAnswers[correctAnwer - 1];
+            shuffleArray(shuffledAnswers);
 
-            answer1TextField.text = root.__shuffledAnswers[0];
-            answer2TextField.text = root.__shuffledAnswers[1];
-            answer3TextField.text = root.__shuffledAnswers[2];
-            answer4TextField.text = root.__shuffledAnswers[3];
+            for(var i=0; i<shuffledAnswers.length; ++i) {
+                if(shuffledAnswers[i] === correctAnswerText) {
+                    correctAnwer = i + 1;
+                    break;
+                }
+            }
+
+            switch(correctAnwer){
+            case 1:
+                answer1.isCorrect = true
+                break
+            case 2:
+                answer2.isCorrect = true
+                break
+            case 3:
+                answer3.isCorrect = true
+                break
+            case 4:
+                answer4.isCorrect = true
+                break
+            default:
+                console.log(qsTr("correctAnwer: %1 out of Range")
+                            .arg(correctAnwer));
+            }
+
+
+            answer1.text = shuffledAnswers[0];
+            answer2.text = shuffledAnswers[1];
+            answer3.text = shuffledAnswers[2];
+            answer4.text = shuffledAnswers[3];
         }
 
         ButtonGroup {
@@ -64,98 +90,43 @@ Item{
                                 + root.question.picture: ""
                 }
             }
-            RowLayout{
-                RadioButton{
-                    id: radioButtonAnswer1
-                    ButtonGroup.group: radioGroup
-                    onCheckedChanged: {
-                        if(checked) {
-                            checkButton.enabled = true
-                            if(root.question.correctAnswer === 1) {
-                                root.__correctAnswer = true
-                            }
-                            else {
-                                root.__correctAnswer = false
-                            }
-                        }
-                    }
-                }
-                AnswerTextField{
-                    Layout.fillWidth: true
-                    id: answer1TextField
-                }
+            Answer{
+                id: answer1
+                buttonGroup: radioGroup
+                onChecked: checkButton.enabled = true
             }
-            RowLayout{
-                RadioButton{
-                    id: radioButtonAnswer2
-                    ButtonGroup.group: radioGroup
-                    onCheckedChanged: {
-                        if(checked) {
-                            checkButton.enabled = true
-                            if(root.question.correctAnswer === 2) {
-                                root.__correctAnswer = true
-                            }
-                            else {
-                                root.__correctAnswer = false
-                            }
-                        }
-                    }
-                }
-                AnswerTextField{
-                    Layout.fillWidth: true
-                    id: answer2TextField
-                }
+            Answer{
+                id: answer2
+                buttonGroup: radioGroup
+                onChecked: checkButton.enabled = true
             }
-            RowLayout{
-                RadioButton{
-                    id: radioButtonAnswer3
-                    ButtonGroup.group: radioGroup
-                    onCheckedChanged: {
-                        if(checked) {
-                            checkButton.enabled = true
-                            if(root.question.correctAnswer === 3) {
-                                root.__correctAnswer = true
-                            }
-                            else {
-                                root.__correctAnswer = false
-                            }
-                        }
-                    }
-                }
-                AnswerTextField{
-                    Layout.fillWidth: true
-                    id: answer3TextField
-                }
+            Answer{
+                id: answer3
+                buttonGroup: radioGroup
+                onChecked: checkButton.enabled = true
             }
-            RowLayout{
-                RadioButton{
-                    id: radioButtonAnswer4
-                    ButtonGroup.group: radioGroup
-                    onCheckedChanged: {
-                        if(checked) {
-                            checkButton.enabled = true
-                            if(root.question.correctAnswer === 4) {
-                                root.__correctAnswer = true
-                            }
-                            else {
-                                root.__correctAnswer = false
-                            }
-                        }
-                    }
-                }
-                AnswerTextField{
-                    Layout.fillWidth: true
-                    id: answer4TextField
-                }
+            Answer{
+                id: answer4
+                buttonGroup: radioGroup
+                onChecked: checkButton.enabled = true
             }
             RowLayout{
                 Layout.alignment: Qt.AlignRight
                 Button{
                     id: checkButton
                     text: qsTr("Check Answer")
+                    enabled: false
                     onPressed: {
-                        markAnswers(root.question.correctAnswer);
-                        disableRadioButtons();
+                        answer1.showResultColor = true
+                        answer2.showResultColor = true
+                        answer3.showResultColor = true
+                        answer4.showResultColor = true
+
+                        answer1.enabled = false
+                        answer2.enabled = false
+                        answer3.enabled = false
+                        answer4.enabled = false
+
                         enabled = false
                         nextQuestionButton.enabled = true
                     }
@@ -163,6 +134,7 @@ Item{
                 Button{
                     id: nextQuestionButton
                     text: qsTr("Next Question")
+                    enabled: false
                     onPressed: {
                         if(root.__correctAnswer) {
                             root.answeredCorrectly()
@@ -189,71 +161,5 @@ Item{
             array[i] = array[j];
             array[j] = temp;
         }
-    }
-
-    readonly property string correctAnswerColor: "#99FFCC"
-    readonly property string wrongAnswerColor: "#FF9999"
-
-    function markAnswers(correctAnswer)
-    {
-        switch(correctAnswer)
-        {
-            case 1:
-                markAnswersIfAnswer1IsCorrect();
-                break;
-            case 2:
-                markAnswersIfAnswer1IsCorrect();
-                break;
-            case 3:
-                markAnswersIfAnswer1IsCorrect();
-                break;
-            case 4:
-                markAnswersIfAnswer1IsCorrect();
-                break;
-            default:
-                console.assert(false, "Invalid Value for correctAnswer: "
-                                + correctAnswer)
-
-        }
-    }
-
-    function markAnswersIfAnswer1IsCorrect()
-    {
-        answer1TextField.backgroundColor = correctAnswerColor
-        answer2TextField.backgroundColor = wrongAnswerColor
-        answer3TextField.backgroundColor = wrongAnswerColor
-        answer4TextField.backgroundColor = wrongAnswerColor
-    }
-
-    function markAnswersIfAnswer2IsCorrect()
-    {
-        answer1TextField.backgroundColor = wrongAnswerColor
-        answer2TextField.backgroundColor = correctAnswerColor
-        answer3TextField.backgroundColor = wrongAnswerColor
-        answer4TextField.backgroundColor = wrongAnswerColor
-    }
-
-    function markAnswersIfAnswer3IsCorrect()
-    {
-        answer1TextField.backgroundColor = wrongAnswerColor
-        answer2TextField.backgroundColor = wrongAnswerColor
-        answer3TextField.backgroundColor = correctAnswerColor
-        answer4TextField.backgroundColor = wrongAnswerColor
-    }
-
-    function markAnswersIfAnswer4IsCorrect()
-    {
-        answer1TextField.backgroundColor = wrongAnswerColor
-        answer2TextField.backgroundColor = wrongAnswerColor
-        answer3TextField.backgroundColor = wrongAnswerColor
-        answer4TextField.backgroundColor = correctAnswerColor
-    }
-
-    function disableRadioButtons()
-    {
-        radioButtonAnswer1.enabled = false
-        radioButtonAnswer2.enabled = false
-        radioButtonAnswer3.enabled = false
-        radioButtonAnswer4.enabled = false
     }
 }
