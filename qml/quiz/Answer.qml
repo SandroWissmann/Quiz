@@ -6,7 +6,7 @@ RowLayout{
     id: root
 
     required property var buttonGroup
-    property bool isCorrect: false
+    property bool correct: false
 
     property bool showResultColor: false
 
@@ -39,7 +39,7 @@ RowLayout{
         if(!showResult) {
             return "white";
         }
-        if(isCorrect) {
+        if(correct) {
             return correctAnswerColor;
         }
         return wrongAnswerColor;

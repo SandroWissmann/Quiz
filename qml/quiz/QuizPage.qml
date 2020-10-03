@@ -22,46 +22,7 @@ Item{
         height: parent.height
 
         Component.onCompleted: {
-            var correctAnwer = root.question.correctAnswer
-
-            var shuffledAnswers = makeAnswerArray(root.question.answer1,
-                                                root.question.answer2,
-                                                root.question.answer3,
-                                                root.question.answer4);
-            var correctAnswerText =
-                    shuffledAnswers[correctAnwer - 1];
-            shuffleArray(shuffledAnswers);
-
-            for(var i=0; i<shuffledAnswers.length; ++i) {
-                if(shuffledAnswers[i] === correctAnswerText) {
-                    correctAnwer = i + 1;
-                    break;
-                }
-            }
-
-            switch(correctAnwer){
-            case 1:
-                answer1.isCorrect = true
-                break
-            case 2:
-                answer2.isCorrect = true
-                break
-            case 3:
-                answer3.isCorrect = true
-                break
-            case 4:
-                answer4.isCorrect = true
-                break
-            default:
-                console.log(qsTr("correctAnwer: %1 out of Range")
-                            .arg(correctAnwer));
-            }
-
-
-            answer1.text = shuffledAnswers[0];
-            answer2.text = shuffledAnswers[1];
-            answer3.text = shuffledAnswers[2];
-            answer4.text = shuffledAnswers[3];
+            populateAnswersRandom();
         }
 
         ButtonGroup {
@@ -89,26 +50,14 @@ Item{
                                 "data:image/png;base64,"
                                 + root.question.picture: ""
                 }
-            }
-            Answer{
-                id: answer1
-                buttonGroup: radioGroup
-                onChecked: checkButton.enabled = true
-            }
-            Answer{
-                id: answer2
-                buttonGroup: radioGroup
-                onChecked: checkButton.enabled = true
-            }
-            Answer{
-                id: answer3
-                buttonGroup: radioGroup
-                onChecked: checkButton.enabled = true
-            }
-            Answer{
-                id: answer4
-                buttonGroup: radioGroup
-                onChecked: checkButton.enabled = true
+            }       
+            Repeater{
+                id: answerRepeater
+                model: 4
+                Answer{
+                    buttonGroup: radioGroup
+                    onChecked: checkButton.enabled = true
+                }
             }
             RowLayout{
                 Layout.alignment: Qt.AlignRight
@@ -117,15 +66,10 @@ Item{
                     text: qsTr("Check Answer")
                     enabled: false
                     onPressed: {
-                        answer1.showResultColor = true
-                        answer2.showResultColor = true
-                        answer3.showResultColor = true
-                        answer4.showResultColor = true
-
-                        answer1.enabled = false
-                        answer2.enabled = false
-                        answer3.enabled = false
-                        answer4.enabled = false
+                        for(var i=0; i<answerRepeater.count; ++i) {
+                            answerRepeater.itemAt(i).showResultColor = true
+                            answerRepeater.itemAt(i).enabled = false
+                        }
 
                         enabled = false
                         nextQuestionButton.enabled = true
@@ -145,6 +89,29 @@ Item{
                     }
                 }
             }
+        }
+    }
+
+    function populateAnswersRandom()
+    {
+        var correctAnwer = root.question.correctAnswer
+        var shuffledAnswers = makeAnswerArray(root.question.answer1,
+                                            root.question.answer2,
+                                            root.question.answer3,
+                                            root.question.answer4);
+        var correctAnswerText = shuffledAnswers[correctAnwer - 1];
+        shuffleArray(shuffledAnswers);
+
+        for(var i=0; i<shuffledAnswers.length; ++i) {
+            if(shuffledAnswers[i] === correctAnswerText) {
+                correctAnwer = i + 1;
+                break;
+            }
+        }
+        answerRepeater.itemAt(correctAnwer - 1).correct = true;
+
+        for(i=0; i<answerRepeater.count; ++i) {
+            answerRepeater.itemAt(i).text = shuffledAnswers[i];
         }
     }
 
