@@ -56,7 +56,12 @@ Item{
                 model: 4
                 Answer{
                     buttonGroup: radioGroup
-                    onChecked: checkButton.enabled = true
+                    onChecked: {
+                        checkButton.enabled = true
+                        if(correct) {
+                            root.__correctAnswer = true
+                        }
+                    }
                 }
             }
             RowLayout{
