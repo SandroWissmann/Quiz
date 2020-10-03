@@ -29,6 +29,15 @@ RowLayout{
         id: answerTextField
         backgroundColor: getAnswerTextBackgroundColor(
                              root.showResultColor, root.isCorrect)
+
+        MouseArea{
+            anchors.fill: parent
+            width: parent.width
+            height: parent.height
+            onClicked: {
+                radioButtonAnswer.checked = true
+            }
+        }
     }
 
     function getAnswerTextBackgroundColor(showResult, isCorrect)
