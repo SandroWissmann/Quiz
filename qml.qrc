@@ -10,5 +10,7 @@
         <file>qml/quiz/AnswerTextField.qml</file>
         <file>qml/result/Result.qml</file>
         <file>qml/quiz/Answer.qml</file>
+        <file>ressources/images/glowdot.png</file>
+        <file>qml/result/FailAnimation.qml</file>
     </qresource>
 </RCC>
