@@ -6,6 +6,7 @@ Item{
     id: root
 
     required property var question
+    property bool lastQuestion: false
 
     property bool __correctAnswer: false
 
@@ -34,7 +35,7 @@ Item{
 
             RowLayout{
                 Text{
-                    text: qsTr("Question: " + root.question.id)
+                    text: qsTr("Question: %1").arg(root.question.id)
                 }
             }
             RowLayout{
@@ -82,7 +83,12 @@ Item{
                 }
                 Button{
                     id: nextQuestionButton
-                    text: qsTr("Next Question")
+                    text: {
+                        if(lastQuestion) {
+                            return qsTr("Show Result");
+                        }
+                        return qsTr("Next Question");
+                    }
                     enabled: false
                     onPressed: {
                         if(root.__correctAnswer) {

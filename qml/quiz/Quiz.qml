@@ -14,12 +14,17 @@ Page {
     width: parent.width
     height: parent.height
 
+    Component.onCompleted: {
+        quizPageRepeater.itemAt(quizPageRepeater.count-1).lastQuestion = true
+    }
+
     SwipeView{
         id: quizSwipeView
         interactive: false
         anchors.fill: parent
 
         Repeater{
+            id: quizPageRepeater
             model: randomQuestions
             delegate: QuizPage{
                 required property var modelData
