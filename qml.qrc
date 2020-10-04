@@ -12,5 +12,12 @@
         <file>qml/quiz/Answer.qml</file>
         <file>ressources/images/glowdot.png</file>
         <file>qml/result/FailAnimation.qml</file>
+        <file>qml/result/SufficientAnimation.qml</file>
+        <file>qml/result/SatisfactoryAnimation.qml</file>
+        <file>qml/result/PerfectAnimation.qml</file>
+        <file>qml/result/ExcellentAnimation.qml</file>
+        <file>ressources/images/star.png</file>
+        <file>qml/result/VeryGoodAnimation.qml</file>
+        <file>qml/result/GoodAnimation.qml</file>
     </qresource>
 </RCC>
