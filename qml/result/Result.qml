@@ -74,7 +74,7 @@ Item {
 
     function getGrade(ratio)
     {
-        console.assert(ratio < 0.0 || ratio > 1.0);
+        console.assert(ratio >= 0.0 && ratio <= 1.0);
         if (ratio >=1.0) {
             return Result.Grade.Perfect
         }
@@ -97,32 +97,3 @@ Item {
     }
 
 }
-
-
-
-//ParticleSystem {
-//    id: sys
-//    anchors.fill: parent
-
-//    ImageParticle {
-//        system: sys
-//        id: cp
-//        source: "qrc:///ressources/images/glowdot.png"
-//        colorVariation: 0.4
-//        color: "#0000FFFF"
-//    }
-
-//    Emitter {
-//        id: bursty
-//        system: sys
-//        enabled: true
-//        x: root.width / 3
-//        y: root.height / 3
-//        emitRate: 400
-//        maximumEmitted: 100
-//        acceleration: AngleDirection {angleVariation: 360; magnitude: 360; }
-//        size: 8
-//        endSize: 16
-//        sizeVariation: 4
-//    }
-//}
