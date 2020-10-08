@@ -1,38 +1,55 @@
-import QtQuick.Particles 2.15
 import QtQuick 2.15
+import QtQuick.Particles 2.15
 
 ParticleSystem {
-    id: particles
-    anchors.fill: parent
+    id: particleSystem
+
 
     ImageParticle {
-        system: particles
-        colorVariation: 0.5
-        alpha: 0
-
         source: "qrc:///ressources/images/glowdot.png"
+        system: particleSystem
+        color: "#FFD700"
+        colorVariation: 0.2
+        rotation: 0
+        rotationVariation: 45
+        rotationVelocityVariation: 15
+        entryEffect: ImageParticle.Scale
     }
 
     Emitter {
-        system: particles
-        emitRate: 500
-        lifeSpan: 2000
-
-        y: root.height / 2 + Math.sin(t * 2) * root.height * 0.3
-        x: root.width / 2 + Math.cos(t) * root.width * 0.3
-        property real t;
-
-        NumberAnimation on t {
-            from: 0; to: Math.PI * 2; duration: 10000; loops: Animation.Infinite
+        id: leftEmitter
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        width: 1; height: 20
+        system: particleSystem
+        emitRate: 20
+        lifeSpan: 6400
+        lifeSpanVariation: 400
+        size: 32
+        velocity: AngleDirection {
+            angle: 0
+            angleVariation: 15
+            magnitude: 100
+            magnitudeVariation: 50
         }
-
-        velocityFromMovement: 20
-
-        velocity: PointDirection { xVariation: 5; yVariation: 5;}
-        acceleration: PointDirection { xVariation: 5; yVariation: 5;}
-
-        size: 16
-        endSize: 8
-        sizeVariation: 8
     }
+
+    Emitter {
+        id: rightEmitter
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        width: 1; height: 20
+        system: particleSystem
+        emitRate: 20
+        lifeSpan: 6400
+        lifeSpanVariation: 400
+        size: 32
+        velocity: AngleDirection {
+            angle: 180
+            angleVariation: 15
+            magnitude: 100
+            magnitudeVariation: 50
+        }
+    }
+
 }

@@ -1,35 +1,38 @@
-import QtQuick 2.15
 import QtQuick.Particles 2.15
+import QtQuick 2.15
 
 ParticleSystem {
     id: particles
     anchors.fill: parent
 
     ImageParticle {
-        id: flame
-        anchors.fill: parent
         system: particles
-        source: "qrc:///ressources/images/glowdot.png"
-        colorVariation: 1.0
-        color: "#00ff400f"
-    }
+        colorVariation: 0.5
+        alpha: 0
 
+        source: "qrc:///ressources/images/glowdot.png"
+    }
 
     Emitter {
-        id: balls
         system: particles
+        emitRate: 500
+        lifeSpan: 2000
 
-        y: parent.height
-        width: parent.width
+        y: root.height / 2 + Math.sin(t * 2) * root.height * 0.3
+        x: root.width / 2 + Math.cos(t) * root.width * 0.3
+        property real t;
 
-        emitRate: 100
-        lifeSpan: 10000
+        NumberAnimation on t {
+            from: 0; to: Math.PI * 2; duration: 10000; loops: Animation.Infinite
+        }
 
-        velocity: PointDirection {y:-17*4*3; xVariation: 6*6}
-        acceleration: PointDirection {y: 17*2; xVariation: 6*6}
+        velocityFromMovement: 20
 
-        size: 30
-        sizeVariation: 4
+        velocity: PointDirection { xVariation: 5; yVariation: 5;}
+        acceleration: PointDirection { xVariation: 5; yVariation: 5;}
+
+        size: 16
+        endSize: 8
+        sizeVariation: 8
     }
 }
-
