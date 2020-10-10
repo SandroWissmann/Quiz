@@ -50,6 +50,8 @@ Item{
                     source: root.question.picture.length > 0 ?
                                 "data:image/png;base64,"
                                 + root.question.picture: ""
+                    sourceSize.width: 1024
+                    sourceSize.height: 1024
                 }
             }       
             Repeater{
