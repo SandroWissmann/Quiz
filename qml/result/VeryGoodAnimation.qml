@@ -22,4 +22,3 @@ ParticleSystem {
         strength: 2
     }
 }
-

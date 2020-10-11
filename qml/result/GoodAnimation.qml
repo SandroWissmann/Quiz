@@ -4,7 +4,6 @@ import QtQuick.Particles 2.15
 ParticleSystem {
     id: particleSystem
 
-
     ImageParticle {
         source: "qrc:///ressources/images/glowdot.png"
         system: particleSystem
@@ -20,7 +19,8 @@ ParticleSystem {
         id: leftEmitter
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-        width: 1; height: 20
+        width: 1
+        height: 20
         system: particleSystem
         emitRate: 20
         lifeSpan: 6400
@@ -38,7 +38,8 @@ ParticleSystem {
         id: rightEmitter
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        width: 1; height: 20
+        width: 1
+        height: 20
         system: particleSystem
         emitRate: 20
         lifeSpan: 6400
@@ -51,5 +52,4 @@ ParticleSystem {
             magnitudeVariation: 50
         }
     }
-
 }

@@ -20,16 +20,25 @@ ParticleSystem {
 
         y: root.height / 2 + Math.sin(t * 2) * root.height * 0.3
         x: root.width / 2 + Math.cos(t) * root.width * 0.3
-        property real t;
+        property real t
 
         NumberAnimation on t {
-            from: 0; to: Math.PI * 2; duration: 10000; loops: Animation.Infinite
+            from: 0
+            to: Math.PI * 2
+            duration: 10000
+            loops: Animation.Infinite
         }
 
         velocityFromMovement: 20
 
-        velocity: PointDirection { xVariation: 5; yVariation: 5;}
-        acceleration: PointDirection { xVariation: 5; yVariation: 5;}
+        velocity: PointDirection {
+            xVariation: 5
+            yVariation: 5
+        }
+        acceleration: PointDirection {
+            xVariation: 5
+            yVariation: 5
+        }
 
         size: 16
         endSize: 8

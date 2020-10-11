@@ -10,31 +10,33 @@ TableView {
     clip: true
 
     columnWidthProvider: function (column) {
-        if(column === 0) {
-            return 30;
+        if (column === 0) {
+            return 30
         }
-        if(column === 6){
-            return 100;
-        }
-        if(column === 7) {
+        if (column === 6) {
             return 100
         }
-        return 220;
+        if (column === 7) {
+            return 100
+        }
+        return 220
     }
-    rowHeightProvider: function() { return -1 }
+    rowHeightProvider: function () {
+        return -1
+    }
     anchors.fill: parent
     topMargin: columnsHeader.implicitHeight
 
     model: questionSqlTableModel
 
-    delegate: TextFieldDelegate{
+    delegate: TextFieldDelegate {
         implicitWidth: tableView.columnWidthProvider(tableView.column)
     }
 
-    ScrollIndicator.vertical: ScrollIndicator { }
+    ScrollIndicator.vertical: ScrollIndicator {}
 
     // display header
-    Row{
+    Row {
         id: columnsHeader
         y: tableView.contentY
         z: 2

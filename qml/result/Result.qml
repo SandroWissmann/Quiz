@@ -4,10 +4,10 @@ import QtQuick.Particles 2.15
 Item {
     id: root
 
-    required property int correctAnswers
-    required property int countOfQuestions
+    property int correctAnswers
+    property int countOfQuestions
 
-    enum Grade{
+    enum Grade {
         Perfect,
         Excellent,
         VeryGood,
@@ -33,49 +33,47 @@ Item {
         }
     }
 
-    Loader{
+    Loader {
         id: particleLoader
         anchors.fill: parent
     }
 
     Component.onCompleted: {
-        var ratio = calcRatio(correctAnswers, countOfQuestions);
+        var ratio = calcRatio(correctAnswers, countOfQuestions)
         var grade = getGrade(ratio)
 
-        switch(grade){
+        switch (grade) {
         case Result.Grade.Perfect:
-            particleLoader.setSource("PerfectAnimation.qml");
-            break;
+            particleLoader.setSource("PerfectAnimation.qml")
+            break
         case Result.Grade.Excellent:
-            particleLoader.setSource("ExcellentAnimation.qml");
-            break;
+            particleLoader.setSource("ExcellentAnimation.qml")
+            break
         case Result.Grade.VeryGood:
-            particleLoader.setSource("VeryGoodAnimation.qml");
-            break;
+            particleLoader.setSource("VeryGoodAnimation.qml")
+            break
         case Result.Grade.Good:
-            particleLoader.setSource("GoodAnimation.qml");
-            break;
+            particleLoader.setSource("GoodAnimation.qml")
+            break
         case Result.Grade.Satisfactory:
-            particleLoader.setSource("SatisfactoryAnimation.qml");
-            break;
+            particleLoader.setSource("SatisfactoryAnimation.qml")
+            break
         case Result.Grade.Sufficient:
-            particleLoader.setSource("SufficientAnimation.qml");
-            break;
+            particleLoader.setSource("SufficientAnimation.qml")
+            break
         case Result.Grade.Fail:
-            particleLoader.setSource("FailAnimation.qml");
-            break;
+            particleLoader.setSource("FailAnimation.qml")
+            break
         }
     }
 
-    function calcRatio(correctAnswers, countOfQuestions)
-    {
-        return correctAnswers / countOfQuestions;
+    function calcRatio(correctAnswers, countOfQuestions) {
+        return correctAnswers / countOfQuestions
     }
 
-    function getGrade(ratio)
-    {
-        console.assert(ratio >= 0.0 && ratio <= 1.0);
-        if (ratio >=1.0) {
+    function getGrade(ratio) {
+        console.assert(ratio >= 0.0 && ratio <= 1.0)
+        if (ratio >= 1.0) {
             return Result.Grade.Perfect
         }
         if (ratio >= 0.9) {
@@ -95,5 +93,4 @@ Item {
         }
         return Result.Grade.Fail
     }
-
 }

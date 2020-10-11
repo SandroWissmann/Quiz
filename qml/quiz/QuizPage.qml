@@ -2,16 +2,16 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
-Item{
+Item {
     id: root
 
-    required property var question
+    property var question
     property bool lastQuestion: false
 
     property bool __correctAnswer: false
 
-    signal answeredCorrectly()
-    signal answeredWrong()
+    signal answeredCorrectly
+    signal answeredWrong
 
     implicitWidth: parent.width
     implicitHeight: parent.height
@@ -23,58 +23,57 @@ Item{
         height: parent.height
 
         Component.onCompleted: {
-            populateAnswersRandom();
+            populateAnswersRandom()
         }
 
         ButtonGroup {
             id: radioGroup
         }
 
-        ColumnLayout{
+        ColumnLayout {
             anchors.fill: parent
 
-            RowLayout{
-                Text{
+            RowLayout {
+                Text {
                     text: qsTr("Question: %1").arg(root.question.id)
                 }
             }
-            RowLayout{
-                Text{
+            RowLayout {
+                Text {
                     text: qsTr(root.question.askedQuestion)
                 }
             }
-            RowLayout{
-                Image{
+            RowLayout {
+                Image {
                     id: image
 
-                    source: root.question.picture.length > 0 ?
-                                "data:image/png;base64,"
-                                + root.question.picture: ""
+                    source: root.question.picture.length
+                            > 0 ? "data:image/png;base64," + root.question.picture : ""
                     sourceSize.width: 1024
                     sourceSize.height: 1024
                 }
-            }       
-            Repeater{
+            }
+            Repeater {
                 id: answerRepeater
                 model: 4
-                Answer{
+                Answer {
                     buttonGroup: radioGroup
                     onChecked: {
                         checkButton.enabled = true
-                        if(correct) {
+                        if (correct) {
                             root.__correctAnswer = true
                         }
                     }
                 }
             }
-            RowLayout{
+            RowLayout {
                 Layout.alignment: Qt.AlignRight
-                Button{
+                Button {
                     id: checkButton
                     text: qsTr("Check Answer")
                     enabled: false
                     onPressed: {
-                        for(var i=0; i<answerRepeater.count; ++i) {
+                        for (var i = 0; i < answerRepeater.count; ++i) {
                             answerRepeater.itemAt(i).showResultColor = true
                             answerRepeater.itemAt(i).enabled = false
                         }
@@ -83,20 +82,19 @@ Item{
                         nextQuestionButton.enabled = true
                     }
                 }
-                Button{
+                Button {
                     id: nextQuestionButton
                     text: {
-                        if(lastQuestion) {
-                            return qsTr("Show Result");
+                        if (lastQuestion) {
+                            return qsTr("Show Result")
                         }
-                        return qsTr("Next Question");
+                        return qsTr("Next Question")
                     }
                     enabled: false
                     onPressed: {
-                        if(root.__correctAnswer) {
+                        if (root.__correctAnswer) {
                             root.answeredCorrectly()
-                        }
-                        else {
+                        } else {
                             root.answeredWrong()
                         }
                     }
@@ -105,41 +103,38 @@ Item{
         }
     }
 
-    function populateAnswersRandom()
-    {
+    function populateAnswersRandom() {
         var correctAnwer = root.question.correctAnswer
         var shuffledAnswers = makeAnswerArray(root.question.answer1,
-                                            root.question.answer2,
-                                            root.question.answer3,
-                                            root.question.answer4);
-        var correctAnswerText = shuffledAnswers[correctAnwer - 1];
-        shuffleArray(shuffledAnswers);
+                                              root.question.answer2,
+                                              root.question.answer3,
+                                              root.question.answer4)
+        var correctAnswerText = shuffledAnswers[correctAnwer - 1]
+        shuffleArray(shuffledAnswers)
 
-        for(var i=0; i<shuffledAnswers.length; ++i) {
-            if(shuffledAnswers[i] === correctAnswerText) {
-                correctAnwer = i + 1;
-                break;
+        for (var i = 0; i < shuffledAnswers.length; ++i) {
+            if (shuffledAnswers[i] === correctAnswerText) {
+                correctAnwer = i + 1
+                break
             }
         }
-        answerRepeater.itemAt(correctAnwer - 1).correct = true;
+        answerRepeater.itemAt(correctAnwer - 1).correct = true
 
-        for(i=0; i<answerRepeater.count; ++i) {
-            answerRepeater.itemAt(i).text = shuffledAnswers[i];
+        for (i = 0; i < answerRepeater.count; ++i) {
+            answerRepeater.itemAt(i).text = shuffledAnswers[i]
         }
     }
 
-    function makeAnswerArray(answer1, answer2, answer3, answer4)
-    {
-        return [answer1, answer2, answer3, answer4];
+    function makeAnswerArray(answer1, answer2, answer3, answer4) {
+        return [answer1, answer2, answer3, answer4]
     }
 
-    function shuffleArray(array)
-    {
+    function shuffleArray(array) {
         for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            var j = Math.floor(Math.random() * (i + 1))
+            var temp = array[i]
+            array[i] = array[j]
+            array[j] = temp
         }
     }
 }

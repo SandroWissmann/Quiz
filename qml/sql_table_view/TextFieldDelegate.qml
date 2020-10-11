@@ -1,12 +1,12 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-Rectangle{
+Rectangle {
     id: rect
     implicitHeight: 50
     border.width: 1
 
-    TextArea{
+    TextArea {
         id: displayText
 
         implicitWidth: rect.implicitWidth

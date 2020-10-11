@@ -15,126 +15,124 @@ Dialog {
     title: "Enter new Question"
 
     onOpened: {
-        standardButton(Dialog.Ok).enabled = false;
+        standardButton(Dialog.Ok).enabled = false
     }
 
     ButtonGroup {
         id: radioGroup
     }
 
-    contentItem:
-
-    ColumnLayout{
-        RowLayout{
-            Text{
+    contentItem: ColumnLayout {
+        RowLayout {
+            Text {
                 text: qsTr("Question:")
             }
-            TextField{
+            TextField {
                 id: questionTextField
                 Layout.fillWidth: true
                 selectByMouse: true
                 onTextChanged: {
-                    if(dataIsValid()) {
+                    if (dataIsValid()) {
                         dialog.standardButton(Dialog.Ok).enabled = true
                     }
                 }
             }
         }
-        RowLayout{
-            Text{
+        RowLayout {
+            Text {
                 text: qsTr("Answer1:")
             }
-            TextField{
+            TextField {
                 id: answer1TextField
                 Layout.fillWidth: true
                 selectByMouse: true
                 onTextChanged: {
-                    if(dataIsValid()) {
+                    if (dataIsValid()) {
                         dialog.standardButton(Dialog.Ok).enabled = true
                     }
                 }
             }
-            RadioButton{
+            RadioButton {
                 id: radioButtonAnswer1
                 ButtonGroup.group: radioGroup
                 checked: true
             }
         }
-        RowLayout{
-            Text{
+        RowLayout {
+            Text {
                 text: qsTr("Answer2:")
             }
-            TextField{
+            TextField {
                 id: answer2TextField
                 Layout.fillWidth: true
                 selectByMouse: true
                 onTextChanged: {
-                    if(dataIsValid()) {
+                    if (dataIsValid()) {
                         dialog.standardButton(Dialog.Ok).enabled = true
                     }
                 }
             }
-            RadioButton{
+            RadioButton {
                 id: radioButtonAnswer2
                 ButtonGroup.group: radioGroup
             }
         }
-        RowLayout{
-            Text{
+        RowLayout {
+            Text {
                 text: qsTr("Answer3:")
             }
-            TextField{
+            TextField {
                 id: answer3TextField
                 Layout.fillWidth: true
                 selectByMouse: true
                 onTextChanged: {
-                    if(dataIsValid()) {
+                    if (dataIsValid()) {
                         dialog.standardButton(Dialog.Ok).enabled = true
                     }
                 }
             }
-            RadioButton{
+            RadioButton {
                 id: radioButtonAnswer3
                 ButtonGroup.group: radioGroup
             }
         }
-        RowLayout{
-            Text{
+        RowLayout {
+            Text {
                 text: qsTr("Answer4:")
             }
-            TextField{
+            TextField {
                 id: answer4TextField
                 Layout.fillWidth: true
                 selectByMouse: true
                 onTextChanged: {
-                    if(dataIsValid()) {
+                    if (dataIsValid()) {
                         dialog.standardButton(Dialog.Ok).enabled = true
                     }
                 }
             }
-            RadioButton{
+            RadioButton {
                 id: radioButtonAnswer4
                 ButtonGroup.group: radioGroup
             }
         }
-        RowLayout{
-            Image{
+        RowLayout {
+            Image {
                 id: questionImage
             }
         }
-        RowLayout{
-            TextField{
+        RowLayout {
+            TextField {
                 id: imagePathTextField
                 Layout.fillWidth: true
                 selectByMouse: true
             }
-            Button{
+            Button {
                 id: fileDialogButton
                 text: qsTr("select Image")
                 onPressed: pictureFileDialog.open()
             }
         }
-        Image{
+        Image {
             id: previewPictureImage
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -142,7 +140,7 @@ Dialog {
             sourceSize.width: 1024
             sourceSize.height: 1024
         }
-        PictureFileDialog{
+        PictureFileDialog {
             id: pictureFileDialog
             onAccepted: {
                 imagePathTextField.text = pictureFileDialog.fileUrl
@@ -155,43 +153,40 @@ Dialog {
 
     onAccepted: {
 
-        var imagePath = imagePathTextField.text;
+        var imagePath = imagePathTextField.text
         imagePath = imagePath.replace("file://", "")
 
-        var added = questionSqlTableModel.addNewEntry(
-                    questionTextField.text,
-                    answer1TextField.text,
-                    answer2TextField.text,
-                    answer3TextField.text,
-                    answer4TextField.text,
-                    correctAnswerAsInt(),
-                    imagePath);
-        if(!added) {
+        var added = questionSqlTableModel.addNewEntry(questionTextField.text,
+                                                      answer1TextField.text,
+                                                      answer2TextField.text,
+                                                      answer3TextField.text,
+                                                      answer4TextField.text,
+                                                      correctAnswerAsInt(),
+                                                      imagePath)
+        if (!added) {
             console.log("Could not add to database")
         }
     }
 
     function dataIsValid() {
-        return questionTextField.text !== ""
-                && answer1TextField.text !== ""
-                && answer2TextField.text !== ""
-                && answer3TextField.text !== ""
-                && answer4TextField.text !== "";
+        return questionTextField.text !== "" && answer1TextField.text !== ""
+                && answer2TextField.text !== "" && answer3TextField.text !== ""
+                && answer4TextField.text !== ""
     }
 
     function correctAnswerAsInt() {
-        if(radioButtonAnswer1.checked) {
-            return 1;
+        if (radioButtonAnswer1.checked) {
+            return 1
         }
-        if(radioButtonAnswer2.checked) {
-            return 2;
+        if (radioButtonAnswer2.checked) {
+            return 2
         }
-        if(radioButtonAnswer3.checked) {
-            return 3;
+        if (radioButtonAnswer3.checked) {
+            return 3
         }
-        if(radioButtonAnswer4.checked) {
-            return 4;
+        if (radioButtonAnswer4.checked) {
+            return 4
         }
-        return -1;
+        return -1
     }
 }

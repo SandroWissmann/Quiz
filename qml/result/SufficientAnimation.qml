@@ -14,7 +14,6 @@ ParticleSystem {
         color: "#00ff400f"
     }
 
-
     Emitter {
         id: balls
         system: particles
@@ -25,11 +24,16 @@ ParticleSystem {
         emitRate: 100
         lifeSpan: 10000
 
-        velocity: PointDirection {y:-17*4*3; xVariation: 6*6}
-        acceleration: PointDirection {y: 17*2; xVariation: 6*6}
+        velocity: PointDirection {
+            y: -17 * 4 * 3
+            xVariation: 6 * 6
+        }
+        acceleration: PointDirection {
+            y: 17 * 2
+            xVariation: 6 * 6
+        }
 
         size: 30
         sizeVariation: 4
     }
 }
-

@@ -35,8 +35,13 @@ ParticleSystem {
         emitRate: 350
         lifeSpan: 3500
 
-        acceleration: PointDirection { y: -17; xVariation: 3 }
-        velocity: PointDirection {xVariation: 3}
+        acceleration: PointDirection {
+            y: -17
+            xVariation: 3
+        }
+        velocity: PointDirection {
+            xVariation: 3
+        }
 
         size: 24
         sizeVariation: 8
@@ -54,8 +59,14 @@ ParticleSystem {
         emitRatePerParticle: 1
         lifeSpan: 2000
 
-        velocity: PointDirection {y:-17*6; yVariation: -17; xVariation: 3}
-        acceleration: PointDirection {xVariation: 3}
+        velocity: PointDirection {
+            y: -17 * 6
+            yVariation: -17
+            xVariation: 3
+        }
+        acceleration: PointDirection {
+            xVariation: 3
+        }
 
         size: 36
         sizeVariation: 8
@@ -73,7 +84,7 @@ ParticleSystem {
         lifeSpan: 180
         emitWidth: TrailEmitter.ParticleSize
         emitHeight: TrailEmitter.ParticleSize
-        emitShape: EllipseShape{}
+        emitShape: EllipseShape {}
 
         size: 16
         sizeVariation: 4
@@ -91,10 +102,15 @@ ParticleSystem {
         lifeSpan: 2400
         emitWidth: TrailEmitter.ParticleSize
         emitHeight: TrailEmitter.ParticleSize
-        emitShape: EllipseShape{}
+        emitShape: EllipseShape {}
 
-        velocity: PointDirection {yVariation: 16; xVariation: 16}
-        acceleration: PointDirection {y: -16}
+        velocity: PointDirection {
+            yVariation: 16
+            xVariation: 16
+        }
+        acceleration: PointDirection {
+            y: -16
+        }
 
         size: 24
         sizeVariation: 8
@@ -112,16 +128,23 @@ ParticleSystem {
         emitRate: 2
         lifeSpan: 10000
 
-        velocity: PointDirection {y:-17*4*2; xVariation: 6*6}
-        acceleration: PointDirection {y: 17*2; xVariation: 6*6}
+        velocity: PointDirection {
+            y: -17 * 4 * 2
+            xVariation: 6 * 6
+        }
+        acceleration: PointDirection {
+            y: 17 * 2
+            xVariation: 6 * 6
+        }
 
         size: 8
         sizeVariation: 4
     }
 
-    Turbulence { //A bit of turbulence makes the smoke look better
+    Turbulence {
+        //A bit of turbulence makes the smoke look better
         anchors.fill: parent
-        groups: ["FireballSmoke","FireSmoke"]
+        groups: ["FireballSmoke", "FireSmoke"]
         strength: 32
         system: particles
     }

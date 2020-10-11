@@ -74,12 +74,14 @@ ParticleSystem {
         enabled: false
         emitRate: 320
         lifeSpan: 6000
-        acceleration: PointDirection { xVariation: 20; yVariation: 30 }
+        acceleration: PointDirection {
+            xVariation: 20
+            yVariation: 30
+        }
         velocity: PointDirection {
             y: -100
         }
         size: 32
-
     }
 
     Emitter {

@@ -4,5 +4,5 @@ import QtQuick.Dialogs 1.2
 FileDialog {
     title: qsTr("Please choose a Picture")
     folder: shortcuts.home
-    nameFilters: [ "Image files (*.png)" ]
+    nameFilters: [qsTr("Image files (*.png)")]
 }

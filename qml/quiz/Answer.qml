@@ -2,10 +2,10 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-RowLayout{
+RowLayout {
     id: root
 
-    required property var buttonGroup
+    property var buttonGroup
     property bool correct: false
 
     property bool showResultColor: false
@@ -15,22 +15,22 @@ RowLayout{
 
     signal checked
 
-    RadioButton{
+    RadioButton {
         id: radioButtonAnswer
         ButtonGroup.group: buttonGroup
         onCheckedChanged: {
-            if(checked) {
+            if (checked) {
                 root.checked()
             }
         }
     }
-    AnswerTextField{
+    AnswerTextField {
         Layout.fillWidth: true
         id: answerTextField
-        backgroundColor: getAnswerTextBackgroundColor(
-                             root.showResultColor, root.isCorrect)
+        backgroundColor: getAnswerTextBackgroundColor(root.showResultColor,
+                                                      root.isCorrect)
 
-        MouseArea{
+        MouseArea {
             anchors.fill: parent
             width: parent.width
             height: parent.height
@@ -40,18 +40,16 @@ RowLayout{
         }
     }
 
-    function getAnswerTextBackgroundColor(showResult, isCorrect)
-    {
-        var correctAnswerColor = "#99FFCC";
-        var wrongAnswerColor = "#FF9999";
+    function getAnswerTextBackgroundColor(showResult, isCorrect) {
+        var correctAnswerColor = "#99FFCC"
+        var wrongAnswerColor = "#FF9999"
 
-        if(!showResult) {
-            return "white";
+        if (!showResult) {
+            return "white"
         }
-        if(correct) {
-            return correctAnswerColor;
+        if (correct) {
+            return correctAnswerColor
         }
-        return wrongAnswerColor;
+        return wrongAnswerColor
     }
-
 }
