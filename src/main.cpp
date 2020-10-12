@@ -89,8 +89,6 @@ int main(int argc, char *argv[])
     questionSqlTableModel->select();
 
 
-    qDebug() << questionSqlTableModel->rowCount();
-
     QQuickStyle::setStyle("Universal");
 
     QQmlApplicationEngine engine;
