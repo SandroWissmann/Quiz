@@ -19,6 +19,7 @@ SOURCES += \
         src/main.cpp \
         src/question.cpp \
         src/questionsqltablemodel.cpp \
+        src/randomquestionfiltermodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +37,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
         include/question.h \
         include/questionsqltablemodel.h \
-        include/questionsqlcolumnnames.h
+        include/questionsqlcolumnnames.h \
+        include/randomquestionfiltermodel.h

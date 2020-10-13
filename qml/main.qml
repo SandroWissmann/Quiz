@@ -13,7 +13,7 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
-    readonly property int countOfQuestions: 1
+    readonly property int countOfQuestions: 10
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
@@ -46,11 +46,9 @@ ApplicationWindow {
                 text: qsTr("New Quiz")
                 icon.name: "address-book-new"
                 onClicked: {
-                    questionSqlTableModel.generateNewRandomQuestions(
+                    randomQuestionFilterModel.generateRandomQuestions(
                                 countOfQuestions)
-                    loader.setSource(root.__newQuizPath, {
-                                         "randomQuestions": questionSqlTableModel.randomQuestions
-                                     })
+                    loader.setSource(root.__newQuizPath)
                 }
             }
             ToolButton {
