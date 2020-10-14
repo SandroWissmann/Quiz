@@ -5,7 +5,15 @@ import QtQuick.Controls 2.15
 Item {
     id: root
 
-    property var question
+    property int questionId
+    property string askedQuestion
+    property string answer1
+    property string answer2
+    property string answer3
+    property string answer4
+    property int correctAnswer
+    property string picture
+
     property bool lastQuestion: false
 
     property bool __correctAnswer: false
@@ -35,20 +43,19 @@ Item {
 
             RowLayout {
                 Text {
-                    text: qsTr("Question: %1").arg(root.question.id)
+                    text: qsTr("Question: %1").arg(root.questionId)
                 }
             }
             RowLayout {
                 Text {
-                    text: qsTr(root.question.askedQuestion)
+                    text: qsTr(root.askedQuestion)
                 }
             }
             RowLayout {
                 Image {
                     id: image
 
-                    source: root.question.picture.length
-                            > 0 ? "data:image/png;base64," + root.question.picture : ""
+                    source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
                     sourceSize.width: 1024
                     sourceSize.height: 1024
                 }
@@ -104,11 +111,9 @@ Item {
     }
 
     function populateAnswersRandom() {
-        var correctAnwer = root.question.correctAnswer
-        var shuffledAnswers = makeAnswerArray(root.question.answer1,
-                                              root.question.answer2,
-                                              root.question.answer3,
-                                              root.question.answer4)
+        var correctAnwer = root.correctAnswer
+        var shuffledAnswers = makeAnswerArray(root.answer1, root.answer2,
+                                              root.answer3, root.answer4)
         var correctAnswerText = shuffledAnswers[correctAnwer - 1]
         shuffleArray(shuffledAnswers)
 
