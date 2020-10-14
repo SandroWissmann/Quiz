@@ -21,14 +21,31 @@ QHash<int, QByteArray> RandomQuestionFilterModel::roleNames() const
     roles[answer4Role] = "answer4";
     roles[correctAnswerRole] = "correctAnswer";
     roles[pictureRole] = "picture";
+
+    return roles;
 }
 
 QVariant RandomQuestionFilterModel::data(const QModelIndex &index, int role) const
 {
     switch(role) {
     case idRole:
-        return
+        return index.sibling(index.row(), 0).data().toInt();
+    case askedQuestionRole:
+        return index.sibling(index.row(), 1).data().toString();
+    case answer1Role:
+        return index.sibling(index.row(), 2).data().toString();
+    case answer2Role:
+        return index.sibling(index.row(), 3).data().toString();
+    case answer3Role:
+        return index.sibling(index.row(), 4).data().toString();
+    case answer4Role:
+        return index.sibling(index.row(), 5).data().toString();
+    case correctAnswerRole:
+        return index.sibling(index.row(), 6).data().toInt();
+    case pictureRole:
+        return index.sibling(index.row(), 7).data().toByteArray().toBase64();
     }
+    return QSortFilterProxyModel::data(index, role);
 }
 
 void RandomQuestionFilterModel::generateRandomQuestions(int count)
@@ -39,6 +56,10 @@ void RandomQuestionFilterModel::generateRandomQuestions(int count)
                  std::mt19937(std::random_device()()));
 
     mAcceptedRows.resize(count);
+
+    auto start = createIndex(0,0);
+    auto end = createIndex(rowCount(),columnCount());
+    emit dataChanged(start, end);
 }
 
 bool RandomQuestionFilterModel::filterAcceptsRow(
