@@ -12,6 +12,7 @@
 
 #include "include/questionsqltablemodel.h"
 #include "include/questionsqlcolumnnames.h"
+#include "include/randomquestionfiltermodel.h"
 
 QString createPath(const QString &database_filename)
 {
@@ -88,16 +89,17 @@ int main(int argc, char *argv[])
     questionSqlTableModel->setSort(QuestionColumn::id, Qt::AscendingOrder);
     questionSqlTableModel->select();
 
+    auto randomQuestionFilterModel = new RandomQuestionFilterModel{};
+    randomQuestionFilterModel->setSourceModel(questionSqlTableModel);
 
     QQuickStyle::setStyle("Universal");
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterAnonymousType<Question>("sandro.custom.types",1);
-    //qmlRegisterType<Question>("sandro.custom.types",1,0,"Question");
-
     auto context = engine.rootContext();
     context->setContextProperty("questionSqlTableModel", questionSqlTableModel);
+    context->setContextProperty("randomQuestionFilterModel",
+                                randomQuestionFilterModel);
 
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));

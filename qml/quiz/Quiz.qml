@@ -5,8 +5,6 @@ import QtQuick.Layouts 1.15
 Page {
     id: quiz
 
-    property var randomQuestions
-
     property int correctAnswers: 0
 
     signal finnished(int correctAnswers)
@@ -25,10 +23,16 @@ Page {
 
         Repeater {
             id: quizPageRepeater
-            model: randomQuestions
+            model: randomQuestionFilterModel
             delegate: QuizPage {
-                property var modelData
-                question: modelData
+                questionId: model.id
+                askedQuestion: model.askedQuestion
+                answer1: model.answer1
+                answer2: model.answer2
+                answer3: model.answer3
+                answer4: model.answer4
+                correctAnswer: model.correctAnswer
+                picture: model.picture
                 onAnsweredCorrectly: quiz.answeredCorrectly()
                 onAnsweredWrong: quiz.answeredWrong()
             }
