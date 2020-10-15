@@ -50,6 +50,8 @@ QVariant RandomQuestionFilterModel::data(const QModelIndex &index, int role) con
 
 void RandomQuestionFilterModel::generateRandomQuestions(int count)
 {
+    beginResetModel();
+
     mAcceptedRows.resize(sourceModel()->rowCount());
     std::iota(std::begin(mAcceptedRows), std::end(mAcceptedRows), 0);
     std::shuffle(std::begin(mAcceptedRows), std::end(mAcceptedRows),
@@ -57,9 +59,7 @@ void RandomQuestionFilterModel::generateRandomQuestions(int count)
 
     mAcceptedRows.resize(count);
 
-    auto start = createIndex(0,0);
-    auto end = createIndex(rowCount(),columnCount());
-    emit dataChanged(start, end);
+    endResetModel();
 }
 
 bool RandomQuestionFilterModel::filterAcceptsRow(
