@@ -19,5 +19,13 @@
         <file>ressources/images/star.png</file>
         <file>qml/result/VeryGoodAnimation.qml</file>
         <file>qml/result/GoodAnimation.qml</file>
+        <file>qml/sql_table_view/data/Answer1.qml</file>
+        <file>qml/sql_table_view/data/Answer2.qml</file>
+        <file>qml/sql_table_view/data/Answer3.qml</file>
+        <file>qml/sql_table_view/data/Answer4.qml</file>
+        <file>qml/sql_table_view/data/AskedQuestion.qml</file>
+        <file>qml/sql_table_view/data/CorrectAnswer.qml</file>
+        <file>qml/sql_table_view/data/Picture.qml</file>
+        <file>qml/sql_table_view/data/QuestionId.qml</file>
     </qresource>
 </RCC>

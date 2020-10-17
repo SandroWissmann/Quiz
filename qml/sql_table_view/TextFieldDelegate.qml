@@ -6,12 +6,13 @@ Rectangle {
     implicitHeight: 50
     border.width: 1
 
+    property alias text: displayText.text
+
     TextArea {
         id: displayText
 
         implicitWidth: rect.implicitWidth
         implicitHeight: rect.implicitHeight
-        text: modelData
         wrapMode: TextArea.WordWrap
     }
 }
