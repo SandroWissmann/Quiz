@@ -18,10 +18,10 @@ Item {
         height: parent.height - horizontalHeaderView.height
         anchors.top: horizontalHeaderView.bottom
         boundsBehavior: Flickable.StopAtBounds
+
         reuseItems: true
         clip: true
-
-        property var columnWidths: [30, 220, 220, 220, 220, 220, 100, 100]
+        property var columnWidths: [60, 220, 220, 220, 220, 220, 100, 140]
         columnWidthProvider: function (column) {
             return columnWidths[column]
         }
@@ -61,32 +61,58 @@ Item {
             }
 
             function setItemProperties(column) {
-                loader.item.implicitWidth = tableView.columnWidthProvider(
-                            column)
+
+                var askedQuestionColor = "#99CCFF"
+                var correctAnswerColor = "#99FFCC"
+                var wrongAnswerColor = "#FF9999"
+
+                loader.item.width = tableView.columnWidthProvider(column)
                 switch (column) {
                 case 0:
                     loader.item.text = id
+                    console.log(id)
                     break
                 case 1:
                     loader.item.text = askedQuestion
+                    loader.item.backgroundColor = askedQuestionColor
                     break
                 case 2:
                     loader.item.text = answer1
+                    if (correctAnswer == 1) {
+                        loader.item.backgroundColor = correctAnswerColor
+                    } else {
+                        loader.item.backgroundColor = wrongAnswerColor
+                    }
                     break
                 case 3:
                     loader.item.text = answer2
+                    if (correctAnswer == 2) {
+                        loader.item.backgroundColor = correctAnswerColor
+                    } else {
+                        loader.item.backgroundColor = wrongAnswerColor
+                    }
                     break
                 case 4:
                     loader.item.text = answer3
+                    if (correctAnswer == 3) {
+                        loader.item.backgroundColor = correctAnswerColor
+                    } else {
+                        loader.item.backgroundColor = wrongAnswerColor
+                    }
                     break
                 case 5:
                     loader.item.text = answer4
+                    if (correctAnswer == 4) {
+                        loader.item.backgroundColor = correctAnswerColor
+                    } else {
+                        loader.item.backgroundColor = wrongAnswerColor
+                    }
                     break
                 case 6:
-                    loader.item.text = correctAnswer
+                    loader.item.value = correctAnswer
                     break
                 case 7:
-                    loader.item.text = picture
+                    loader.item.picture = picture
                     break
                 }
             }
@@ -96,6 +122,7 @@ Item {
     }
 
     Component.onCompleted: {
+
 
         /*
         Workarround:

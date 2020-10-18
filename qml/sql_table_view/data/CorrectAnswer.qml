@@ -1,3 +1,8 @@
-import ".."
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
-TextFieldDelegate {}
+SpinBox {
+    id: spinbox
+    from: 1
+    to: 4
+}

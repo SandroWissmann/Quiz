@@ -1,18 +1,16 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-Rectangle {
-    id: rect
-    implicitHeight: 50
-    border.width: 1
+TextArea {
+    property alias backgroundColor: backgroundRect.color
 
-    property alias text: displayText.text
+    id: displayText
+    wrapMode: TextArea.WordWrap
+    selectByMouse: true
 
-    TextArea {
-        id: displayText
-
-        implicitWidth: rect.implicitWidth
-        implicitHeight: rect.implicitHeight
-        wrapMode: TextArea.WordWrap
+    implicitHeight: 100
+    background: Rectangle {
+        id: backgroundRect
+        border.color: "black"
     }
 }
