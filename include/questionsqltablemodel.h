@@ -33,9 +33,6 @@ public:
         const QString& answer4,
         int correctAnswer,
         const QString& picturePath);
-
-private:
-    int schmalz = 5;
 };
 
 #endif // QUESTIONSQLTABLEMODEL_H
