@@ -11,6 +11,16 @@ TextArea {
     implicitHeight: 100
     background: Rectangle {
         id: backgroundRect
+        color: backgroundColor
+        border.width: 1
         border.color: "black"
     }
+
+    onFocusChanged: if (focus) {
+                        backgroundRect.border.color = "blue"
+                        backgroundRect.border.width = 2
+                    } else {
+                        backgroundRect.border.color = "black"
+                        backgroundRect.border.width = 1
+                    }
 }
