@@ -25,9 +25,6 @@ Item {
         columnWidthProvider: function (column) {
             return columnWidths[column]
         }
-        rowHeightProvider: function () {
-            return -1
-        }
 
         model: questionSqlTableModel
 
@@ -42,14 +39,14 @@ Item {
                 column: 0
                 delegate: QuestionId {
                     width: tableView.columnWidthProvider(column)
-                    text: id
+                    text: model.id
                 }
             }
             DelegateChoice {
                 column: 1
                 delegate: AskedQuestion {
                     width: tableView.columnWidthProvider(column)
-                    text: askedQuestion
+                    text: model.askedQuestion
                     backgroundColor: chooser.askedQuestionColor
                 }
             }
@@ -58,49 +55,49 @@ Item {
                 delegate: Answer1 {
                     width: tableView.columnWidthProvider(column)
                     text: answer1
-                    backgroundColor: correctAnswer
-                                     == 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    backgroundColor: model.correctAnswer
+                                     === 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                 }
             }
             DelegateChoice {
                 column: 3
                 delegate: Answer2 {
                     width: tableView.columnWidthProvider(column)
-                    text: answer2
-                    backgroundColor: correctAnswer
-                                     == 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    text: model.answer2
+                    backgroundColor: model.correctAnswer
+                                     === 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                 }
             }
             DelegateChoice {
                 column: 4
                 delegate: Answer3 {
                     width: tableView.columnWidthProvider(column)
-                    text: answer3
-                    backgroundColor: correctAnswer
-                                     == 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    text: model.answer3
+                    backgroundColor: model.correctAnswer
+                                     === 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                 }
             }
             DelegateChoice {
                 column: 5
                 delegate: Answer4 {
                     width: tableView.columnWidthProvider(column)
-                    text: answer4
-                    backgroundColor: correctAnswer
-                                     == 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    text: model.answer4
+                    backgroundColor: model.correctAnswer
+                                     === 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                 }
             }
             DelegateChoice {
                 column: 6
                 delegate: CorrectAnswer {
                     width: tableView.columnWidthProvider(column)
-                    value: correctAnswer
+                    value: model.correctAnswer
                 }
             }
             DelegateChoice {
                 column: 7
                 delegate: Picture {
                     width: tableView.columnWidthProvider(column)
-                    picture: picture
+                    picture: model.picture
                 }
             }
         }

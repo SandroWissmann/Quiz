@@ -8,7 +8,6 @@ TextArea {
     wrapMode: TextArea.WordWrap
     selectByMouse: true
 
-    implicitHeight: 100
     background: Rectangle {
         id: backgroundRect
         color: backgroundColor
