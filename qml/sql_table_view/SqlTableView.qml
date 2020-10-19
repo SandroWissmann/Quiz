@@ -31,105 +31,79 @@ Item {
 
         model: questionSqlTableModel
 
-        delegate: Loader {
-            id: loader
-            source: getSourceFile(column)
+        delegate: DelegateChooser {
+            id: chooser
 
-            Component.onCompleted: {
-                setItemProperties(column)
-            }
+            readonly property string askedQuestionColor: "#99CCFF"
+            readonly property string correctAnswerColor: "#99FFCC"
+            readonly property string wrongAnswerColor: "#FF9999"
 
-            function getSourceFile(column) {
-                switch (column) {
-                case 0:
-                    return "data/QuestionId.qml"
-                case 1:
-                    return "data/AskedQuestion.qml"
-                case 2:
-                    return "data/Answer1.qml"
-                case 3:
-                    return "data/Answer2.qml"
-                case 4:
-                    return "data/Answer3.qml"
-                case 5:
-                    return "data/Answer4.qml"
-                case 6:
-                    return "data/CorrectAnswer.qml"
-                case 7:
-                    return "data/Picture.qml"
+            DelegateChoice {
+                column: 0
+                delegate: QuestionId {
+                    width: tableView.columnWidthProvider(column)
+                    text: id
                 }
             }
-
-            function setItemProperties(column) {
-
-                var askedQuestionColor = "#99CCFF"
-                var correctAnswerColor = "#99FFCC"
-                var wrongAnswerColor = "#FF9999"
-
-                loader.item.width = tableView.columnWidthProvider(column)
-                switch (column) {
-                case 0:
-                    loader.item.text = id
-                    console.log(id)
-                    break
-                case 1:
-                    loader.item.text = askedQuestion
-                    loader.item.backgroundColor = askedQuestionColor
-                    break
-                case 2:
-                    loader.item.text = answer1
-                    if (correctAnswer == 1) {
-                        loader.item.backgroundColor = correctAnswerColor
-                    } else {
-                        loader.item.backgroundColor = wrongAnswerColor
-                    }
-                    break
-                case 3:
-                    loader.item.text = answer2
-                    if (correctAnswer == 2) {
-                        loader.item.backgroundColor = correctAnswerColor
-                    } else {
-                        loader.item.backgroundColor = wrongAnswerColor
-                    }
-                    break
-                case 4:
-                    loader.item.text = answer3
-                    if (correctAnswer == 3) {
-                        loader.item.backgroundColor = correctAnswerColor
-                    } else {
-                        loader.item.backgroundColor = wrongAnswerColor
-                    }
-                    break
-                case 5:
-                    loader.item.text = answer4
-                    if (correctAnswer == 4) {
-                        loader.item.backgroundColor = correctAnswerColor
-                    } else {
-                        loader.item.backgroundColor = wrongAnswerColor
-                    }
-                    break
-                case 6:
-                    loader.item.value = correctAnswer
-                    break
-                case 7:
-                    loader.item.picture = picture
-                    break
+            DelegateChoice {
+                column: 1
+                delegate: AskedQuestion {
+                    width: tableView.columnWidthProvider(column)
+                    text: askedQuestion
+                    backgroundColor: chooser.askedQuestionColor
+                }
+            }
+            DelegateChoice {
+                column: 2
+                delegate: Answer1 {
+                    width: tableView.columnWidthProvider(column)
+                    text: answer1
+                    backgroundColor: correctAnswer
+                                     == 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                }
+            }
+            DelegateChoice {
+                column: 3
+                delegate: Answer2 {
+                    width: tableView.columnWidthProvider(column)
+                    text: answer2
+                    backgroundColor: correctAnswer
+                                     == 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                }
+            }
+            DelegateChoice {
+                column: 4
+                delegate: Answer3 {
+                    width: tableView.columnWidthProvider(column)
+                    text: answer3
+                    backgroundColor: correctAnswer
+                                     == 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                }
+            }
+            DelegateChoice {
+                column: 5
+                delegate: Answer4 {
+                    width: tableView.columnWidthProvider(column)
+                    text: answer4
+                    backgroundColor: correctAnswer
+                                     == 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                }
+            }
+            DelegateChoice {
+                column: 6
+                delegate: CorrectAnswer {
+                    width: tableView.columnWidthProvider(column)
+                    value: correctAnswer
+                }
+            }
+            DelegateChoice {
+                column: 7
+                delegate: Picture {
+                    width: tableView.columnWidthProvider(column)
+                    picture: picture
                 }
             }
         }
-
-        ScrollIndicator.vertical: ScrollIndicator {}
-    }
-
-    Component.onCompleted: {
-
-
-        /*
-        Workarround:
-        Table view cells get dynamically filled with loader. If forceLayout is
-        not used at the end the tableView is not properly populated with the
-        implicitWidth and the data for all the cells.
-        */
-        tableView.forceLayout()
+        ScrollBar.vertical: ScrollBar {}
     }
 }
