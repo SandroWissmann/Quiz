@@ -26,7 +26,7 @@ Item {
             return columnWidths[column]
         }
 
-        model: questionSqlTableModel
+        model: questionsProxyModel
 
         delegate: DelegateChooser {
             id: chooser

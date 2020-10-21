@@ -87,8 +87,8 @@ ApplicationWindow {
     }
 
     function showButtonsIfConditionsAreMet() {
-        showTableButton.enabled = questionSqlTableModel.rowCount() !== 0
-        newQuizButton.enabled = questionSqlTableModel.rowCount(
+        showTableButton.enabled = questionsProxyModel.rowCount() !== 0
+        newQuizButton.enabled = questionsProxyModel.rowCount(
                     ) >= root.countOfQuestions
     }
 }
