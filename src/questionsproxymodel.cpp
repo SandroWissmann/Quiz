@@ -28,37 +28,6 @@ QHash<int, QByteArray> QuestionsProxyModel::roleNames() const
     return roles;
 }
 
-QVariant QuestionsProxyModel::headerData(int section,
-                                         Qt::Orientation orientation, int role) const
-{
-    qDebug() << "headerData was called";
-    if(orientation != Qt::Orientation::Horizontal) {
-        return QVariant{};
-    }
-
-    if(role == Qt::DisplayRole) {
-        switch (section) {
-            case 0:
-                return tr("Id");
-            case 1:
-                return tr("Question");
-            case 2:
-                return tr("Answer 1");
-            case 3:
-                return tr("Answer 2");
-            case 4:
-                return tr("Answer 3");
-            case 5:
-                return tr("Answer 4");
-            case 6:
-                return tr("Correct Answer");
-            case 7:
-                return tr("Picture");
-        }
-    }
-    return QVariant{};
-}
-
 QVariant QuestionsProxyModel::data(const QModelIndex &index, int role) const
 {
     QModelIndex newIndex = mapIndex(index, role);

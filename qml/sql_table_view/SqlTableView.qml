@@ -11,6 +11,9 @@ Item {
         id: horizontalHeaderView
         syncView: tableView
         anchors.left: tableView.left
+        model: [qsTr("Id"), qsTr("Question"), qsTr("Answer 1"), qsTr(
+                "Answer 2"), qsTr("Answer 3"), qsTr("Answer 4"), qsTr(
+                "Correct Answer"), qsTr("Picture")]
     }
     TableView {
         id: tableView
