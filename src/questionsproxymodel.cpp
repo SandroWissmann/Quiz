@@ -2,6 +2,7 @@
 
 #include "../include/questionsqlcolumnnames.h"
 
+#include <QDebug>
 #include <QPixmap>
 #include <QBuffer>
 
@@ -30,7 +31,32 @@ QHash<int, QByteArray> QuestionsProxyModel::roleNames() const
 QVariant QuestionsProxyModel::headerData(int section,
                                          Qt::Orientation orientation, int role) const
 {
-    return sourceModel()->headerData(section, orientation, role);
+    qDebug() << "headerData was called";
+    if(orientation != Qt::Orientation::Horizontal) {
+        return QVariant{};
+    }
+
+    if(role == Qt::DisplayRole) {
+        switch (section) {
+            case 0:
+                return tr("Id");
+            case 1:
+                return tr("Question");
+            case 2:
+                return tr("Answer 1");
+            case 3:
+                return tr("Answer 2");
+            case 4:
+                return tr("Answer 3");
+            case 5:
+                return tr("Answer 4");
+            case 6:
+                return tr("Correct Answer");
+            case 7:
+                return tr("Picture");
+        }
+    }
+    return QVariant{};
 }
 
 QVariant QuestionsProxyModel::data(const QModelIndex &index, int role) const
@@ -45,83 +71,67 @@ QVariant QuestionsProxyModel::data(const QModelIndex &index, int role) const
             || role == correctAnswerRole
             || role == pictureRole) {
 
-        if(role == pictureRole) {
-            auto data = QIdentityProxyModel::data(newIndex, Qt::DisplayRole);
-            return data.toByteArray().toBase64();
-        }
-
         return QIdentityProxyModel::data(newIndex, Qt::DisplayRole);
     }
-
-
     return QIdentityProxyModel::data(newIndex, role);
 }
 
-bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
-                                    const QString &answer1,
-                                    const QString &answer2,
-                                    const QString &answer3,
-                                    const QString &answer4,
-                                    int correctAnswer,
-                                    const QString &picturePath)
-{
-    Q_ASSERT(!askedQuestion.isEmpty());
-    Q_ASSERT(!answer1.isEmpty());
-    Q_ASSERT(!answer2.isEmpty());
-    Q_ASSERT(!answer3.isEmpty());
-    Q_ASSERT(!answer4.isEmpty());
-    Q_ASSERT(correctAnswer >= 1 && correctAnswer <= 4);
+//bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
+//                                    const QString &answer1,
+//                                    const QString &answer2,
+//                                    const QString &answer3,
+//                                    const QString &answer4,
+//                                    int correctAnswer,
+//                                    const QString &picturePath)
+//{
+//    Q_ASSERT(!askedQuestion.isEmpty());
+//    Q_ASSERT(!answer1.isEmpty());
+//    Q_ASSERT(!answer2.isEmpty());
+//    Q_ASSERT(!answer3.isEmpty());
+//    Q_ASSERT(!answer4.isEmpty());
+//    Q_ASSERT(correctAnswer >= 1 && correctAnswer <= 4);
 
-    QByteArray picture;
-    if(!picturePath.isEmpty()) {
-       QPixmap inPixmap;
-       if (inPixmap.load(picturePath)) {
-           QBuffer inBuffer(&picture);
-           inBuffer.open( QIODevice::WriteOnly );
-           inPixmap.save(&inBuffer, "PNG");
-       }
-    }
 
-    if(!sourceModel()->insertRows(rowCount(), 1)) {
-        return false;
-    }
-    if(!sourceModel()->setData(index(rowCount(), QuestionColumn::askedQuestion),
-                           askedQuestion)) {
-        sourceModel()->removeRows(rowCount() - 1, 1);
-        return false;
-    }
-    if(!sourceModel()->setData(index(rowCount(), QuestionColumn::answer1),
-                               answer1)) {
-        sourceModel()->removeRows(rowCount() - 1, 1);
-        return false;
-    }
-    if(!sourceModel()->setData(index(rowCount(), QuestionColumn::answer2),
-                               answer2)) {
-        sourceModel()->removeRows(rowCount() - 1, 1);
-        return false;
-    }
-    if(!sourceModel()->setData(index(rowCount(), QuestionColumn::answer3),
-                               answer3)) {
-        sourceModel()->removeRows(rowCount() - 1, 1);
-        return false;
-    }
-    if(!sourceModel()->setData(index(rowCount(), QuestionColumn::answer4),
-                               answer4)) {
-        sourceModel()->removeRows(rowCount() - 1, 1);
-        return false;
-    }
-    if(!sourceModel()->setData(index(rowCount(), QuestionColumn::correct_answer),
-                           correctAnswer)) {
-        sourceModel()->removeRows(rowCount() - 1, 1);
-        return false;
-    }
-    if(!sourceModel()->setData(index(rowCount(), QuestionColumn::picture),
-                           picture)) {
-        sourceModel()->removeRows(rowCount() - 1, 1);
-        return false;
-    }
-    return true;
-}
+//    auto newRow = rowCount();
+
+//    if(!insertRow(newRow, QModelIndex{})) {
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::id), newRow)) {
+//        sourceModel()->removeRows(newRow , 1);
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::askedQuestion),
+//                           askedQuestion)) {
+//        removeRows(newRow , 1);
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::answer1), answer1)) {
+//        removeRows(newRow, 1);
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::answer2), answer2)) {
+//        removeRows(newRow, 1);
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::answer3), answer3)) {
+//        removeRows(newRow, 1);
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::answer4), answer4)) {
+//        removeRows(newRow, 1);
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::correct_answer), correctAnswer)) {
+//        sourceModel()->removeRows(newRow, 1);
+//        return false;
+//    }
+//    if(!setData(index(newRow, QuestionColumn::picture), picturePath)) {
+//        removeRows(newRow, 1);
+//        return false;
+//    }
+//    return true;
+//}
 
 QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source, int role) const
 {

@@ -156,16 +156,16 @@ Dialog {
         var imagePath = imagePathTextField.text
         imagePath = imagePath.replace("file://", "")
 
-        var added = questionsProxyModel.addNewEntry(questionTextField.text,
-                                                    answer1TextField.text,
-                                                    answer2TextField.text,
-                                                    answer3TextField.text,
-                                                    answer4TextField.text,
-                                                    correctAnswerAsInt(),
-                                                    imagePath)
-        if (!added) {
-            console.log("Could not add to database")
-        }
+        //        var added = questionsProxyModel.addNewEntry(questionTextField.text,
+        //                                                    answer1TextField.text,
+        //                                                    answer2TextField.text,
+        //                                                    answer3TextField.text,
+        //                                                    answer4TextField.text,
+        //                                                    correctAnswerAsInt(),
+        //                                                    imagePath)
+        //        if (!added) {
+        //            console.log("Could not add to database")
+        //        }
     }
 
     function dataIsValid() {
