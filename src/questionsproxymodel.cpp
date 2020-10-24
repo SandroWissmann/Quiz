@@ -45,62 +45,62 @@ QVariant QuestionsProxyModel::data(const QModelIndex &index, int role) const
     return QIdentityProxyModel::data(newIndex, role);
 }
 
-//bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
-//                                    const QString &answer1,
-//                                    const QString &answer2,
-//                                    const QString &answer3,
-//                                    const QString &answer4,
-//                                    int correctAnswer,
-//                                    const QString &picturePath)
-//{
-//    Q_ASSERT(!askedQuestion.isEmpty());
-//    Q_ASSERT(!answer1.isEmpty());
-//    Q_ASSERT(!answer2.isEmpty());
-//    Q_ASSERT(!answer3.isEmpty());
-//    Q_ASSERT(!answer4.isEmpty());
-//    Q_ASSERT(correctAnswer >= 1 && correctAnswer <= 4);
+bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
+                                    const QString &answer1,
+                                    const QString &answer2,
+                                    const QString &answer3,
+                                    const QString &answer4,
+                                    int correctAnswer,
+                                    const QString &picturePath)
+{
+    Q_ASSERT(!askedQuestion.isEmpty());
+    Q_ASSERT(!answer1.isEmpty());
+    Q_ASSERT(!answer2.isEmpty());
+    Q_ASSERT(!answer3.isEmpty());
+    Q_ASSERT(!answer4.isEmpty());
+    Q_ASSERT(correctAnswer >= 1 && correctAnswer <= 4);
 
 
-//    auto newRow = rowCount();
+    auto newRow = rowCount();
 
-//    if(!insertRow(newRow, QModelIndex{})) {
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::id), newRow)) {
-//        sourceModel()->removeRows(newRow , 1);
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::askedQuestion),
-//                           askedQuestion)) {
-//        removeRows(newRow , 1);
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::answer1), answer1)) {
-//        removeRows(newRow, 1);
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::answer2), answer2)) {
-//        removeRows(newRow, 1);
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::answer3), answer3)) {
-//        removeRows(newRow, 1);
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::answer4), answer4)) {
-//        removeRows(newRow, 1);
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::correct_answer), correctAnswer)) {
-//        sourceModel()->removeRows(newRow, 1);
-//        return false;
-//    }
-//    if(!setData(index(newRow, QuestionColumn::picture), picturePath)) {
-//        removeRows(newRow, 1);
-//        return false;
-//    }
-//    return true;
-//}
+    if(!insertRow(newRow, QModelIndex{})) {
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::id), newRow + 1)) {
+        removeRow(newRow);
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::askedQuestion),
+                           askedQuestion)) {
+        removeRow(newRow);
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::answer1), answer1)) {
+        removeRow(newRow);
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::answer2), answer2)) {
+        removeRow(newRow);
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::answer3), answer3)) {
+        removeRow(newRow);
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::answer4), answer4)) {
+        removeRow(newRow);
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::correct_answer), correctAnswer)) {
+        removeRow(newRow);
+        return false;
+    }
+    if(!setData(index(newRow, QuestionColumn::picture), picturePath)) {
+        removeRow(newRow);
+        return false;
+    }
+    return true;
+}
 
 QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source, int role) const
 {

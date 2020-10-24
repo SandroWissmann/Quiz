@@ -24,18 +24,15 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE QVariant headerData(int section, Qt::Orientation orientation,
-                                    int role) const override;
-
     Q_INVOKABLE QVariant data(const QModelIndex &index, int role) const override;
 
-//    Q_INVOKABLE bool addNewEntry(const QString& askedQuestion,
-//        const QString& answer1,
-//        const QString& answer2,
-//        const QString& answer3,
-//        const QString& answer4,
-//        int correctAnswer,
-//        const QString& picturePath);
+    Q_INVOKABLE bool addNewEntry(const QString& askedQuestion,
+        const QString& answer1,
+        const QString& answer2,
+        const QString& answer3,
+        const QString& answer4,
+        int correctAnswer,
+        const QString& picturePath);
 private:
     QModelIndex mapIndex(const QModelIndex &index, int role) const;
 };
