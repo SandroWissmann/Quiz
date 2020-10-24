@@ -86,9 +86,6 @@ int main(int argc, char *argv[])
     }
 
     auto questionSqlTableModel = new QuestionSqlTableModel{};
-    questionSqlTableModel->setTable("questions");
-    questionSqlTableModel->setSort(QuestionColumn::id, Qt::AscendingOrder);
-    questionSqlTableModel->select();
 
     auto questionsProxyModel = new QuestionsProxyModel{};
     questionsProxyModel->setSourceModel(questionSqlTableModel);

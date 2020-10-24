@@ -15,6 +15,9 @@ QuestionSqlTableModel::QuestionSqlTableModel(
     QObject *parent, const QSqlDatabase &db)
     : QSqlTableModel{parent, db}
 {
+    setTable("questions");
+    setSort(QuestionColumn::id, Qt::AscendingOrder);
+    select();
     setEditStrategy(EditStrategy::OnFieldChange);
 }
 
