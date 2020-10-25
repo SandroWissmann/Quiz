@@ -41,6 +41,7 @@ Item {
             DelegateChoice {
                 column: 0
                 delegate: QuestionId {
+                    id: questionIdDelegate
                     width: tableView.columnWidthProvider(column)
                     text: model.id
                 }
@@ -48,62 +49,115 @@ Item {
             DelegateChoice {
                 column: 1
                 delegate: AskedQuestion {
+                    id: askedQuestionDelegate
                     width: tableView.columnWidthProvider(column)
                     text: model.askedQuestion
                     backgroundColor: chooser.askedQuestionColor
+                    row: model.row
+
+                    Component.onCompleted: {
+                        askedQuestionDelegate.valueChanged.connect(
+                                    tableView.saveToDatabase)
+                    }
                 }
             }
             DelegateChoice {
                 column: 2
                 delegate: Answer1 {
+                    id: answer1Delegate
                     width: tableView.columnWidthProvider(column)
                     text: answer1
                     backgroundColor: model.correctAnswer
                                      === 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    row: model.row
+
+                    Component.onCompleted: {
+                        answer1Delegate.valueChanged.connect(
+                                    tableView.saveToDatabase)
+                    }
                 }
             }
             DelegateChoice {
                 column: 3
                 delegate: Answer2 {
+                    id: answer2Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer2
                     backgroundColor: model.correctAnswer
                                      === 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    row: model.row
+
+                    Component.onCompleted: {
+                        answer2Delegate.valueChanged.connect(
+                                    tableView.saveToDatabase)
+                    }
                 }
             }
             DelegateChoice {
                 column: 4
                 delegate: Answer3 {
+                    id: answer3Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer3
                     backgroundColor: model.correctAnswer
                                      === 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    row: model.row
+
+                    Component.onCompleted: {
+                        answer3Delegate.valueChanged.connect(
+                                    tableView.saveToDatabase)
+                    }
                 }
             }
             DelegateChoice {
                 column: 5
                 delegate: Answer4 {
+                    id: answer4Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer4
                     backgroundColor: model.correctAnswer
                                      === 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    row: model.row
+
+                    Component.onCompleted: {
+                        answer4Delegate.valueChanged.connect(
+                                    tableView.saveToDatabase)
+                    }
                 }
             }
             DelegateChoice {
                 column: 6
                 delegate: CorrectAnswer {
+                    id: correctAnswerDelegate
                     width: tableView.columnWidthProvider(column)
                     value: model.correctAnswer
+                    row: model.row
+
+                    Component.onCompleted: {
+                        correctAnswerDelegate.valueChanged.connect(
+                                    tableView.saveToDatabase)
+                    }
                 }
             }
             DelegateChoice {
                 column: 7
                 delegate: Picture {
+                    id: pictureDelegate
                     width: tableView.columnWidthProvider(column)
                     picture: model.picture
+                    row: model.row
+
+                    Component.onCompleted: {
+                        pictureDelegate.valueChanged.connect(
+                                    tableView.saveToDatabase)
+                    }
                 }
             }
         }
         ScrollBar.vertical: ScrollBar {}
+
+        function saveToDatabase(row, value, role) {
+            tableView.model.edit(row, value, role)
+        }
     }
 }

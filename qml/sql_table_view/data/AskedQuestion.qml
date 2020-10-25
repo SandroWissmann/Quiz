@@ -1,3 +1,5 @@
 import ".."
 
-TextFieldDelegate {}
+TextFieldDelegate {
+    role: "askedQuestion"
+}
