@@ -8,6 +8,10 @@
 
 #include <QByteArray>
 
+#include <QSqlTableModel>
+
+
+
 QuestionsProxyModel::QuestionsProxyModel(QObject* parent)
     :QIdentityProxyModel(parent)
 {
@@ -66,40 +70,87 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
     if(!insertRow(newRow, QModelIndex{})) {
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::id), newRow + 1)) {
+    if(!setData(createIndex(newRow, QuestionColumn::id), newRow + 1)) {
         removeRow(newRow);
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::askedQuestion),
+    if(!setData(createIndex(newRow, QuestionColumn::askedQuestion),
                            askedQuestion)) {
         removeRow(newRow);
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::answer1), answer1)) {
+    if(!setData(createIndex(newRow, QuestionColumn::answer1), answer1)) {
         removeRow(newRow);
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::answer2), answer2)) {
+    if(!setData(createIndex(newRow, QuestionColumn::answer2), answer2)) {
         removeRow(newRow);
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::answer3), answer3)) {
+    if(!setData(createIndex(newRow, QuestionColumn::answer3), answer3)) {
         removeRow(newRow);
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::answer4), answer4)) {
+    if(!setData(createIndex(newRow, QuestionColumn::answer4), answer4)) {
         removeRow(newRow);
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::correct_answer), correctAnswer)) {
+    if(!setData(createIndex(newRow, QuestionColumn::correct_answer), correctAnswer)) {
         removeRow(newRow);
         return false;
     }
-    if(!setData(index(newRow, QuestionColumn::picture), picturePath)) {
+    if(!setData(createIndex(newRow, QuestionColumn::picture), picturePath)) {
         removeRow(newRow);
         return false;
     }
+
+    saveIfIsSQLDatabase();
     return true;
+}
+
+void QuestionsProxyModel::edit(int row, const QVariant &value,
+                               const QString &role)
+{
+    if (role == QString(roleNames().value(idRole))) {
+        if(setData(createIndex(row, 0), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
+    else if (role == QString(roleNames().value(askedQuestionRole))) {
+        if(setData(createIndex(row, 1), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
+    else if (role == QString(roleNames().value(answer1Role))) {
+        if(setData(createIndex(row, 2), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
+    else if (role == QString(roleNames().value(answer2Role))) {
+        if(setData(createIndex(row, 3), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
+    else if (role == QString(roleNames().value(answer3Role))) {
+        if(setData(createIndex(row, 4), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
+    else if (role == QString(roleNames().value(answer4Role))){
+        if(setData(createIndex(row, 5), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
+    else if (role == QString(roleNames().value(correctAnswerRole))) {
+        if(setData(createIndex(row, 6), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
+    else if (role == QString(roleNames().value(pictureRole))) {
+        if(setData(createIndex(row, 7), value, Qt::EditRole)) {
+            saveIfIsSQLDatabase();
+        }
+    }
 }
 
 QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source, int role) const
@@ -123,4 +174,12 @@ QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source, int role) c
         return createIndex(source.row(), QuestionColumn::picture);
     }
     return source;
+}
+
+void QuestionsProxyModel::saveIfIsSQLDatabase()
+{
+    auto sqlModel = qobject_cast<QSqlTableModel*>(sourceModel());
+    if(sqlModel) {
+        sqlModel->submit();
+    }
 }

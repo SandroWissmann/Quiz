@@ -33,6 +33,9 @@ public:
         const QString& answer4,
         int correctAnswer,
         const QString& picturePath);
+
+    Q_INVOKABLE void edit(int row, const QVariant &value, const QString &role);
+
 private:
     QModelIndex mapIndex(const QModelIndex &index, int role) const;
 };
