@@ -15,7 +15,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
 private:
-    QByteArray picturePathToByteArray(const QString& picturePath) const;
+    QByteArray picturePathToByteArray(const QString &picturePath) const;
 };
 
 #endif // QUESTIONSQLTABLEMODEL_H
