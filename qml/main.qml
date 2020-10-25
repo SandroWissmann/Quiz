@@ -17,6 +17,7 @@ ApplicationWindow {
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
+    readonly property string __newAddNewQuestionDialog: "qrc:/qml/add_new_question_dialog/AddNewQuestionDialog.qml"
     readonly property string __resultPath: "qrc:/qml/result/Result.qml"
 
     Component.onCompleted: {
@@ -63,13 +64,15 @@ ApplicationWindow {
                 id: addQuestionButton
                 text: qsTr("Add Question")
                 icon.name: "document-new"
-                onClicked: addQuestionDialog.open()
+                onClicked: {
+                    if (loader.source !== root.__newAddNewQuestionDialog) {
+                        loader.setSource(root.__newAddNewQuestionDialog)
+                    }
+                    loader.active = false
+                    loader.active = true
+                    loader.item.open()
+                }
             }
-        }
-
-        AddNewQuestionDialog {
-            id: addQuestionDialog
-            onAccepted: showButtonsIfConditionsAreMet()
         }
     }
 
@@ -86,9 +89,19 @@ ApplicationWindow {
         }
     }
 
+    Connections {
+        id: addNewQuestionDialogConnections
+        target: loader.item
+        ignoreUnknownSignals: loader.source !== root.__newAddNewQuestionDialog
+
+        function onAccepted() {
+            showButtonsIfConditionsAreMet()
+        }
+    }
+
     function showButtonsIfConditionsAreMet() {
-        showTableButton.enabled = questionSqlTableModel.rowCount() !== 0
-        newQuizButton.enabled = questionSqlTableModel.rowCount(
+        showTableButton.enabled = questionsProxyModel.rowCount() !== 0
+        newQuizButton.enabled = questionsProxyModel.rowCount(
                     ) >= root.countOfQuestions
     }
 }

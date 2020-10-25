@@ -2,7 +2,14 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 TextArea {
+    property int row
+    property string role
+
     property alias backgroundColor: backgroundRect.color
+
+    property bool textModified: false
+
+    signal valueChanged(int row, string value, string role)
 
     id: displayText
     wrapMode: TextArea.WordWrap
@@ -21,5 +28,17 @@ TextArea {
                     } else {
                         backgroundRect.border.color = "black"
                         backgroundRect.border.width = 1
+
+                        if (textModified) {
+                            valueChanged(row, text, role)
+                        }
+
+                        textModified = false
                     }
+
+    onTextChanged: {
+        if (focus) {
+            textModified = true
+        }
+    }
 }

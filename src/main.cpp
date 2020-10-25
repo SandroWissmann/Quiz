@@ -11,6 +11,7 @@
 #include <QQuickStyle>
 
 #include "include/questionsqltablemodel.h"
+#include "include/questionsproxymodel.h"
 #include "include/questionsqlcolumnnames.h"
 #include "include/randomquestionfiltermodel.h"
 
@@ -85,19 +86,19 @@ int main(int argc, char *argv[])
     }
 
     auto questionSqlTableModel = new QuestionSqlTableModel{};
-    questionSqlTableModel->setTable("questions");
-    questionSqlTableModel->setSort(QuestionColumn::id, Qt::AscendingOrder);
-    questionSqlTableModel->select();
+
+    auto questionsProxyModel = new QuestionsProxyModel{};
+    questionsProxyModel->setSourceModel(questionSqlTableModel);
 
     auto randomQuestionFilterModel = new RandomQuestionFilterModel{};
-    randomQuestionFilterModel->setSourceModel(questionSqlTableModel);
+    randomQuestionFilterModel->setSourceModel(questionsProxyModel);
 
     QQuickStyle::setStyle("Universal");
 
     QQmlApplicationEngine engine;
 
     auto context = engine.rootContext();
-    context->setContextProperty("questionSqlTableModel", questionSqlTableModel);
+    context->setContextProperty("questionsProxyModel", questionsProxyModel);
     context->setContextProperty("randomQuestionFilterModel",
                                 randomQuestionFilterModel);
 

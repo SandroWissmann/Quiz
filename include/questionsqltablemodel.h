@@ -6,33 +6,16 @@
 class QuestionSqlTableModel : public QSqlTableModel
 {
     Q_OBJECT
-
-    enum questionRoles {
-        idRole = Qt::UserRole + 1,
-        askedQuestionRole,
-        answer1Role,
-        answer2Role,
-        answer3Role,
-        answer4Role,
-        correctAnswerRole,
-        pictureRole
-    };
-
 public:
     explicit QuestionSqlTableModel(QObject *parent = nullptr,
                                    const QSqlDatabase &db = QSqlDatabase());
 
-    QHash<int, QByteArray> roleNames() const override;
+    QVariant data(const QModelIndex &index, int role) const;
 
-    Q_INVOKABLE QVariant data(const QModelIndex &index, int role) const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
 
-    Q_INVOKABLE bool addNewEntry(const QString& askedQuestion,
-        const QString& answer1,
-        const QString& answer2,
-        const QString& answer3,
-        const QString& answer4,
-        int correctAnswer,
-        const QString& picturePath);
+private:
+    QByteArray picturePathToByteArray(const QString &picturePath) const;
 };
 
 #endif // QUESTIONSQLTABLEMODEL_H

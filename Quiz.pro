@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
+        src/questionsproxymodel.cpp \
         src/questionsqltablemodel.cpp \
         src/randomquestionfiltermodel.cpp
 
@@ -34,6 +35,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+        include/questionsproxymodel.h \
         include/questionsqltablemodel.h \
         include/questionsqlcolumnnames.h \
         include/randomquestionfiltermodel.h
