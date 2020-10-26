@@ -1,5 +1,3 @@
-import ".."
-
 TextFieldDelegate {
     role: "askedQuestion"
 }

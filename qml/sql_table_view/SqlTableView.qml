@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
 
-import "data"
+import "delegates"
 
 Item {
     id: root

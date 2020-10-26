@@ -4,7 +4,7 @@
         <file>qml/add_new_question_dialog/AddNewQuestionDialog.qml</file>
         <file>qml/add_new_question_dialog/PictureFileDialog.qml</file>
         <file>qml/sql_table_view/SqlTableView.qml</file>
-        <file>qml/sql_table_view/TextFieldDelegate.qml</file>
+        <file>qml/sql_table_view/delegates/TextFieldDelegate.qml</file>
         <file>qml/quiz/Quiz.qml</file>
         <file>qml/quiz/QuizPage.qml</file>
         <file>qml/quiz/AnswerTextField.qml</file>
@@ -19,13 +19,13 @@
         <file>ressources/images/star.png</file>
         <file>qml/result/VeryGoodAnimation.qml</file>
         <file>qml/result/GoodAnimation.qml</file>
-        <file>qml/sql_table_view/data/Answer1Delegate.qml</file>
-        <file>qml/sql_table_view/data/Answer2Delegate.qml</file>
-        <file>qml/sql_table_view/data/Answer3Delegate.qml</file>
-        <file>qml/sql_table_view/data/Answer4Delegate.qml</file>
-        <file>qml/sql_table_view/data/AskedQuestionDelegate.qml</file>
-        <file>qml/sql_table_view/data/CorrectAnswerDelegate.qml</file>
-        <file>qml/sql_table_view/data/PictureDelegate.qml</file>
-        <file>qml/sql_table_view/data/QuestionIdDelegate.qml</file>
+        <file>qml/sql_table_view/delegates/Answer1Delegate.qml</file>
+        <file>qml/sql_table_view/delegates/Answer2Delegate.qml</file>
+        <file>qml/sql_table_view/delegates/Answer3Delegate.qml</file>
+        <file>qml/sql_table_view/delegates/Answer4Delegate.qml</file>
+        <file>qml/sql_table_view/delegates/AskedQuestionDelegate.qml</file>
+        <file>qml/sql_table_view/delegates/CorrectAnswerDelegate.qml</file>
+        <file>qml/sql_table_view/delegates/PictureDelegate.qml</file>
+        <file>qml/sql_table_view/delegates/QuestionIdDelegate.qml</file>
     </qresource>
 </RCC>
