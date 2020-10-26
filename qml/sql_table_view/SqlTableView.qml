@@ -40,7 +40,7 @@ Item {
 
             DelegateChoice {
                 column: 0
-                delegate: QuestionId {
+                delegate: QuestionIdDelegate {
                     id: questionIdDelegate
                     width: tableView.columnWidthProvider(column)
                     text: model.id
@@ -48,7 +48,7 @@ Item {
             }
             DelegateChoice {
                 column: 1
-                delegate: AskedQuestion {
+                delegate: AskedQuestionDelegate {
                     id: askedQuestionDelegate
                     width: tableView.columnWidthProvider(column)
                     text: model.askedQuestion
@@ -62,7 +62,7 @@ Item {
             }
             DelegateChoice {
                 column: 2
-                delegate: Answer1 {
+                delegate: Answer1Delegate {
                     id: answer1Delegate
                     width: tableView.columnWidthProvider(column)
                     text: answer1
@@ -77,7 +77,7 @@ Item {
             }
             DelegateChoice {
                 column: 3
-                delegate: Answer2 {
+                delegate: Answer2Delegate {
                     id: answer2Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer2
@@ -92,7 +92,7 @@ Item {
             }
             DelegateChoice {
                 column: 4
-                delegate: Answer3 {
+                delegate: Answer3Delegate {
                     id: answer3Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer3
@@ -107,7 +107,7 @@ Item {
             }
             DelegateChoice {
                 column: 5
-                delegate: Answer4 {
+                delegate: Answer4Delegate {
                     id: answer4Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer4
@@ -121,7 +121,7 @@ Item {
             }
             DelegateChoice {
                 column: 6
-                delegate: CorrectAnswer {
+                delegate: CorrectAnswerDelegate {
                     id: correctAnswerDelegate
                     width: tableView.columnWidthProvider(column)
                     value: model.correctAnswer
@@ -135,7 +135,7 @@ Item {
             }
             DelegateChoice {
                 column: 7
-                delegate: Picture {
+                delegate: PictureDelegate {
                     id: pictureDelegate
                     width: tableView.columnWidthProvider(column)
                     picture: model.picture
@@ -150,7 +150,7 @@ Item {
         ScrollBar.vertical: ScrollBar {}
 
         function saveToDatabase(row, value, role) {
-            tableView.model.edit(TableView.view.model.row, value, role)
+            tableView.model.edit(row, value, role)
         }
     }
 }
