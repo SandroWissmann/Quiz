@@ -2,6 +2,9 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 TextArea {
+    Keys.onTabPressed: nextItemInFocusChain().forceActiveFocus(
+                           Qt.TabFocusReason)
+
     property string role
 
     property alias backgroundColor: backgroundRect.color
