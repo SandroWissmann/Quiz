@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 import "../../add_new_question_dialog"
 
@@ -15,6 +16,7 @@ Item {
     Rectangle {
         id: rect
         anchors.fill: parent
+        border.width: 1
         border.color: "black"
     }
 
@@ -29,13 +31,34 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onDoubleClicked: {
-            if (loader.source != root.__pictureFileDialogPath) {
-                loader.setSource(__pictureFileDialogPath)
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onDoubleClicked: openNewFileDialog()
+        onClicked: {
+            if (mouse.button == Qt.RightButton) {
+                editContextMenu.popup()
             }
-            loader.active = false
-            loader.active = true
-            loader.item.open()
+        }
+        onPressAndHold: {
+            if (mouse.source === Qt.MouseEventNotSynthesized) {
+                editContextMenu.popup()
+            }
+        }
+    }
+
+    Menu {
+        id: editContextMenu
+        y: root.y
+        MenuItem {
+            text: picture == "" ? qsTr("Add") : qsTr("Replace")
+            onTriggered: {
+                openNewFileDialog()
+            }
+        }
+        MenuItem {
+            text: qsTr("Delete")
+            onTriggered: {
+                valueChanged(row, "", "picture")
+            }
         }
     }
 
@@ -54,5 +77,14 @@ Item {
 
             valueChanged(row, pictureUrl, "picture")
         }
+    }
+
+    function openNewFileDialog() {
+        if (loader.source != root.__pictureFileDialogPath) {
+            loader.setSource(__pictureFileDialogPath)
+        }
+        loader.active = false
+        loader.active = true
+        loader.item.open()
     }
 }
