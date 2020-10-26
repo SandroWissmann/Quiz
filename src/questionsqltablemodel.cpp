@@ -18,6 +18,7 @@ QuestionSqlTableModel::QuestionSqlTableModel(
     setTable("questions");
     setSort(QuestionColumn::id, Qt::AscendingOrder);
     select();
+    setEditStrategy(EditStrategy::OnFieldChange);
 }
 
 QVariant QuestionSqlTableModel::data(const QModelIndex &index, int role) const

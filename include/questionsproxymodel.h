@@ -24,7 +24,11 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE QVariant data(const QModelIndex &index, int role) const override;
+    Q_INVOKABLE QVariant data(const QModelIndex &index,
+                              int role = Qt::DisplayRole) const override;
+
+    bool setData(const QModelIndex &index, const QVariant &value,
+                 int role = Qt::EditRole) override;
 
     Q_INVOKABLE bool addNewEntry(const QString& askedQuestion,
         const QString& answer1,

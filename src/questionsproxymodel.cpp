@@ -49,6 +49,25 @@ QVariant QuestionsProxyModel::data(const QModelIndex &index, int role) const
     return QIdentityProxyModel::data(newIndex, role);
 }
 
+bool QuestionsProxyModel::setData(
+        const QModelIndex &index, const QVariant &value, int role)
+{
+    QModelIndex newIndex = mapIndex(index, role);
+
+    if (role == idRole
+            || role == askedQuestionRole
+            || role == answer1Role
+            || role == answer2Role
+            || role == answer3Role
+            || role == answer4Role
+            || role == correctAnswerRole
+            || role == pictureRole) {
+
+        return QIdentityProxyModel::setData(newIndex, value, Qt::EditRole);
+    }
+    return QIdentityProxyModel::setData(newIndex, value, role);
+}
+
 bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
                                     const QString &answer1,
                                     const QString &answer2,
@@ -67,40 +86,40 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
 
     auto newRow = rowCount();
 
-    if(!insertRow(newRow, QModelIndex{})) {
+    if(!insertRows(newRow, 1)) {
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::id), newRow + 1)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::askedQuestion),
                            askedQuestion)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::answer1), answer1)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::answer2), answer2)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::answer3), answer3)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::answer4), answer4)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::correct_answer), correctAnswer)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
     if(!setData(createIndex(newRow, QuestionColumn::picture), picturePath)) {
-        removeRow(newRow);
+        removeRows(newRow, 1);
         return false;
     }
 
@@ -111,46 +130,7 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
 void QuestionsProxyModel::edit(int row, const QVariant &value,
                                const QString &role)
 {
-    if (role == QString(roleNames().value(idRole))) {
-        if(setData(createIndex(row, 0), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
-    else if (role == QString(roleNames().value(askedQuestionRole))) {
-        if(setData(createIndex(row, 1), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
-    else if (role == QString(roleNames().value(answer1Role))) {
-        if(setData(createIndex(row, 2), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
-    else if (role == QString(roleNames().value(answer2Role))) {
-        if(setData(createIndex(row, 3), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
-    else if (role == QString(roleNames().value(answer3Role))) {
-        if(setData(createIndex(row, 4), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
-    else if (role == QString(roleNames().value(answer4Role))){
-        if(setData(createIndex(row, 5), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
-    else if (role == QString(roleNames().value(correctAnswerRole))) {
-        if(setData(createIndex(row, 6), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
-    else if (role == QString(roleNames().value(pictureRole))) {
-        if(setData(createIndex(row, 7), value, Qt::EditRole)) {
-            saveIfIsSQLDatabase();
-        }
-    }
+    setData(createIndex(row,0), value, roleNames().key(role.toUtf8()));
 }
 
 QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source, int role) const
