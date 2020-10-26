@@ -5,6 +5,8 @@ import "../../add_new_question_dialog"
 Item {
     property string picture
 
+    property int row
+
     readonly property string __pictureFileDialogPath: "qrc:/qml/add_new_question_dialog/PictureFileDialog.qml"
 
     signal valueChanged(int row, string value, string role)
@@ -50,7 +52,7 @@ Item {
             var pictureUrl = String(loader.item.fileUrl)
             pictureUrl = pictureUrl.replace("file://", "")
 
-            valueChanged(TableView.view.model.row, pictureUrl, "picture")
+            valueChanged(row, pictureUrl, "picture")
         }
     }
 }

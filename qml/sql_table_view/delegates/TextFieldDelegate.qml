@@ -5,6 +5,8 @@ TextArea {
     Keys.onTabPressed: nextItemInFocusChain().forceActiveFocus(
                            Qt.TabFocusReason)
 
+    property int row
+
     property string role
 
     property alias backgroundColor: backgroundRect.color
@@ -32,7 +34,7 @@ TextArea {
                         backgroundRect.border.width = 1
 
                         if (textModified) {
-                            valueChanged(TableView.view.model.row, text, role)
+                            valueChanged(row, text, role)
                         }
 
                         textModified = false
