@@ -53,7 +53,6 @@ Item {
                     width: tableView.columnWidthProvider(column)
                     text: model.askedQuestion
                     backgroundColor: chooser.askedQuestionColor
-                    row: model.row
 
                     Component.onCompleted: {
                         askedQuestionDelegate.valueChanged.connect(
@@ -69,7 +68,6 @@ Item {
                     text: answer1
                     backgroundColor: model.correctAnswer
                                      === 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
-                    row: model.row
 
                     Component.onCompleted: {
                         answer1Delegate.valueChanged.connect(
@@ -85,7 +83,6 @@ Item {
                     text: model.answer2
                     backgroundColor: model.correctAnswer
                                      === 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
-                    row: model.row
 
                     Component.onCompleted: {
                         answer2Delegate.valueChanged.connect(
@@ -101,7 +98,6 @@ Item {
                     text: model.answer3
                     backgroundColor: model.correctAnswer
                                      === 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
-                    row: model.row
 
                     Component.onCompleted: {
                         answer3Delegate.valueChanged.connect(
@@ -117,8 +113,6 @@ Item {
                     text: model.answer4
                     backgroundColor: model.correctAnswer
                                      === 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
-                    row: model.row
-
                     Component.onCompleted: {
                         answer4Delegate.valueChanged.connect(
                                     tableView.saveToDatabase)
@@ -145,7 +139,6 @@ Item {
                     id: pictureDelegate
                     width: tableView.columnWidthProvider(column)
                     picture: model.picture
-                    row: model.row
 
                     Component.onCompleted: {
                         pictureDelegate.valueChanged.connect(
@@ -157,7 +150,7 @@ Item {
         ScrollBar.vertical: ScrollBar {}
 
         function saveToDatabase(row, value, role) {
-            tableView.model.edit(row, value, role)
+            tableView.model.edit(TableView.view.model.row, value, role)
         }
     }
 }

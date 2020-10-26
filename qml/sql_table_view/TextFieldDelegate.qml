@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 TextArea {
-    property int row
     property string role
 
     property alias backgroundColor: backgroundRect.color
@@ -30,7 +29,7 @@ TextArea {
                         backgroundRect.border.width = 1
 
                         if (textModified) {
-                            valueChanged(row, text, role)
+                            valueChanged(TableView.view.model.row, text, role)
                         }
 
                         textModified = false

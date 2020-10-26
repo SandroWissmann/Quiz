@@ -3,8 +3,6 @@ import QtQuick 2.15
 import "../../add_new_question_dialog"
 
 Item {
-    property int row
-
     property string picture
 
     readonly property string __pictureFileDialogPath: "qrc:/qml/add_new_question_dialog/PictureFileDialog.qml"
@@ -52,7 +50,7 @@ Item {
             var pictureUrl = String(loader.item.fileUrl)
             pictureUrl = pictureUrl.replace("file://", "")
 
-            valueChanged(row, pictureUrl, "picture")
+            valueChanged(TableView.view.model.row, pictureUrl, "picture")
         }
     }
 }
