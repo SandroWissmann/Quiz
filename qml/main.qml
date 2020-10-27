@@ -39,6 +39,11 @@ ApplicationWindow {
         }
     }
 
+    Loader {
+        id: addNewQuestionloader
+        anchors.fill: parent
+    }
+
     menuBar: ToolBar {
         Flow {
             anchors.fill: parent
@@ -65,12 +70,13 @@ ApplicationWindow {
                 text: qsTr("Add Question")
                 icon.name: "document-new"
                 onClicked: {
-                    if (loader.source !== root.__newAddNewQuestionDialog) {
-                        loader.setSource(root.__newAddNewQuestionDialog)
+                    if (addNewQuestionloader.source !== root.__newAddNewQuestionDialog) {
+                        addNewQuestionloader.setSource(
+                                    root.__newAddNewQuestionDialog)
                     }
-                    loader.active = false
-                    loader.active = true
-                    loader.item.open()
+                    addNewQuestionloader.active = false
+                    addNewQuestionloader.active = true
+                    addNewQuestionloader.item.open()
                 }
             }
         }
@@ -91,7 +97,7 @@ ApplicationWindow {
 
     Connections {
         id: addNewQuestionDialogConnections
-        target: loader.item
+        target: addNewQuestionloader.item
         ignoreUnknownSignals: loader.source !== root.__newAddNewQuestionDialog
 
         function onAccepted() {
