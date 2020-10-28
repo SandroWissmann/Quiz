@@ -32,7 +32,11 @@ Item {
     MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onDoubleClicked: openNewFileDialog()
+        onDoubleClicked: {
+            if (image.source != "") {
+                zoomImageDialog.open()
+            }
+        }
         onClicked: {
             if (mouse.button == Qt.RightButton) {
                 editContextMenu.popup()
@@ -43,6 +47,27 @@ Item {
                 editContextMenu.popup()
             }
         }
+    }
+
+    Dialog {
+        id: zoomImageDialog
+        modal: true
+        focus: true
+
+        anchors.centerIn: Overlay.overlay
+
+        standardButtons: Dialog.Close
+
+        Image {
+            id: zoomImage
+            anchors.centerIn: parent
+            source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
+            fillMode: Image.PreserveAspectFit
+            sourceSize.width: 300
+            sourceSize.height: 300
+        }
+
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
     }
 
     Menu {
