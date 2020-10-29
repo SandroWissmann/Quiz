@@ -19,7 +19,6 @@ Rectangle {
     border.color: "black"
     id: root
 
-    //clip: true
     Image {
         id: image
 
