@@ -8,6 +8,8 @@ Rectangle {
 
     property int row
 
+    property string rectColor
+
     readonly property string __pictureFileDialogPath: "qrc:/qml/add_new_question_dialog/PictureFileDialog.qml"
 
     signal valueChanged(int row, string value, string role)
@@ -17,6 +19,7 @@ Rectangle {
     border.color: "black"
     id: root
 
+    //clip: true
     Image {
         id: image
 
