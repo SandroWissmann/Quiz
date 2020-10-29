@@ -22,14 +22,10 @@ Rectangle {
     Image {
         id: image
 
-        width: parent.width - root.border.width * 2
-
         anchors.fill: parent
         anchors.margins: root.border.width
         source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
         fillMode: Image.PreserveAspectFit
-
-        Component.onCompleted: console.log(parent.implicitHeight)
     }
 
     MouseArea {
