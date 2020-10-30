@@ -6,13 +6,13 @@
 #include <QDebug>
 
 RandomQuestionFilterModel::RandomQuestionFilterModel(QObject *parent)
-    :QSortFilterProxyModel{parent}
+    : QSortFilterProxyModel{parent}
 {
 }
 
 QHash<int, QByteArray> RandomQuestionFilterModel::roleNames() const
 {
-    QHash <int,QByteArray> roles;
+    QHash<int, QByteArray> roles;
     roles[idRole] = "id";
     roles[askedQuestionRole] = "askedQuestion";
     roles[answer1Role] = "answer1";
@@ -25,9 +25,10 @@ QHash<int, QByteArray> RandomQuestionFilterModel::roleNames() const
     return roles;
 }
 
-QVariant RandomQuestionFilterModel::data(const QModelIndex &index, int role) const
+QVariant RandomQuestionFilterModel::data(const QModelIndex &index,
+                                         int role) const
 {
-    switch(role) {
+    switch (role) {
     case idRole:
         return index.sibling(index.row(), 0).data().toInt();
     case askedQuestionRole:
@@ -63,7 +64,7 @@ void RandomQuestionFilterModel::generateRandomQuestions(int count)
 }
 
 bool RandomQuestionFilterModel::filterAcceptsRow(
-        int source_row, const QModelIndex &source_parent) const
+    int source_row, const QModelIndex &source_parent) const
 {
     Q_UNUSED(source_parent)
     auto it = std::find(mAcceptedRows.begin(), mAcceptedRows.end(), source_row);

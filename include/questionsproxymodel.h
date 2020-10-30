@@ -1,11 +1,10 @@
 #ifndef QUESTIONSPROXYMODEL_H
 #define QUESTIONSPROXYMODEL_H
 
-#include <QObject>
 #include <QIdentityProxyModel>
+#include <QObject>
 
-class QuestionsProxyModel : public QIdentityProxyModel
-{
+class QuestionsProxyModel : public QIdentityProxyModel {
     Q_OBJECT
 
     enum questionRoles {
@@ -20,7 +19,7 @@ class QuestionsProxyModel : public QIdentityProxyModel
     };
 
 public:
-    QuestionsProxyModel(QObject* parent = nullptr);
+    QuestionsProxyModel(QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
 
@@ -30,13 +29,10 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value,
                  int role = Qt::EditRole) override;
 
-    Q_INVOKABLE bool addNewEntry(const QString& askedQuestion,
-        const QString& answer1,
-        const QString& answer2,
-        const QString& answer3,
-        const QString& answer4,
-        int correctAnswer,
-        const QString& picturePath);
+    Q_INVOKABLE bool addNewEntry(const QString &askedQuestion,
+                                 const QString &answer1, const QString &answer2,
+                                 const QString &answer3, const QString &answer4,
+                                 int correctAnswer, const QString &picturePath);
 
     Q_INVOKABLE void edit(int row, const QVariant &value, const QString &role);
 

@@ -2,24 +2,22 @@
 
 #include "../include/questionsqlcolumnnames.h"
 
+#include <QBuffer>
 #include <QDebug>
 #include <QPixmap>
-#include <QBuffer>
 
 #include <QByteArray>
 
 #include <QSqlTableModel>
 
-
-
-QuestionsProxyModel::QuestionsProxyModel(QObject* parent)
-    :QIdentityProxyModel(parent)
+QuestionsProxyModel::QuestionsProxyModel(QObject *parent)
+    : QIdentityProxyModel(parent)
 {
 }
 
 QHash<int, QByteArray> QuestionsProxyModel::roleNames() const
 {
-    QHash <int,QByteArray> roles;
+    QHash<int, QByteArray> roles;
     roles[idRole] = "id";
     roles[askedQuestionRole] = "askedQuestion";
     roles[answer1Role] = "answer1";
@@ -35,33 +33,23 @@ QHash<int, QByteArray> QuestionsProxyModel::roleNames() const
 QVariant QuestionsProxyModel::data(const QModelIndex &index, int role) const
 {
     QModelIndex newIndex = mapIndex(index, role);
-    if (role == idRole
-            || role == askedQuestionRole
-            || role == answer1Role
-            || role == answer2Role
-            || role == answer3Role
-            || role == answer4Role
-            || role == correctAnswerRole
-            || role == pictureRole) {
+    if (role == idRole || role == askedQuestionRole || role == answer1Role ||
+        role == answer2Role || role == answer3Role || role == answer4Role ||
+        role == correctAnswerRole || role == pictureRole) {
 
         return QIdentityProxyModel::data(newIndex, Qt::DisplayRole);
     }
     return QIdentityProxyModel::data(newIndex, role);
 }
 
-bool QuestionsProxyModel::setData(
-        const QModelIndex &index, const QVariant &value, int role)
+bool QuestionsProxyModel::setData(const QModelIndex &index,
+                                  const QVariant &value, int role)
 {
     QModelIndex newIndex = mapIndex(index, role);
 
-    if (role == idRole
-            || role == askedQuestionRole
-            || role == answer1Role
-            || role == answer2Role
-            || role == answer3Role
-            || role == answer4Role
-            || role == correctAnswerRole
-            || role == pictureRole) {
+    if (role == idRole || role == askedQuestionRole || role == answer1Role ||
+        role == answer2Role || role == answer3Role || role == answer4Role ||
+        role == correctAnswerRole || role == pictureRole) {
 
         return QIdentityProxyModel::setData(newIndex, value, Qt::EditRole);
     }
@@ -69,12 +57,11 @@ bool QuestionsProxyModel::setData(
 }
 
 bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
-                                    const QString &answer1,
-                                    const QString &answer2,
-                                    const QString &answer3,
-                                    const QString &answer4,
-                                    int correctAnswer,
-                                    const QString &picturePath)
+                                      const QString &answer1,
+                                      const QString &answer2,
+                                      const QString &answer3,
+                                      const QString &answer4, int correctAnswer,
+                                      const QString &picturePath)
 {
     Q_ASSERT(!askedQuestion.isEmpty());
     Q_ASSERT(!answer1.isEmpty());
@@ -83,42 +70,42 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
     Q_ASSERT(!answer4.isEmpty());
     Q_ASSERT(correctAnswer >= 1 && correctAnswer <= 4);
 
-
     auto newRow = rowCount();
 
-    if(!insertRows(newRow, 1)) {
+    if (!insertRows(newRow, 1)) {
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::id), newRow + 1)) {
+    if (!setData(createIndex(newRow, QuestionColumn::id), newRow + 1)) {
         removeRows(newRow, 1);
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::askedQuestion),
-                           askedQuestion)) {
+    if (!setData(createIndex(newRow, QuestionColumn::askedQuestion),
+                 askedQuestion)) {
         removeRows(newRow, 1);
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::answer1), answer1)) {
+    if (!setData(createIndex(newRow, QuestionColumn::answer1), answer1)) {
         removeRows(newRow, 1);
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::answer2), answer2)) {
+    if (!setData(createIndex(newRow, QuestionColumn::answer2), answer2)) {
         removeRows(newRow, 1);
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::answer3), answer3)) {
+    if (!setData(createIndex(newRow, QuestionColumn::answer3), answer3)) {
         removeRows(newRow, 1);
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::answer4), answer4)) {
+    if (!setData(createIndex(newRow, QuestionColumn::answer4), answer4)) {
         removeRows(newRow, 1);
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::correct_answer), correctAnswer)) {
+    if (!setData(createIndex(newRow, QuestionColumn::correct_answer),
+                 correctAnswer)) {
         removeRows(newRow, 1);
         return false;
     }
-    if(!setData(createIndex(newRow, QuestionColumn::picture), picturePath)) {
+    if (!setData(createIndex(newRow, QuestionColumn::picture), picturePath)) {
         removeRows(newRow, 1);
         return false;
     }
@@ -130,12 +117,13 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
 void QuestionsProxyModel::edit(int row, const QVariant &value,
                                const QString &role)
 {
-    setData(createIndex(row,0), value, roleNames().key(role.toUtf8()));
+    setData(createIndex(row, 0), value, roleNames().key(role.toUtf8()));
 }
 
-QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source, int role) const
+QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source,
+                                          int role) const
 {
-    switch(role) {
+    switch (role) {
     case idRole:
         return createIndex(source.row(), QuestionColumn::id);
     case askedQuestionRole:
@@ -158,8 +146,8 @@ QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source, int role) c
 
 void QuestionsProxyModel::saveIfIsSQLDatabase()
 {
-    auto sqlModel = qobject_cast<QSqlTableModel*>(sourceModel());
-    if(sqlModel) {
+    auto sqlModel = qobject_cast<QSqlTableModel *>(sourceModel());
+    if (sqlModel) {
         sqlModel->submit();
     }
 }

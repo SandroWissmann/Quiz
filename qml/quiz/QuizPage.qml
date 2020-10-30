@@ -52,17 +52,9 @@ Item {
                 }
             }
             RowLayout {
-                Image {
-                    id: image
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.alignment: Qt.AlignHCenter
-
-                    fillMode: Image.PreserveAspectFit
-
-                    source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
-                    sourceSize.width: 1024
-                    sourceSize.height: 1024
+                Loader {
+                    id: imageLoader
+                    source: root.picture != "" ? root.image : ""
                 }
             }
             Repeater {
@@ -112,6 +104,21 @@ Item {
                     }
                 }
             }
+        }
+    }
+
+    Component {
+        Image {
+            id: image
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignHCenter
+
+            fillMode: Image.PreserveAspectFit
+
+            source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
+            sourceSize.width: 1024
+            sourceSize.height: 1024
         }
     }
 

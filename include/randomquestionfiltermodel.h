@@ -4,8 +4,7 @@
 #include <QSortFilterProxyModel>
 #include <QVector>
 
-class RandomQuestionFilterModel : public QSortFilterProxyModel
-{
+class RandomQuestionFilterModel : public QSortFilterProxyModel {
     Q_OBJECT
 
     enum questionRoles {
@@ -26,9 +25,11 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
 
     Q_INVOKABLE void generateRandomQuestions(int count);
+
 protected:
     bool filterAcceptsRow(int source_row,
                           const QModelIndex &source_parent) const override;
+
 private:
     QVector<int> mAcceptedRows;
 };

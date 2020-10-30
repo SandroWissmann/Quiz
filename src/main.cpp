@@ -1,24 +1,23 @@
+#include <QDebug>
+#include <QDir>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-
-#include <QStandardPaths>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QDir>
-#include <QDebug>
 #include <QQuickStyle>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QStandardPaths>
 
-#include "include/questionsqltablemodel.h"
 #include "include/questionsproxymodel.h"
 #include "include/questionsqlcolumnnames.h"
+#include "include/questionsqltablemodel.h"
 #include "include/randomquestionfiltermodel.h"
 
 QString createPath(const QString &database_filename)
 {
-    QString path{ QStandardPaths::writableLocation(
-                     QStandardPaths::StandardLocation::DesktopLocation) };
+    QString path{QStandardPaths::writableLocation(
+        QStandardPaths::StandardLocation::DesktopLocation)};
     path.append(QDir::separator()).append(database_filename);
     return QDir::toNativeSeparators(path);
 }
@@ -39,19 +38,19 @@ void createTable(const QString &tableName)
     QSqlQuery query;
     query.exec("DROP TABLE " + tableName);
 
-    query.exec(
-        "CREATE TABLE " + tableName + " ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "question TEXT, "
-        "answer1 TEXT, "
-        "answer2 TEXT, "
-        "answer3 TEXT, "
-        "answer4 TEXT, "
-        "correct_answer INTEGER, "
-        "picture BLOB)");
+    query.exec("CREATE TABLE " + tableName +
+               " ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "question TEXT, "
+               "answer1 TEXT, "
+               "answer2 TEXT, "
+               "answer3 TEXT, "
+               "answer4 TEXT, "
+               "correct_answer INTEGER, "
+               "picture BLOB)");
 
     if (query.lastError().type() == QSqlError::ErrorType::NoError) {
-        qDebug() << "Query OK:"  << query.lastQuery();
+        qDebug() << "Query OK:" << query.lastQuery();
         qDebug() << "------";
     }
     else {
@@ -60,8 +59,6 @@ void createTable(const QString &tableName)
         qWarning() << "------";
     }
 }
-
-
 
 int main(int argc, char *argv[])
 {
@@ -81,7 +78,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    if(!existingData) {
+    if (!existingData) {
         createTable(table_name);
     }
 
@@ -102,13 +99,14 @@ int main(int argc, char *argv[])
     context->setContextProperty("randomQuestionFilterModel",
                                 randomQuestionFilterModel);
 
-
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+    QObject::connect(
+        &engine, &QQmlApplicationEngine::objectCreated, &app,
+        [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
     engine.load(url);
 
     return app.exec();
