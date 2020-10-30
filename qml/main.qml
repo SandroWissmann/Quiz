@@ -9,7 +9,7 @@ import "sql_table_view"
 ApplicationWindow {
     id: root
     visible: true
-    width: 1700
+    width: 1370
     height: 800
     title: qsTr("Quiz")
 

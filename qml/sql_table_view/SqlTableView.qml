@@ -4,6 +4,7 @@ import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
 
 import "delegates"
+import "header_model"
 
 Item {
     id: root
@@ -11,9 +12,8 @@ Item {
         id: horizontalHeaderView
         syncView: tableView
         anchors.left: tableView.left
-        model: [qsTr("Id"), qsTr("Question"), qsTr("Answer 1"), qsTr(
-                "Answer 2"), qsTr("Answer 3"), qsTr("Answer 4"), qsTr(
-                "Correct Answer"), qsTr("Picture")]
+
+        model: HeaderModel {}
     }
     TableView {
         id: tableView
@@ -24,7 +24,7 @@ Item {
 
         reuseItems: true
         clip: true
-        property var columnWidths: [60, 220, 220, 220, 220, 220, 100, 140]
+        property var columnWidths: [60, 210, 210, 210, 210, 210, 120, 140]
         columnWidthProvider: function (column) {
             return columnWidths[column]
         }

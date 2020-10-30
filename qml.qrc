@@ -27,5 +27,7 @@
         <file>qml/sql_table_view/delegates/CorrectAnswerDelegate.qml</file>
         <file>qml/sql_table_view/delegates/PictureDelegate.qml</file>
         <file>qml/sql_table_view/delegates/QuestionIdDelegate.qml</file>
+        <file>qml/sql_table_view/header_model/Cell.qml</file>
+        <file>qml/sql_table_view/header_model/HeaderModel.qml</file>
     </qresource>
 </RCC>

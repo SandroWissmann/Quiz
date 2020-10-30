@@ -45,4 +45,6 @@ TextArea {
             textModified = true
         }
     }
+
+    Component.onCompleted: console.log(font.pointSize)
 }
