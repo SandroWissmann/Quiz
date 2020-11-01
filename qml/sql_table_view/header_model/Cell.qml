@@ -7,6 +7,8 @@ Rectangle {
     border.color: "black"
     border.width: 1
 
+    implicitHeight: 40
+
     Text {
         id: text
         anchors.fill: parent
