@@ -44,7 +44,7 @@ QVariant RandomQuestionFilterModel::data(const QModelIndex &index,
     case correctAnswerRole:
         return index.sibling(index.row(), 6).data().toInt();
     case pictureRole:
-        return index.sibling(index.row(), 7).data().toByteArray().toBase64();
+        return index.sibling(index.row(), 7).data().toString();
     }
     return QSortFilterProxyModel::data(index, role);
 }
