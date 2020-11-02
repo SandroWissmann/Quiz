@@ -157,9 +157,6 @@ Item {
         ScrollBar.vertical: ScrollBar {}
 
         function saveToDatabase(row, value, role) {
-            console.log(row)
-            console.log(value)
-            console.log(role)
             tableView.model.edit(row, value, role)
         }
     }
