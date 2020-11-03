@@ -13,7 +13,7 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
-    readonly property int countOfQuestions: 10
+    readonly property int countOfQuestions: 1
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
@@ -44,7 +44,7 @@ ApplicationWindow {
         anchors.fill: parent
     }
 
-    menuBar: ToolBar {
+    header: ToolBar {
         Flow {
             anchors.fill: parent
             ToolButton {
@@ -78,6 +78,11 @@ ApplicationWindow {
                     addNewQuestionloader.active = true
                     addNewQuestionloader.item.open()
                 }
+            }
+            ToolButton {
+                id: settingsButton
+                text: qsTr("Settings")
+                icon.name: "help-about"
             }
         }
     }

@@ -16,18 +16,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
+        include/languageselector.h \
         include/questionsproxymodel.h \
         include/questionsqltablemodel.h \
         include/questionsqlcolumnnames.h \
         include/randomquestionfiltermodel.h
 
 SOURCES += \
+        src/languageselector.cpp \
         src/main.cpp \
         src/questionsproxymodel.cpp \
         src/questionsqltablemodel.cpp \
         src/randomquestionfiltermodel.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    translations.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -42,7 +45,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 TRANSLATIONS = \
-    translations/quiz_de.ts \
-    translations/quiz_en.ts \
-    translations/quiz_es.ts
+    translations/quiz.de.ts \
+    translations/quiz.en.ts \
+    translations/quiz.es.ts
 
