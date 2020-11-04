@@ -1,7 +1,6 @@
 #include "../include/languageselector.h"
 
 #include <QDebug>
-#include <QFile>
 #include <QGuiApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -9,28 +8,24 @@
 LanguageSelector::LanguageSelector(QObject *parent)
     : QObject{parent}, mTranslator{new QTranslator{this}}
 {
-    loadEnglish();
+    loadLanguage(QLocale::English);
 }
 
-void LanguageSelector::selectLanguage(Language &language)
+void LanguageSelector::changeLanguage(Language &newLanguage)
 {
-    switch (language) {
+    qApp->removeTranslator(mTranslator);
+    switch (newLanguage) {
     case Language::german:
-        qApp->removeTranslator(mTranslator);
-        loadGerman();
-        qApp->installTranslator(mTranslator);
+        loadLanguage(QLocale::German);
         break;
     case Language::english:
-        qApp->removeTranslator(mTranslator);
-        loadEnglish();
-        qApp->installTranslator(mTranslator);
+        loadLanguage(QLocale::English);
         break;
     case Language::spanish:
-        qApp->removeTranslator(mTranslator);
-        loadSpanish();
-        qApp->installTranslator(mTranslator);
+        loadLanguage(QLocale::Spanish);
         break;
     }
+    qApp->installTranslator(mTranslator);
 }
 
 QTranslator *LanguageSelector::getTranslator() const
@@ -38,31 +33,11 @@ QTranslator *LanguageSelector::getTranslator() const
     return mTranslator;
 }
 
-void LanguageSelector::loadGerman()
+void LanguageSelector::loadLanguage(const QLocale::Language &newLanguage)
 {
-    if (!mTranslator->load(QLocale(QLocale::German), QLatin1String("quiz.de"),
+    if (!mTranslator->load(QLocale(newLanguage), QLatin1String("quiz"),
                            QLatin1String(":/translations"))) {
-        qDebug() << "load german failed";
-    }
-}
-
-void LanguageSelector::loadEnglish()
-{
-    QFile file(":/translations/quiz.en.qm");
-    if (!file.open(stdout, QIODevice::ReadOnly)) {
-        qDebug() << "Can't find it!";
-    }
-
-    if (!mTranslator->load(QLocale(QLocale::English), QLatin1String("quiz.en"),
-                           QLatin1String(":/translations"))) {
-        qDebug() << "load english failed";
-    }
-}
-
-void LanguageSelector::loadSpanish()
-{
-    if (!mTranslator->load(QLocale(QLocale::Spanish), QLatin1String("quiz.es"),
-                           QLatin1String(":/translations"))) {
-        qDebug() << "load spanish failed";
+        qDebug()
+            << tr("load language from %i failed").arg(mTranslator->filePath());
     }
 }

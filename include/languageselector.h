@@ -1,6 +1,7 @@
 #ifndef LANGUAGESELECTOR_H
 #define LANGUAGESELECTOR_H
 
+#include <QLocale>
 #include <QObject>
 
 class QTranslator;
@@ -23,6 +24,8 @@ private:
     void loadGerman();
     void loadEnglish();
     void loadSpanish();
+
+    void changeLanguage(const QLocale::Language &newLanguage);
 
 signals:
 };
