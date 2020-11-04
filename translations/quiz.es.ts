@@ -4,32 +4,47 @@
 <context>
     <name>AddNewQuestionDialog</name>
     <message>
-        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="28"/>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="15"/>
+        <source>Enter new Question</source>
+        <translation>Introducir nueva pregunta</translation>
+    </message>
+    <message>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="19"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="20"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="30"/>
         <source>Question:</source>
         <translation>Pregunta:</translation>
     </message>
     <message>
-        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="43"/>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="45"/>
         <source>Answer1:</source>
         <translation>Respuesta 1:</translation>
     </message>
     <message>
-        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="63"/>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="65"/>
         <source>Answer2:</source>
         <translation>Respuesta 2:</translation>
     </message>
     <message>
-        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="82"/>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="84"/>
         <source>Answer3:</source>
         <translation>Respuesta 3:</translation>
     </message>
     <message>
-        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="101"/>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="103"/>
         <source>Answer4:</source>
         <translation>Respuesta 4:</translation>
     </message>
     <message>
-        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="131"/>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="133"/>
         <source>select Image</source>
         <translation>seleccionar imagen</translation>
     </message>
@@ -78,6 +93,14 @@
     </message>
 </context>
 <context>
+    <name>LanguageSelector</name>
+    <message>
+        <location filename="../src/languageselector.cpp" line="43"/>
+        <source>load language %1 failed</source>
+        <translation>lenguaje de carga %1 fallido</translation>
+    </message>
+</context>
+<context>
     <name>PictureDelegate</name>
     <message>
         <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="76"/>
@@ -111,9 +134,14 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="30"/>
+        <location filename="../src/main.cpp" line="31"/>
         <source>Database Error</source>
         <translation>Error de la base de datos</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="98"/>
+        <source>Install translator failed</source>
+        <translation>La instalación del translator falló</translation>
     </message>
 </context>
 <context>
