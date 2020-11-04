@@ -114,6 +114,9 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
+
+    QObject::connect(&languageSelector, &LanguageSelector::languageChanged,
+                     &engine, &QQmlApplicationEngine::retranslate);
     engine.load(url);
 
     return app.exec();

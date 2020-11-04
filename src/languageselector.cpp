@@ -12,7 +12,7 @@ LanguageSelector::LanguageSelector(QObject *parent)
     loadLanguage(QLocale::English);
 }
 
-void LanguageSelector::changeLanguage(Language &newLanguage)
+void LanguageSelector::changeLanguage(Language newLanguage)
 {
     qApp->removeTranslator(mTranslator);
     switch (newLanguage) {
@@ -27,6 +27,7 @@ void LanguageSelector::changeLanguage(Language &newLanguage)
         break;
     }
     qApp->installTranslator(mTranslator);
+    emit languageChanged();
 }
 
 QTranslator *LanguageSelector::getTranslator() const
@@ -42,5 +43,8 @@ void LanguageSelector::loadLanguage(const QLocale::Language &newLanguage)
         auto metaEnum = QMetaEnum::fromType<QLocale::Language>();
         qDebug() << tr("load language %1 failed")
                         .arg(metaEnum.valueToKey(newLanguage));
+    }
+    else {
+        qDebug() << mTranslator->filePath();
     }
 }

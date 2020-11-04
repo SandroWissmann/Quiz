@@ -83,6 +83,7 @@ ApplicationWindow {
                 id: settingsButton
                 text: qsTr("Settings")
                 icon.name: "help-about"
+                onClicked: languageSelector.changeLanguage(2)
             }
         }
     }
