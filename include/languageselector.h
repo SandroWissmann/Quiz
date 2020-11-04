@@ -14,7 +14,7 @@ public:
 
     explicit LanguageSelector(QObject *parent = nullptr);
 
-    Q_INVOKABLE void selectLanguage(Language &language);
+    Q_INVOKABLE void changeLanguage(Language &newLanguage);
 
     QTranslator *getTranslator() const;
 
@@ -25,7 +25,7 @@ private:
     void loadEnglish();
     void loadSpanish();
 
-    void changeLanguage(const QLocale::Language &newLanguage);
+    void loadLanguage(const QLocale::Language &newLanguage);
 
 signals:
 };

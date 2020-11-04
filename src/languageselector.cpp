@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QGuiApplication>
 #include <QLocale>
+#include <QMetaEnum>
 #include <QTranslator>
 
 LanguageSelector::LanguageSelector(QObject *parent)
@@ -36,8 +37,10 @@ QTranslator *LanguageSelector::getTranslator() const
 void LanguageSelector::loadLanguage(const QLocale::Language &newLanguage)
 {
     if (!mTranslator->load(QLocale(newLanguage), QLatin1String("quiz"),
+                           QLatin1String("."),
                            QLatin1String(":/translations"))) {
-        qDebug()
-            << tr("load language from %i failed").arg(mTranslator->filePath());
+        auto metaEnum = QMetaEnum::fromType<QLocale::Language>();
+        qDebug() << tr("load language %1 failed")
+                        .arg(metaEnum.valueToKey(newLanguage));
     }
 }
