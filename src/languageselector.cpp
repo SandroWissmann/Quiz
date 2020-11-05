@@ -44,7 +44,4 @@ void LanguageSelector::loadLanguage(const QLocale::Language &newLanguage)
         qDebug() << tr("load language %1 failed")
                         .arg(metaEnum.valueToKey(newLanguage));
     }
-    else {
-        qDebug() << mTranslator->filePath();
-    }
 }
