@@ -5,6 +5,7 @@ import Qt.labs.qmlmodels 1.0
 
 import "add_new_question_dialog"
 import "sql_table_view"
+import "settings_dialog"
 
 ApplicationWindow {
     id: root
@@ -19,6 +20,7 @@ ApplicationWindow {
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
     readonly property string __newAddNewQuestionDialog: "qrc:/qml/add_new_question_dialog/AddNewQuestionDialog.qml"
     readonly property string __resultPath: "qrc:/qml/result/Result.qml"
+    readonly property string __settingsDialogPath: "qrc:/qml/settings_dialog/SettingsDialog.qml"
 
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
@@ -41,6 +43,11 @@ ApplicationWindow {
 
     Loader {
         id: addNewQuestionloader
+        anchors.fill: parent
+    }
+
+    Loader {
+        id: settingsloader
         anchors.fill: parent
     }
 
@@ -83,7 +90,15 @@ ApplicationWindow {
                 id: settingsButton
                 text: qsTr("Settings")
                 icon.name: "help-about"
-                onClicked: languageSelector.changeLanguage(2)
+
+                onClicked: {
+                    if (settingsloader.source !== root.__settingsDialogPath) {
+                        settingsloader.setSource(root.__settingsDialogPath)
+                    }
+                    settingsloader.active = false
+                    settingsloader.active = true
+                    settingsloader.item.open()
+                }
             }
         }
     }
