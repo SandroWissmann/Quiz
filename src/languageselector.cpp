@@ -9,20 +9,19 @@
 LanguageSelector::LanguageSelector(QObject *parent)
     : QObject{parent}, mTranslator{new QTranslator{this}}
 {
-    loadLanguage(QLocale::English);
 }
 
 void LanguageSelector::changeLanguage(Language newLanguage)
 {
     qApp->removeTranslator(mTranslator);
     switch (newLanguage) {
-    case Language::german:
+    case Language::German:
         loadLanguage(QLocale::German);
         break;
-    case Language::english:
+    case Language::English:
         loadLanguage(QLocale::English);
         break;
-    case Language::spanish:
+    case Language::Spanish:
         loadLanguage(QLocale::Spanish);
         break;
     }

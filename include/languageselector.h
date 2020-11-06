@@ -9,7 +9,7 @@ class QTranslator;
 class LanguageSelector : public QObject {
     Q_OBJECT
 public:
-    enum class Language { german, english, spanish };
+    enum class Language { German, English, Spanish };
     Q_ENUM(Language)
 
     explicit LanguageSelector(QObject *parent = nullptr);

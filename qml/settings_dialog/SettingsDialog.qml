@@ -2,6 +2,8 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
+import LanguageSelectors 1.0
+
 Dialog {
     id: dialog
     x: 100
@@ -21,16 +23,16 @@ Dialog {
     ColumnLayout {
         RadioButton {
             text: qsTr("German")
-            onPressed: languageSelector.changeLanguage(LanguageSelector.german)
+            onPressed: LanguageSelector.changeLanguage(LanguageSelector.German)
         }
         RadioButton {
             checked: true
             text: qsTr("English")
-            onPressed: languageSelector.changeLanguage(LanguageSelector.english)
+            onPressed: LanguageSelector.changeLanguage(LanguageSelector.English)
         }
         RadioButton {
             text: qsTr("Spanish")
-            onPressed: languageSelector.changeLanguage(2)
+            onPressed: LanguageSelector.changeLanguage(LanguageSelector.Spanish)
         }
     }
 

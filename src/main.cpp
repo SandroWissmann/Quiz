@@ -93,8 +93,8 @@ int main(int argc, char *argv[])
 
     QQuickStyle::setStyle("Universal");
 
-    LanguageSelector languageSelector;
-    if (!app.installTranslator(languageSelector.getTranslator())) {
+    QScopedPointer<LanguageSelector> languageSelector(new LanguageSelector);
+    if (!app.installTranslator(languageSelector->getTranslator())) {
         qDebug() << QObject::tr("Install translator failed");
     }
 
@@ -104,7 +104,9 @@ int main(int argc, char *argv[])
     context->setContextProperty("questionsProxyModel", questionsProxyModel);
     context->setContextProperty("randomQuestionFilterModel",
                                 randomQuestionFilterModel);
-    context->setContextProperty("languageSelector", &languageSelector);
+
+    qmlRegisterSingletonInstance<LanguageSelector>(
+        "LanguageSelectors", 1, 0, "LanguageSelector", languageSelector.get());
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(
@@ -115,7 +117,7 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
 
-    QObject::connect(&languageSelector, &LanguageSelector::languageChanged,
+    QObject::connect(languageSelector.get(), &LanguageSelector::languageChanged,
                      &engine, &QQmlApplicationEngine::retranslate);
     engine.load(url);
 

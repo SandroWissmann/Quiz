@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
 
+import LanguageSelectors 1.0
+
 import "add_new_question_dialog"
 import "sql_table_view"
 import "settings_dialog"
@@ -24,6 +26,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
+        LanguageSelector.changeLanguage(LanguageSelector.English)
     }
 
     Loader {
