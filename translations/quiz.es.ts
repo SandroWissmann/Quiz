@@ -139,9 +139,8 @@
         <translation>Error de la base de datos</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="98"/>
         <source>Install translator failed</source>
-        <translation>La instalación del translator falló</translation>
+        <translation type="vanished">La instalación del translator falló</translation>
     </message>
 </context>
 <context>
@@ -176,29 +175,57 @@
     </message>
 </context>
 <context>
+    <name>SettingsDialog</name>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="17"/>
+        <source>Settings</source>
+        <translation>ajustes</translation>
+    </message>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="20"/>
+        <source>Close</source>
+        <translation>Cerrar</translation>
+    </message>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="25"/>
+        <source>German</source>
+        <translation>Alemán</translation>
+    </message>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="30"/>
+        <source>English</source>
+        <translation>Inglés</translation>
+    </message>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="34"/>
+        <source>Spanish</source>
+        <translation>Español</translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="14"/>
+        <location filename="../qml/main.qml" line="17"/>
         <source>Quiz</source>
         <translation>Quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="52"/>
+        <location filename="../qml/main.qml" line="62"/>
         <source>New Quiz</source>
         <translation>Nuevo quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="62"/>
+        <location filename="../qml/main.qml" line="72"/>
         <source>Show Table</source>
         <translation>Mostrar tabla</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="70"/>
+        <location filename="../qml/main.qml" line="80"/>
         <source>Add Question</source>
         <translation>Agregar pregunta</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="84"/>
+        <location filename="../qml/main.qml" line="94"/>
         <source>Settings</source>
         <translation>ajustes</translation>
     </message>
