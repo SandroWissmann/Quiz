@@ -94,9 +94,6 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Universal");
 
     QScopedPointer<LanguageSelector> languageSelector(new LanguageSelector);
-    if (!app.installTranslator(languageSelector->getTranslator())) {
-        qDebug() << QObject::tr("Install translator failed");
-    }
 
     QQmlApplicationEngine engine;
 
