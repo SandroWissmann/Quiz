@@ -26,6 +26,7 @@ void LanguageSelector::changeLanguage(Language newLanguage)
         break;
     }
     qApp->installTranslator(mTranslator);
+    mLanguage = newLanguage;
     emit languageChanged();
 }
 

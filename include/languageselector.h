@@ -8,6 +8,7 @@ class QTranslator;
 
 class LanguageSelector : public QObject {
     Q_OBJECT
+    Q_PROPERTY(Language language READ language NOTIFY languageChanged)
 public:
     enum class Language { German, English, Spanish };
     Q_ENUM(Language)
@@ -20,6 +21,7 @@ public:
 
 private:
     QTranslator *mTranslator;
+    Language mLanguage;
 
     void loadGerman();
     void loadEnglish();
