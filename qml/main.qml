@@ -26,7 +26,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
-        LanguageSelector.changeLanguage(LanguageSelector.English)
+        LanguageSelector.language = LanguageSelector.English
     }
 
     Loader {

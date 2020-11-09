@@ -11,7 +11,12 @@ LanguageSelector::LanguageSelector(QObject *parent)
 {
 }
 
-void LanguageSelector::changeLanguage(Language newLanguage)
+LanguageSelector::Language LanguageSelector::language() const
+{
+    return mLanguage;
+}
+
+void LanguageSelector::setLanguage(Language newLanguage)
 {
     qApp->removeTranslator(mTranslator);
     switch (newLanguage) {
