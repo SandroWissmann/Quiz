@@ -22,19 +22,21 @@ Dialog {
 
     ColumnLayout {
         RadioButton {
+            checked: LanguageSelector.language === LanguageSelector.German
             text: qsTr("German")
             onPressed: {
                 LanguageSelector.language = LanguageSelector.German
             }
         }
         RadioButton {
-            checked: true
+            checked: LanguageSelector.language === LanguageSelector.English
             text: qsTr("English")
             onPressed: {
                 LanguageSelector.language = LanguageSelector.English
             }
         }
         RadioButton {
+            checked: LanguageSelector.language === LanguageSelector.Spanish
             text: qsTr("Spanish")
             onPressed: {
                 LanguageSelector.language = LanguageSelector.Spanish

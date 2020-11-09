@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
+import Qt.labs.settings 1.0
 
 import LanguageSelectors 1.0
 
@@ -24,9 +25,18 @@ ApplicationWindow {
     readonly property string __resultPath: "qrc:/qml/result/Result.qml"
     readonly property string __settingsDialogPath: "qrc:/qml/settings_dialog/SettingsDialog.qml"
 
+    Settings {
+        id: settings
+        property int language: LanguageSelector.German
+    }
+
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
-        LanguageSelector.language = LanguageSelector.English
+        LanguageSelector.language = settings.language
+    }
+
+    Component.onDestruction: {
+        settings.language = LanguageSelector.language
     }
 
     Loader {
