@@ -7,7 +7,8 @@
 #include <QTranslator>
 
 LanguageSelector::LanguageSelector(QObject *parent)
-    : QObject{parent}, mTranslator{new QTranslator{this}}
+    : QObject{parent}, mAppTranslator{new QTranslator{this}},
+      mQtTranslator{new QTranslator{this}}
 {
 }
 
@@ -18,7 +19,8 @@ LanguageSelector::Language LanguageSelector::language() const
 
 void LanguageSelector::setLanguage(Language newLanguage)
 {
-    qApp->removeTranslator(mTranslator);
+    qApp->removeTranslator(mAppTranslator);
+    qApp->removeTranslator(mQtTranslator);
     switch (newLanguage) {
     case Language::German:
         loadLanguage(QLocale::German);
@@ -30,23 +32,32 @@ void LanguageSelector::setLanguage(Language newLanguage)
         loadLanguage(QLocale::Spanish);
         break;
     }
-    qApp->installTranslator(mTranslator);
+    qApp->installTranslator(mAppTranslator);
+    qApp->installTranslator(mQtTranslator);
     mLanguage = newLanguage;
     emit languageChanged();
 }
 
 QTranslator *LanguageSelector::getTranslator() const
 {
-    return mTranslator;
+    return mAppTranslator;
 }
 
 void LanguageSelector::loadLanguage(const QLocale::Language &newLanguage)
 {
-    if (!mTranslator->load(QLocale(newLanguage), QLatin1String("quiz"),
-                           QLatin1String("."),
-                           QLatin1String(":/translations"))) {
+    if (!mAppTranslator->load(QLocale(newLanguage), QStringLiteral("quiz"),
+                              QStringLiteral("."),
+                              QStringLiteral(":/translations"))) {
         auto metaEnum = QMetaEnum::fromType<QLocale::Language>();
-        qDebug() << tr("load language %1 failed")
+        qDebug() << tr("load app translator language %1 failed")
+                        .arg(metaEnum.valueToKey(newLanguage));
+    }
+
+    if (!mQtTranslator->load(
+            QLocale(newLanguage), QStringLiteral("qtquickcontrols"),
+            QStringLiteral("."), QStringLiteral(":/translations"))) {
+        auto metaEnum = QMetaEnum::fromType<QLocale::Language>();
+        qDebug() << tr("load qt translator language %1 failed")
                         .arg(metaEnum.valueToKey(newLanguage));
     }
 }

@@ -22,7 +22,8 @@ public:
     QTranslator *getTranslator() const;
 
 private:
-    QTranslator *mTranslator;
+    QTranslator *mAppTranslator;
+    QTranslator *mQtTranslator;
     Language mLanguage;
 
     void loadGerman();
