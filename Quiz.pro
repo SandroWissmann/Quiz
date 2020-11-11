@@ -46,6 +46,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 TRANSLATIONS = \
     translations/quiz.de.ts \
-    translations/quiz.en.ts \
-    translations/quiz.es.ts
+    translations/quiz.es.ts \
+    translations/qtbase.de.ts \
+    translations/qtbase.es.ts
 
+DISTFILES += \
+    translations/quiz.de.ts \
+    translations/quiz.es.ts \
+    translations/qtquickcontrols.de.ts \
+    translations/qtquickcontrols.es.ts

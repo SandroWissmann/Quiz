@@ -16,10 +16,6 @@ Dialog {
 
     title: qsTr("Settings")
 
-    onOpened: {
-        standardButton(Dialog.Close).text = qsTr("Close")
-    }
-
     ColumnLayout {
         RadioButton {
             checked: LanguageSelector.language === LanguageSelector.German

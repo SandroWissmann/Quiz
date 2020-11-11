@@ -23,7 +23,8 @@ public:
 
 private:
     QTranslator *mAppTranslator;
-    QTranslator *mQtTranslator;
+    QTranslator *mQtBaseTranslator;
+    QTranslator *mQtQuickControlsTranslator;
     Language mLanguage;
 
     void loadGerman();

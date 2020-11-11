@@ -1,8 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>translations/quiz.de.qm</file>
-        <file>translations/quiz.en.qm</file>
         <file>translations/quiz.es.qm</file>
+        <file>translations/qtbase.de.qm</file>
+        <file>translations/qtbase.es.qm</file>
         <file>translations/qtquickcontrols.de.qm</file>
+        <file>translations/qtquickcontrols.es.qm</file>
     </qresource>
 </RCC>
