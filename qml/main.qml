@@ -2,9 +2,13 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
+import Qt.labs.settings 1.0
+
+import LanguageSelectors 1.0
 
 import "add_new_question_dialog"
 import "sql_table_view"
+import "settings_dialog"
 
 ApplicationWindow {
     id: root
@@ -13,15 +17,26 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
-    readonly property int countOfQuestions: 10
+    readonly property int countOfQuestions: 1
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
     readonly property string __newAddNewQuestionDialog: "qrc:/qml/add_new_question_dialog/AddNewQuestionDialog.qml"
     readonly property string __resultPath: "qrc:/qml/result/Result.qml"
+    readonly property string __settingsDialogPath: "qrc:/qml/settings_dialog/SettingsDialog.qml"
+
+    Settings {
+        id: settings
+        property int language: LanguageSelector.German
+    }
 
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
+        LanguageSelector.language = settings.language
+    }
+
+    Component.onDestruction: {
+        settings.language = LanguageSelector.language
     }
 
     Loader {
@@ -44,7 +59,12 @@ ApplicationWindow {
         anchors.fill: parent
     }
 
-    menuBar: ToolBar {
+    Loader {
+        id: settingsloader
+        anchors.fill: parent
+    }
+
+    header: ToolBar {
         Flow {
             anchors.fill: parent
             ToolButton {
@@ -77,6 +97,20 @@ ApplicationWindow {
                     addNewQuestionloader.active = false
                     addNewQuestionloader.active = true
                     addNewQuestionloader.item.open()
+                }
+            }
+            ToolButton {
+                id: settingsButton
+                text: qsTr("Settings")
+                icon.name: "help-about"
+
+                onClicked: {
+                    if (settingsloader.source !== root.__settingsDialogPath) {
+                        settingsloader.setSource(root.__settingsDialogPath)
+                    }
+                    settingsloader.active = false
+                    settingsloader.active = true
+                    settingsloader.item.open()
                 }
             }
         }

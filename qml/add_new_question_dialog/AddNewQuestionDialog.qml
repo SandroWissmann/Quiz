@@ -12,10 +12,12 @@ Dialog {
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-    title: "Enter new Question"
+    title: qsTr("Enter new Question")
 
     onOpened: {
         standardButton(Dialog.Ok).enabled = false
+        standardButton(Dialog.Ok).text = qsTr("OK")
+        standardButton(Dialog.Cancel).text = qsTr("Cancel")
     }
 
     ButtonGroup {

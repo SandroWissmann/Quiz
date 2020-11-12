@@ -9,6 +9,7 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 
+#include "include/languageselector.h"
 #include "include/questionsproxymodel.h"
 #include "include/questionsqlcolumnnames.h"
 #include "include/questionsqltablemodel.h"
@@ -92,12 +93,17 @@ int main(int argc, char *argv[])
 
     QQuickStyle::setStyle("Universal");
 
+    QScopedPointer<LanguageSelector> languageSelector(new LanguageSelector);
+
     QQmlApplicationEngine engine;
 
     auto context = engine.rootContext();
     context->setContextProperty("questionsProxyModel", questionsProxyModel);
     context->setContextProperty("randomQuestionFilterModel",
                                 randomQuestionFilterModel);
+
+    qmlRegisterSingletonInstance<LanguageSelector>(
+        "LanguageSelectors", 1, 0, "LanguageSelector", languageSelector.get());
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(
@@ -107,6 +113,9 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
+
+    QObject::connect(languageSelector.get(), &LanguageSelector::languageChanged,
+                     &engine, &QQmlApplicationEngine::retranslate);
     engine.load(url);
 
     return app.exec();

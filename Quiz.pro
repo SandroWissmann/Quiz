@@ -15,13 +15,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+HEADERS += \
+        include/languageselector.h \
+        include/questionsproxymodel.h \
+        include/questionsqltablemodel.h \
+        include/questionsqlcolumnnames.h \
+        include/randomquestionfiltermodel.h
+
 SOURCES += \
+        src/languageselector.cpp \
         src/main.cpp \
         src/questionsproxymodel.cpp \
         src/questionsqltablemodel.cpp \
         src/randomquestionfiltermodel.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    translations.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -34,8 +43,15 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-        include/questionsproxymodel.h \
-        include/questionsqltablemodel.h \
-        include/questionsqlcolumnnames.h \
-        include/randomquestionfiltermodel.h
+
+TRANSLATIONS = \
+    translations/quiz.de.ts \
+    translations/quiz.es.ts \
+    translations/qtbase.de.ts \
+    translations/qtbase.es.ts
+
+DISTFILES += \
+    translations/quiz.de.ts \
+    translations/quiz.es.ts \
+    translations/qtquickcontrols.de.ts \
+    translations/qtquickcontrols.es.ts
