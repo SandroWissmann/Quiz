@@ -17,7 +17,7 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
-    readonly property int countOfQuestions: 1
+    property int countOfQuestions
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
@@ -28,15 +28,17 @@ ApplicationWindow {
     Settings {
         id: settings
         property int language: LanguageSelector.German
+        property int countOfQuestions: 10
     }
-
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
         LanguageSelector.language = settings.language
+        root.countOfQuestions = settings.countOfQuestions
     }
 
     Component.onDestruction: {
         settings.language = LanguageSelector.language
+        settings.countOfQuestions = root.countOfQuestions
     }
 
     Loader {
@@ -90,12 +92,12 @@ ApplicationWindow {
                 text: qsTr("Add Question")
                 icon.name: "document-new"
                 onClicked: {
+                    addNewQuestionloader.active = false
+                    addNewQuestionloader.active = true
                     if (addNewQuestionloader.source !== root.__newAddNewQuestionDialog) {
                         addNewQuestionloader.setSource(
                                     root.__newAddNewQuestionDialog)
                     }
-                    addNewQuestionloader.active = false
-                    addNewQuestionloader.active = true
                     addNewQuestionloader.item.open()
                 }
             }
@@ -105,11 +107,13 @@ ApplicationWindow {
                 icon.name: "help-about"
 
                 onClicked: {
-                    if (settingsloader.source !== root.__settingsDialogPath) {
-                        settingsloader.setSource(root.__settingsDialogPath)
-                    }
                     settingsloader.active = false
                     settingsloader.active = true
+                    if (settingsloader.source !== root.__settingsDialogPath) {
+                        settingsloader.setSource(root.__settingsDialogPath, {
+                                                     "countOfQuestions": root.countOfQuestions
+                                                 })
+                    }
                     settingsloader.item.open()
                 }
             }
@@ -129,6 +133,15 @@ ApplicationWindow {
         }
     }
 
+    Connections {
+        id: settingsDialogConnections
+        target: settingsloader.item
+        ignoreUnknownSignals: loader.source !== root.__settingsDialogPath
+
+        function onCountOfQuestionsChanged() {
+            root.countOfQuestions = settingsloader.item.countOfQuestions
+        }
+    }
     Connections {
         id: addNewQuestionDialogConnections
         target: addNewQuestionloader.item

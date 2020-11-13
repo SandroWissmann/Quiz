@@ -5,7 +5,7 @@ import QtQuick.Controls 2.15
 import LanguageSelectors 1.0
 
 Dialog {
-    id: dialog
+    id: root
     x: 100
     y: 100
     width: 500
@@ -16,7 +16,14 @@ Dialog {
 
     title: qsTr("Settings")
 
+    property alias countOfQuestions: countOfQuestionsSpinBox.value
+
     ColumnLayout {
+        SpinBox {
+            id: countOfQuestionsSpinBox
+            from: 0
+            to: 999
+        }
         RadioButton {
             checked: LanguageSelector.language === LanguageSelector.German
             text: qsTr("German")
