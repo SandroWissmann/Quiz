@@ -8,7 +8,7 @@ Dialog {
     id: root
     x: 100
     y: 100
-    width: 500
+    width: 300
     height: 600
     modal: true
     focus: true
@@ -19,10 +19,19 @@ Dialog {
     property alias countOfQuestions: countOfQuestionsSpinBox.value
 
     ColumnLayout {
-        SpinBox {
-            id: countOfQuestionsSpinBox
-            from: 0
-            to: 999
+        id: columnLayout
+        RowLayout {
+            Text {
+                text: qsTr("Count of Questions:")
+                font.pointSize: 13.5
+            }
+            SpinBox {
+                Layout.fillWidth: true
+                id: countOfQuestionsSpinBox
+                from: 0
+                to: 999
+                editable: true
+            }
         }
         RadioButton {
             checked: LanguageSelector.language === LanguageSelector.German
