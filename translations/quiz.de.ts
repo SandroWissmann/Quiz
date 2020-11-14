@@ -101,12 +101,17 @@
     <message>
         <location filename="../src/languageselector.cpp" line="52"/>
         <source>load app translator language %1 failed</source>
-        <translation type="unfinished"></translation>
+        <translation>load app translator language %1 failed</translation>
     </message>
     <message>
-        <location filename="../src/languageselector.cpp" line="58"/>
-        <source>load qt translator language %1 failed</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/languageselector.cpp" line="62"/>
+        <source>load qt base translator language %1 failed</source>
+        <translation>load qt base translator language %1 failed</translation>
+    </message>
+    <message>
+        <location filename="../src/languageselector.cpp" line="72"/>
+        <source>load qt quick controls translator language %1 failed</source>
+        <translation>load qt quick controls translator language %1 failed</translation>
     </message>
 </context>
 <context>
@@ -195,22 +200,26 @@
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="20"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation type="vanished">Schließen</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="26"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="25"/>
+        <source>Count of Questions:</source>
+        <translation>Anzahl Fragen:</translation>
+    </message>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="38"/>
         <source>German</source>
         <translation>Deutsch</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="33"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="45"/>
         <source>English</source>
         <translation>Englisch</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="40"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="52"/>
         <source>Spanish</source>
         <translation>Spanisch</translation>
     </message>
@@ -223,22 +232,22 @@
         <translation>Quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="72"/>
+        <location filename="../qml/main.qml" line="74"/>
         <source>New Quiz</source>
         <translation>Neues Quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="82"/>
+        <location filename="../qml/main.qml" line="84"/>
         <source>Show Table</source>
-        <translation>Fragen Anzeigen</translation>
+        <translation>Fragen anzeigen</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="90"/>
+        <location filename="../qml/main.qml" line="92"/>
         <source>Add Question</source>
         <translation>Fragen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="104"/>
+        <location filename="../qml/main.qml" line="106"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
