@@ -13,9 +13,12 @@ import "settings_dialog"
 ApplicationWindow {
     id: root
     visible: true
-    width: 1370
+    width: __defaultWidth // 680    // 1370
     height: 800
     title: qsTr("Quiz")
+
+    readonly property int __showTableWidth: 1370
+    readonly property int __defaultWidth: 680
 
     property int countOfQuestions
 
@@ -74,6 +77,7 @@ ApplicationWindow {
                 text: qsTr("New Quiz")
                 icon.name: "address-book-new"
                 onClicked: {
+                    root.width = root.__defaultWidth
                     randomQuestionFilterModel.generateRandomQuestions(
                                 countOfQuestions)
                     loader.setSource(root.__newQuizPath)
@@ -84,6 +88,7 @@ ApplicationWindow {
                 text: qsTr("Show Table")
                 icon.name: "document-open"
                 onClicked: {
+                    root.width = root.__showTableWidth
                     loader.setSource(root.__newShowTablePath)
                 }
             }
@@ -157,4 +162,7 @@ ApplicationWindow {
         newQuizButton.enabled = questionsProxyModel.rowCount(
                     ) >= root.countOfQuestions
     }
+
+    onWidthChanged: console.log("width: " + width)
+    onHeightChanged: console.log("height: " + height)
 }
