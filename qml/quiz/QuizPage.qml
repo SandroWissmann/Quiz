@@ -44,11 +44,13 @@ Item {
             RowLayout {
                 Text {
                     text: qsTr("Question: %1").arg(root.questionId)
+                    font.pointSize: 13.5
                 }
             }
             RowLayout {
                 Text {
                     text: qsTr(root.askedQuestion)
+                    font.pointSize: 13.5
                 }
             }
             RowLayout {
