@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
 import Qt.labs.settings 1.0
+import QtQuick.Controls.Material 2.12
 
 import LanguageSelectors 1.0
 
@@ -16,6 +17,10 @@ ApplicationWindow {
     width: __defaultWidth // 680    // 1370
     height: 800
     title: qsTr("Quiz")
+
+    Material.theme: Material.Light
+    Material.primary: Material.LightBlue
+    Material.accent: Material.Blue
 
     readonly property int __showTableWidth: 1370
     readonly property int __defaultWidth: 680

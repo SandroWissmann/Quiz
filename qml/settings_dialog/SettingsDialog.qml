@@ -8,7 +8,7 @@ Dialog {
     id: root
     x: 100
     y: 100
-    width: 300
+    width: 400
     height: 600
     modal: true
     focus: true
