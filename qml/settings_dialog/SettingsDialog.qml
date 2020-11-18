@@ -18,8 +18,32 @@ Dialog {
 
     property alias countOfQuestions: countOfQuestionsSpinBox.value
 
+    property bool darkModeOn
+
     ColumnLayout {
         id: columnLayout
+        RowLayout {
+            Text {
+                text: qsTr("Light")
+                font.pointSize: 13.5
+            }
+            Switch {
+                id: colorModeSwitch
+                position: darkModeOn ? 1.0 : 0.0
+
+                onPositionChanged: {
+                    if (position === 0.0) {
+                        root.darkModeOn = false
+                    } else {
+                        root.darkModeOn = true
+                    }
+                }
+            }
+            Text {
+                text: qsTr("Dark")
+                font.pointSize: 13.5
+            }
+        }
         RowLayout {
             Text {
                 text: qsTr("Count of Questions:")
