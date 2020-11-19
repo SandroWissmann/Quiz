@@ -18,14 +18,13 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
-    Material.theme: Material.Light
     Material.primary: Material.LightBlue
     Material.accent: Material.Blue
-
     readonly property int __showTableWidth: 1370
     readonly property int __defaultWidth: 680
 
     property int countOfQuestions
+    property bool darkModeOn
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
@@ -37,16 +36,20 @@ ApplicationWindow {
         id: settings
         property int language: LanguageSelector.German
         property int countOfQuestions: 10
+        property bool darkModeOn: false
     }
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
         LanguageSelector.language = settings.language
         root.countOfQuestions = settings.countOfQuestions
+        root.darkModeOn = settings.darkModeOn
+        selectColorMode()
     }
 
     Component.onDestruction: {
         settings.language = LanguageSelector.language
         settings.countOfQuestions = root.countOfQuestions
+        settings.darkModeOn = root.darkModeOn
     }
 
     Loader {
@@ -121,7 +124,8 @@ ApplicationWindow {
                     settingsloader.active = true
                     if (settingsloader.source !== root.__settingsDialogPath) {
                         settingsloader.setSource(root.__settingsDialogPath, {
-                                                     "countOfQuestions": root.countOfQuestions
+                                                     "countOfQuestions": root.countOfQuestions,
+                                                     "darkModeOn": root.darkModeOn
                                                  })
                     }
                     settingsloader.item.open()
@@ -151,6 +155,10 @@ ApplicationWindow {
         function onCountOfQuestionsChanged() {
             root.countOfQuestions = settingsloader.item.countOfQuestions
         }
+        function onDarkModeOnChanged() {
+            root.darkModeOn = settingsloader.item.darkModeOn
+            selectColorMode()
+        }
     }
     Connections {
         id: addNewQuestionDialogConnections
@@ -168,6 +176,11 @@ ApplicationWindow {
                     ) >= root.countOfQuestions
     }
 
-    onWidthChanged: console.log("width: " + width)
-    onHeightChanged: console.log("height: " + height)
+    function selectColorMode() {
+        if (root.darkModeOn) {
+            Material.theme = Material.Dark
+        } else {
+            Material.theme = Material.Light
+        }
+    }
 }
