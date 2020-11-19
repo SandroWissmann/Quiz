@@ -24,7 +24,7 @@ Item {
 
         reuseItems: true
         clip: true
-        property var columnWidths: [60, 210, 210, 210, 210, 210, 120, 140]
+        property var columnWidths: [60, 210, 210, 210, 210, 210, 210, 140]
         columnWidthProvider: function (column) {
             return columnWidths[column]
         }
@@ -134,7 +134,7 @@ Item {
                     row: model.row
 
                     Component.onCompleted: {
-                        correctAnswerDelegate.valueChanged.connect(
+                        correctAnswerDelegate.correctAnswerChanged.connect(
                                     tableView.saveToDatabase)
                     }
                 }
