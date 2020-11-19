@@ -14,13 +14,13 @@ import "settings_dialog"
 ApplicationWindow {
     id: root
     visible: true
-    width: __defaultWidth // 680    // 1370
+    width: __defaultWidth
     height: 800
     title: qsTr("Quiz")
 
     Material.primary: Material.LightBlue
     Material.accent: Material.Blue
-    readonly property int __showTableWidth: 1370
+    readonly property int __showTableWidth: 1450
     readonly property int __defaultWidth: 680
 
     property int countOfQuestions
