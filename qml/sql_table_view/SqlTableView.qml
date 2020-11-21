@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
+import QtQuick.Controls.Material 2.15
 
 import "delegates"
 import "header_model"
@@ -34,9 +35,12 @@ Item {
         delegate: DelegateChooser {
             id: chooser
 
-            readonly property string askedQuestionColor: "#99CCFF"
-            readonly property string correctAnswerColor: "#99FFCC"
-            readonly property string wrongAnswerColor: "#FF9999"
+            readonly property color askedQuestionColor: Material.color(
+                                                            Material.Lime)
+            readonly property color correctAnswerColor: Material.color(
+                                                            Material.Pink)
+            readonly property color wrongAnswerColor: Material.color(
+                                                          Material.LightGreen)
 
             DelegateChoice {
                 column: 0
