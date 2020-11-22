@@ -23,7 +23,7 @@ Dialog {
     ColumnLayout {
         id: columnLayout
         RowLayout {
-            Text {
+            Label {
                 text: qsTr("Light")
                 font.pointSize: 13.5
             }
@@ -39,13 +39,13 @@ Dialog {
                     }
                 }
             }
-            Text {
+            Label {
                 text: qsTr("Dark")
                 font.pointSize: 13.5
             }
         }
         RowLayout {
-            Text {
+            Label {
                 text: qsTr("Count of Questions:")
                 font.pointSize: 13.5
             }
