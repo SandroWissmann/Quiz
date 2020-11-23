@@ -9,8 +9,5 @@ TextField {
 
     readOnly: true
 
-    background: Rectangle {
-        border.width: 1
-        border.color: "black"
-    }
+    background: Frame {}
 }
