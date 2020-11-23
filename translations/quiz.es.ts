@@ -117,17 +117,17 @@
 <context>
     <name>PictureDelegate</name>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="76"/>
+        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="70"/>
         <source>Add</source>
         <translation>Agregar</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="76"/>
+        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="70"/>
         <source>Replace</source>
         <translation>Reemplazar</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="82"/>
+        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="76"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
@@ -158,24 +158,32 @@
     </message>
 </context>
 <context>
+    <name>Quiz</name>
+    <message>
+        <location filename="../qml/quiz/Quiz.qml" line="45"/>
+        <source>Question %1 / %2</source>
+        <translation>Pregunta %1 / %2</translation>
+    </message>
+</context>
+<context>
     <name>QuizPage</name>
     <message>
-        <location filename="../qml/quiz/QuizPage.qml" line="46"/>
+        <location filename="../qml/quiz/QuizPage.qml" line="40"/>
         <source>Question: %1</source>
         <translation>Pregunta: %1</translation>
     </message>
     <message>
-        <location filename="../qml/quiz/QuizPage.qml" line="83"/>
+        <location filename="../qml/quiz/QuizPage.qml" line="79"/>
         <source>Check Answer</source>
         <translation>Verificar respuesta</translation>
     </message>
     <message>
-        <location filename="../qml/quiz/QuizPage.qml" line="99"/>
+        <location filename="../qml/quiz/QuizPage.qml" line="95"/>
         <source>Show Result</source>
         <translation>Mostrar resultado</translation>
     </message>
     <message>
-        <location filename="../qml/quiz/QuizPage.qml" line="101"/>
+        <location filename="../qml/quiz/QuizPage.qml" line="97"/>
         <source>Next Question</source>
         <translation>Siguiente pregunta</translation>
     </message>
@@ -193,29 +201,39 @@
     <message>
         <location filename="../qml/settings_dialog/SettingsDialog.qml" line="17"/>
         <source>Settings</source>
-        <translation>ajustes</translation>
+        <translation type="unfinished">Ajustes</translation>
     </message>
     <message>
         <source>Close</source>
         <translation type="vanished">Cerrar</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="25"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="27"/>
+        <source>Light</source>
+        <translation>Claro</translation>
+    </message>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="43"/>
+        <source>Dark</source>
+        <translation>Oscuro</translation>
+    </message>
+    <message>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="49"/>
         <source>Count of Questions:</source>
         <translation>Número de preguntas:</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="38"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="62"/>
         <source>German</source>
         <translation>Alemán</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="45"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="69"/>
         <source>English</source>
         <translation>Inglés</translation>
     </message>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="52"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="76"/>
         <source>Spanish</source>
         <translation>Español</translation>
     </message>
@@ -223,27 +241,27 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="18"/>
+        <location filename="../qml/main.qml" line="19"/>
         <source>Quiz</source>
         <translation>Quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="74"/>
+        <location filename="../qml/main.qml" line="85"/>
         <source>New Quiz</source>
         <translation>Nuevo quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="84"/>
+        <location filename="../qml/main.qml" line="96"/>
         <source>Show Table</source>
         <translation>Mostrar tabla</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="92"/>
+        <location filename="../qml/main.qml" line="105"/>
         <source>Add Question</source>
         <translation>Agregar pregunta</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="106"/>
+        <location filename="../qml/main.qml" line="119"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>
