@@ -7,7 +7,6 @@
         <file>qml/sql_table_view/delegates/TextFieldDelegate.qml</file>
         <file>qml/quiz/Quiz.qml</file>
         <file>qml/quiz/QuizPage.qml</file>
-        <file>qml/quiz/AnswerTextField.qml</file>
         <file>qml/result/Result.qml</file>
         <file>qml/quiz/Answer.qml</file>
         <file>ressources/images/glowdot.png</file>
@@ -30,5 +29,6 @@
         <file>qml/sql_table_view/header_model/Cell.qml</file>
         <file>qml/sql_table_view/header_model/HeaderModel.qml</file>
         <file>qml/settings_dialog/SettingsDialog.qml</file>
+        <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

@@ -18,10 +18,8 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
-    Material.primary: Material.LightBlue
-    Material.accent: Material.Blue
-    readonly property int __showTableWidth: 1450
-    readonly property int __defaultWidth: 680
+    readonly property int __showTableWidth: 1460
+    readonly property int __defaultWidth: 880
 
     property int countOfQuestions
     property bool darkModeOn
@@ -60,9 +58,11 @@ ApplicationWindow {
                 showTableButton.enabled = false
                 addQuestionButton.enabled = false
                 newQuizButton.enabled = false
+                settingsButton.enabled = false
             } else if (source == root.__resultPath) {
                 showButtonsIfConditionsAreMet()
                 addQuestionButton.enabled = true
+                settingsButton.enabled = true
             }
         }
     }
