@@ -40,9 +40,10 @@ Page {
     }
 
     footer: ColumnLayout {
-        Text {
+        Label {
             id: footerTextArea
-            text: "Question " + (quizSwipeView.currentIndex + 1) + " / " + quizSwipeView.count
+            text: qsTr("Question %1 / %2").arg(
+                      quizSwipeView.currentIndex + 1).arg(quizSwipeView.count)
             Layout.alignment: Qt.AlignRight
         }
     }
