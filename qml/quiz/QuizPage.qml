@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
-Item {
+Pane {
     id: root
 
     property int questionId
@@ -24,91 +24,84 @@ Item {
     implicitWidth: parent.width
     implicitHeight: parent.height
 
-    Rectangle {
-        id: dialog
+    Component.onCompleted: {
+        populateAnswersRandom()
+    }
 
-        width: parent.width
-        height: parent.height
+    ButtonGroup {
+        id: radioGroup
+    }
 
-        Component.onCompleted: {
-            populateAnswersRandom()
+    ColumnLayout {
+        anchors.fill: parent
+
+        RowLayout {
+            Label {
+                text: qsTr("Question: %1").arg(root.questionId)
+                font.pointSize: 13.5
+            }
         }
-
-        ButtonGroup {
-            id: radioGroup
+        RowLayout {
+            Label {
+                text: qsTr(root.askedQuestion)
+                font.pointSize: 13.5
+            }
         }
+        RowLayout {
+            Image {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignHCenter
+                fillMode: Image.PreserveAspectFit
 
-        ColumnLayout {
-            anchors.fill: parent
-
-            RowLayout {
-                Text {
-                    text: qsTr("Question: %1").arg(root.questionId)
-                    font.pointSize: 13.5
-                }
+                source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
+                sourceSize.width: 1024
+                sourceSize.height: 1024
             }
-            RowLayout {
-                Text {
-                    text: qsTr(root.askedQuestion)
-                    font.pointSize: 13.5
-                }
-            }
-            RowLayout {
-                Image {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.alignment: Qt.AlignHCenter
-                    fillMode: Image.PreserveAspectFit
-
-                    source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
-                    sourceSize.width: 1024
-                    sourceSize.height: 1024
-                }
-            }
-            Repeater {
-                id: answerRepeater
-                model: 4
-                Answer {
-                    buttonGroup: radioGroup
-                    onChecked: {
-                        checkButton.enabled = true
-                        if (correct) {
-                            root.__correctAnswer = true
-                        }
+        }
+        Repeater {
+            id: answerRepeater
+            model: 4
+            Answer {
+                buttonGroup: radioGroup
+                onChecked: {
+                    checkButton.enabled = true
+                    if (correct) {
+                        root.__correctAnswer = true
                     }
                 }
             }
-            RowLayout {
-                Layout.alignment: Qt.AlignRight
-                Button {
-                    id: checkButton
-                    text: qsTr("Check Answer")
-                    enabled: false
-                    onPressed: {
-                        for (var i = 0; i < answerRepeater.count; ++i) {
-                            answerRepeater.itemAt(i).showResultColor = true
-                            answerRepeater.itemAt(i).enabled = false
-                        }
+        }
+        RowLayout {
+            Layout.alignment: Qt.AlignRight
+            Button {
+                id: checkButton
+                text: qsTr("Check Answer")
+                enabled: false
+                onPressed: {
+                    for (var i = 0; i < answerRepeater.count; ++i) {
+                        answerRepeater.itemAt(i).showResultColor = true
+                        answerRepeater.itemAt(i).enabled = false
+                    }
 
-                        enabled = false
-                        nextQuestionButton.enabled = true
-                    }
+                    enabled = false
+                    nextQuestionButton.enabled = true
                 }
-                Button {
-                    id: nextQuestionButton
-                    text: {
-                        if (lastQuestion) {
-                            return qsTr("Show Result")
-                        }
-                        return qsTr("Next Question")
+            }
+            Button {
+                id: nextQuestionButton
+                text: {
+                    if (lastQuestion) {
+                        return qsTr("Show Result")
                     }
-                    enabled: false
-                    onPressed: {
-                        if (root.__correctAnswer) {
-                            root.answeredCorrectly()
-                        } else {
-                            root.answeredWrong()
-                        }
+                    return qsTr("Next Question")
+                }
+                enabled: false
+                onPressed: {
+                    if (root.__correctAnswer) {
+                        root.answeredCorrectly()
+                    } else {
+                        root.answeredWrong()
                     }
                 }
             }
