@@ -26,7 +26,7 @@ Dialog {
 
     contentItem: ColumnLayout {
         RowLayout {
-            Text {
+            Label {
                 text: qsTr("Question:")
             }
             TextField {
@@ -41,7 +41,7 @@ Dialog {
             }
         }
         RowLayout {
-            Text {
+            Label {
                 text: qsTr("Answer1:")
             }
             TextField {
@@ -61,7 +61,7 @@ Dialog {
             }
         }
         RowLayout {
-            Text {
+            Label {
                 text: qsTr("Answer2:")
             }
             TextField {
@@ -80,7 +80,7 @@ Dialog {
             }
         }
         RowLayout {
-            Text {
+            Label {
                 text: qsTr("Answer3:")
             }
             TextField {
@@ -99,7 +99,7 @@ Dialog {
             }
         }
         RowLayout {
-            Text {
+            Label {
                 text: qsTr("Answer4:")
             }
             TextField {
