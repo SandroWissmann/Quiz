@@ -36,7 +36,7 @@ Item {
             id: chooser
 
             readonly property color askedQuestionColor: Material.color(
-                                                            Material.Lime)
+                                                            Material.LightBlue)
             readonly property color correctAnswerColor: Material.color(
                                                             Material.Pink)
             readonly property color wrongAnswerColor: Material.color(
@@ -56,7 +56,7 @@ Item {
                     id: askedQuestionDelegate
                     width: tableView.columnWidthProvider(column)
                     text: model.askedQuestion
-                    backgroundColor: chooser.askedQuestionColor
+                    color: chooser.askedQuestionColor
                     row: model.row
 
                     Component.onCompleted: {
@@ -71,8 +71,8 @@ Item {
                     id: answer1Delegate
                     width: tableView.columnWidthProvider(column)
                     text: answer1
-                    backgroundColor: model.correctAnswer
-                                     === 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    color: model.correctAnswer
+                           === 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
 
                     Component.onCompleted: {
@@ -87,8 +87,8 @@ Item {
                     id: answer2Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer2
-                    backgroundColor: model.correctAnswer
-                                     === 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    color: model.correctAnswer
+                           === 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
 
                     Component.onCompleted: {
@@ -103,8 +103,8 @@ Item {
                     id: answer3Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer3
-                    backgroundColor: model.correctAnswer
-                                     === 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    color: model.correctAnswer
+                           === 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
 
                     Component.onCompleted: {
@@ -119,8 +119,8 @@ Item {
                     id: answer4Delegate
                     width: tableView.columnWidthProvider(column)
                     text: model.answer4
-                    backgroundColor: model.correctAnswer
-                                     === 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
+                    color: model.correctAnswer
+                           === 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
 
                     Component.onCompleted: {

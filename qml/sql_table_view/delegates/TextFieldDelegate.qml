@@ -1,45 +1,34 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-TextArea {
-    Keys.onTabPressed: nextItemInFocusChain().forceActiveFocus(
-                           Qt.TabFocusReason)
-
+Frame {
     property int row
-
     property string role
 
-    property alias backgroundColor: backgroundRect.color
+    property alias color: textArea.color
+    property alias text: textArea.text
 
     property bool textModified: false
 
     signal valueChanged(int row, string value, string role)
 
-    id: displayText
-    wrapMode: TextArea.WordWrap
-    selectByMouse: true
+    TextArea {
+        anchors.fill: parent
+        id: textArea
+        Keys.onTabPressed: nextItemInFocusChain().forceActiveFocus(
+                               Qt.TabFocusReason)
 
-    background: Rectangle {
-        id: backgroundRect
-        color: backgroundColor
-        border.width: 1
-        border.color: "black"
+        wrapMode: TextArea.WordWrap
+        selectByMouse: true
+        padding: 8
     }
 
-    onFocusChanged: if (focus) {
-                        backgroundRect.border.color = "blue"
-                        backgroundRect.border.width = 2
-                    } else {
-                        backgroundRect.border.color = "black"
-                        backgroundRect.border.width = 1
-
-                        if (textModified) {
-                            valueChanged(row, text, role)
-                        }
-
-                        textModified = false
-                    }
-
+    onFocusChanged: {
+        if (!focus && textModified) {
+            valueChanged(row, textArea.text, role)
+            textModified = false
+        }
+    }
     onTextChanged: {
         if (focus) {
             textModified = true
