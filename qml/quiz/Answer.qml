@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Controls.Material 2.15
 
 RowLayout {
     id: root
@@ -24,11 +25,14 @@ RowLayout {
             }
         }
     }
-    AnswerTextField {
+    TextField {
         Layout.fillWidth: true
         id: answerTextField
-        backgroundColor: getAnswerTextBackgroundColor(root.showResultColor,
-                                                      root.isCorrect)
+        readOnly: true
+        selectByMouse: false
+        padding: 8
+
+        background: Frame {}
 
         MouseArea {
             anchors.fill: parent
@@ -40,16 +44,16 @@ RowLayout {
         }
     }
 
-    function getAnswerTextBackgroundColor(showResult, isCorrect) {
-        var correctAnswerColor = "#99FFCC"
-        var wrongAnswerColor = "#FF9999"
+    onShowResultColorChanged: {
+        if (showResultColor) {
+            answerTextField.color = getAnswerTextBackgroundColor(root.correct)
+        }
+    }
 
-        if (!showResult) {
-            return "white"
+    function getAnswerTextBackgroundColor(isCorrect) {
+        if (isCorrect) {
+            return Material.color(Material.Green)
         }
-        if (correct) {
-            return correctAnswerColor
-        }
-        return wrongAnswerColor
+        return Material.color(Material.Red)
     }
 }
