@@ -8,6 +8,7 @@
 
 #include <QByteArray>
 
+#include <QSqlError>
 #include <QSqlTableModel>
 
 QuestionsProxyModel::QuestionsProxyModel(QObject *parent)
@@ -110,8 +111,7 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
         return false;
     }
 
-    saveIfIsSQLDatabase();
-    return true;
+    return saveIfIsSQLDatabase();
 }
 
 void QuestionsProxyModel::edit(int row, const QVariant &value,
@@ -144,10 +144,16 @@ QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source,
     return source;
 }
 
-void QuestionsProxyModel::saveIfIsSQLDatabase()
+bool QuestionsProxyModel::saveIfIsSQLDatabase()
 {
     auto sqlModel = qobject_cast<QSqlTableModel *>(sourceModel());
-    if (sqlModel) {
-        sqlModel->submit();
+    if (!sqlModel) {
+        return false;
     }
+    if (!sqlModel->submit()) {
+        auto error = sqlModel->lastError();
+        qDebug() << error.text();
+        return false;
+    }
+    return true;
 }

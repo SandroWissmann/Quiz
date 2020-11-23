@@ -39,7 +39,7 @@ public:
 private:
     QModelIndex mapIndex(const QModelIndex &index, int role) const;
 
-    void saveIfIsSQLDatabase();
+    bool saveIfIsSQLDatabase();
 };
 
 #endif // QUESTIONSPROXYQML_H
