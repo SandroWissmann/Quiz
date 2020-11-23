@@ -3,27 +3,21 @@ import QtQuick.Controls 2.15
 
 import "../../add_new_question_dialog"
 
-Rectangle {
+Frame {
     property string picture
 
     property int row
-
-    property string rectColor
 
     readonly property string __pictureFileDialogPath: "qrc:/qml/add_new_question_dialog/PictureFileDialog.qml"
 
     signal valueChanged(int row, string value, string role)
 
-    color: "transparent"
-    border.width: 1
-    border.color: "black"
     id: root
 
     Image {
         id: image
 
         anchors.fill: parent
-        anchors.margins: root.border.width
         source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
         fillMode: Image.PreserveAspectFit
     }
