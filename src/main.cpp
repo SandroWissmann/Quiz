@@ -66,8 +66,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
-    app.setOrganizationName("somename");
-    app.setOrganizationDomain("somename");
+    app.setOrganizationName("Sandro Wißmann");
+    app.setOrganizationDomain("Sandro Wißmann Private");
 
     static constexpr auto database_name = "quiz.db";
     static constexpr auto table_name = "questions";
