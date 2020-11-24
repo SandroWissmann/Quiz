@@ -46,17 +46,17 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
 
 <table>
   <tr>
-    <td><img src="docs/Animations/ExcellentAnimation.gif" width=160 height=150></td>
-    <td><img src="docs/Animations/PerfectAnimation.gif" width=160 height=150></td>
-    <td><img src="docs/Animations/VeryGoodAnimation.gif" width=160 height=150></td>
+    <td><img src="docs/Animations/ExcellentAnimation.gif" width=280></td>
+    <td><img src="docs/Animations/PerfectAnimation.gif" width=280></td>
+    <td><img src="docs/Animations/VeryGoodAnimation.gif" width=280></td>
   </tr>
   <tr>
-    <td><img src="docs/Animations/GoodAnimation.gif" width=160 height=150></td>
-    <td><img src="docs/Animations/SatisfactoryAnimation.gif" width=160 height=150></td>
-    <td><img src="docs/Animations/SufficientAnimation.gif" width=160 height=150></td>
+    <td><img src="docs/Animations/GoodAnimation.gif" width=280></td>
+    <td><img src="docs/Animations/SatisfactoryAnimation.gif" width=280></td>
+    <td><img src="docs/Animations/SufficientAnimation.gif" width=280></td>
   </tr>
     <tr>
-    <td><img src="docs/Animations/FailAnimation.gif" width=160 height=150></td>
+    <td><img src="docs/Animations/FailAnimation.gif" width=280></td>
   </tr>
  </table>
 
