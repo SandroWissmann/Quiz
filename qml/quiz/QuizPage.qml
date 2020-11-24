@@ -35,29 +35,27 @@ Pane {
     ColumnLayout {
         anchors.fill: parent
 
-        RowLayout {
-            Label {
-                text: qsTr("Question: %1").arg(root.questionId)
-                font.pointSize: 13.5
-            }
+        Label {
+            text: qsTr("Question: %1").arg(root.questionId)
+            font.pointSize: 13.5
         }
-        RowLayout {
-            Label {
-                text: qsTr(root.askedQuestion)
-                font.pointSize: 13.5
-            }
+        TextArea {
+            Layout.fillWidth: true
+            readOnly: true
+            wrapMode: TextEdit.WordWrap
+            background: null
+            text: qsTr(root.askedQuestion)
+            font.pointSize: 13.5
         }
-        RowLayout {
-            Image {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignHCenter
-                fillMode: Image.PreserveAspectFit
+        Image {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignHCenter
+            fillMode: Image.PreserveAspectFit
 
-                source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
-                sourceSize.width: 1024
-                sourceSize.height: 1024
-            }
+            source: root.picture.length > 0 ? "data:image/png;base64," + root.picture : ""
+            sourceSize.width: 1024
+            sourceSize.height: 1024
         }
         Repeater {
             id: answerRepeater
