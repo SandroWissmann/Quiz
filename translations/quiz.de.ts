@@ -214,12 +214,12 @@
     <message>
         <location filename="../qml/settings_dialog/SettingsDialog.qml" line="27"/>
         <source>Light</source>
-        <translation>Dunkel</translation>
+        <translation>Hell</translation>
     </message>
     <message>
         <location filename="../qml/settings_dialog/SettingsDialog.qml" line="43"/>
         <source>Dark</source>
-        <translation>Hell</translation>
+        <translation>Dunkel</translation>
     </message>
     <message>
         <location filename="../qml/settings_dialog/SettingsDialog.qml" line="49"/>
