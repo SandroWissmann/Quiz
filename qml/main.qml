@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -111,7 +112,7 @@ ApplicationWindow {
             }
             ToolButton {
                 id: showTableButton
-                text: qsTr("Show Table")
+                text: qsTr("Database")
                 icon.name: "document-open"
                 onClicked: {
                     root.width = root.__showTableWidth
