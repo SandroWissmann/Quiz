@@ -75,3 +75,8 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
 ## License
 
 This project is licensed under the GPL3 License - see the [LICENSE.md](LICENSE.md) file for details
+
+
+## Planed Features
+* Switching the database during runtime
+* Delete Questions from database
