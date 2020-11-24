@@ -8,8 +8,6 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
 <table>
   <tr>
     <td><img src="docs/Pictures/QuizLight.png" width=880></td>
-  </tr>
-    <tr>
     <td><img src="docs/Pictures/QuizDark.png" width=880></td>
   </tr>
  </table>
