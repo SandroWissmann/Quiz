@@ -23,7 +23,7 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
   </tr>
  </table>
 
-* Add new Questions to the databse:
+* Add new questions to the databse:
 
 <table>
   <tr>
@@ -34,7 +34,7 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
 
 * Modify the app settings
    * Change how many questions per quiz are asked
-   * Change appearance between Light and dark mode dynamically
+   * Change appearance between light and dark mode dynamically
    * Change language to German, English or Spanish dynamically
 
 <table>
@@ -44,7 +44,7 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
   </tr>
  </table>
 
-* Different result page displayed depending on how many questions were answered correct:
+* Different animations displayed depending on how many questions were answered correct:
 
 <table>
   <tr>
@@ -64,7 +64,7 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
 
 ## Loading the database
 
-* If you want to try out the app you can copy from the folder `Quiz/databases` the file `quiz.db` to your desktop. Currently the database gets always loaded on startup from the desktop. If there is none a new empy database is created which needs to be filled with questions via the app to play the quiz.
+* If you want to try out the app, you can copy from the folder `Quiz/databases` the file `quiz.db` to your desktop. Currently the database gets always loaded on startup from the desktop. If there is none, a new empty database is created, which needs to be filled with questions via the app to play the quiz.
 
 
 ## Dependencies for Running Locally
