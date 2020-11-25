@@ -27,6 +27,7 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 
+#include "include/databasemanager.h"
 #include "include/languageselector.h"
 #include "include/questionsproxymodel.h"
 #include "include/questionsqlcolumnnames.h"
@@ -93,12 +94,21 @@ int main(int argc, char *argv[])
 
     auto existingData = QFile::exists(database_path);
 
-    if (!createConnection(database_path)) {
+    //    if (!createConnection(database_path)) {
+    //        return -1;
+    //    }
+
+    //    if (!existingData) {
+    //        createTable(table_name);
+    //    }
+
+    DatabaseManager databaseManager;
+    if (!databaseManager.openDatabase(database_path)) {
         return -1;
     }
 
     if (!existingData) {
-        createTable(table_name);
+        databaseManager.createQuestionTable();
     }
 
     auto questionSqlTableModel = new QuestionSqlTableModel{};
