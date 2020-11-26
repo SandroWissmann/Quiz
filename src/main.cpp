@@ -42,44 +42,6 @@ QString createPath(const QString &database_filename)
     return QDir::toNativeSeparators(path);
 }
 
-bool createConnection(const QString &database_path)
-{
-    auto db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(database_path);
-    if (!db.open()) {
-        qWarning() << QObject::tr("Database Error");
-        return false;
-    }
-    return true;
-}
-
-void createTable(const QString &tableName)
-{
-    QSqlQuery query;
-    query.exec("DROP TABLE " + tableName);
-
-    query.exec("CREATE TABLE " + tableName +
-               " ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "question TEXT, "
-               "answer1 TEXT, "
-               "answer2 TEXT, "
-               "answer3 TEXT, "
-               "answer4 TEXT, "
-               "correct_answer INTEGER, "
-               "picture BLOB)");
-
-    if (query.lastError().type() == QSqlError::ErrorType::NoError) {
-        qDebug() << "Query OK:" << query.lastQuery();
-        qDebug() << "------";
-    }
-    else {
-        qWarning() << "Query KO:" << query.lastError().text();
-        qWarning() << "Query text:" << query.lastQuery();
-        qWarning() << "------";
-    }
-}
-
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -89,26 +51,25 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("Sandro Wißmann Private");
 
     static constexpr auto database_name = "quiz.db";
-    static constexpr auto table_name = "questions";
     auto database_path = createPath(database_name);
 
-    auto existingData = QFile::exists(database_path);
-
-    //    if (!createConnection(database_path)) {
-    //        return -1;
-    //    }
-
-    //    if (!existingData) {
-    //        createTable(table_name);
-    //    }
-
     DatabaseManager databaseManager;
+
+    auto databaseExists = databaseManager.databaseExists(database_path);
+
     if (!databaseManager.openDatabase(database_path)) {
+        qDebug() << databaseManager.lastError();
         return -1;
     }
 
-    if (!existingData) {
+    if (!databaseExists) {
         databaseManager.createQuestionTable();
+        auto lastError = databaseManager.lastError();
+
+        if (!lastError.isEmpty()) {
+            qDebug() << databaseManager.lastError();
+            return -1;
+        }
     }
 
     auto questionSqlTableModel = new QuestionSqlTableModel{};

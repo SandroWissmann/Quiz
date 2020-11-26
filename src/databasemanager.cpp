@@ -1,6 +1,7 @@
 #include "../include/databasemanager.h"
 
 #include <QDebug>
+#include <QFile>
 #include <QSqlQuery>
 
 DatabaseManager::DatabaseManager(QObject *parent)
@@ -8,10 +9,24 @@ DatabaseManager::DatabaseManager(QObject *parent)
 {
 }
 
+bool DatabaseManager::databaseExists(const QString &databaseAbsolutePath) const
+{
+    return QFile::exists(databaseAbsolutePath);
+}
+
 bool DatabaseManager::openDatabase(const QString &databaseAbsolutePath)
 {
+    if (mDb.isOpen()) {
+        return false;
+    }
     mDb.setDatabaseName(databaseAbsolutePath);
     return mDb.open();
+}
+
+bool DatabaseManager::closeDatabase()
+{
+    mDb.close();
+    return !mDb.isOpen();
 }
 
 bool DatabaseManager::createQuestionTable()
@@ -35,7 +50,7 @@ bool DatabaseManager::createQuestionTable()
     return query.lastError().type() == QSqlError::ErrorType::NoError;
 }
 
-QSqlError DatabaseManager::lastError() const
+QString DatabaseManager::lastError() const
 {
-    return mDb.lastError();
+    return mDb.lastError().text();
 }
