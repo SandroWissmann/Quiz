@@ -13,25 +13,42 @@ public:
     explicit DatabaseManager(QObject *parent = nullptr);
 
     /*
-    Checks if database exists at path.
+    Open an existing Database. Does not succeed if there is already a
+    database opened. Use closeDatabase() before opening annother database.
     */
-    bool databaseExists(const QString &databaseAbsolutePath) const;
+    Q_INVOKABLE bool openDatabase(const QString &databaseAbsolutePath);
 
     /*
-    Open an existing Database or if not exists create a new one.
-    Returns true on success. Does not succeed if there is already a
-    database opened. Use closeDatabase() before opening annother database
+    Creates an existing Database. Does not succeed if there is already a
+    database opened. Use closeDatabase() before opening annother database.
+    Does not succed if there exisst already a database with that name.
     */
-    bool openDatabase(const QString &databaseAbsolutePath);
+    Q_INVOKABLE bool createDatabase(const QString &databaseAbsolutePath);
 
-    bool closeDatabase();
+    Q_INVOKABLE bool closeDatabase();
 
-    bool createQuestionTable();
+    /*
+    Checks if currently open database is a valid database with a quiz table.
+    Returns false if no database is open or no question table exists.
+    */
+    Q_INVOKABLE bool hasQuestionTable();
 
     /* Returns last error of database. Empty if not error occurs */
     QString lastError() const;
 
 private:
+    /*
+    Checks if database exists at path.
+    */
+    bool databaseExists(const QString &databaseAbsolutePath) const;
+
+    /*
+    Create a table in the currently open database to hold the question data.
+    Returns false if table already exists.
+    Returns false if no database is opened.
+    */
+    bool createQuestionTable();
+
     QSqlDatabase mDb;
 };
 

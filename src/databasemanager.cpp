@@ -9,11 +9,6 @@ DatabaseManager::DatabaseManager(QObject *parent)
 {
 }
 
-bool DatabaseManager::databaseExists(const QString &databaseAbsolutePath) const
-{
-    return QFile::exists(databaseAbsolutePath);
-}
-
 bool DatabaseManager::openDatabase(const QString &databaseAbsolutePath)
 {
     if (mDb.isOpen()) {
@@ -21,6 +16,20 @@ bool DatabaseManager::openDatabase(const QString &databaseAbsolutePath)
     }
     mDb.setDatabaseName(databaseAbsolutePath);
     return mDb.open();
+}
+
+bool DatabaseManager::createDatabase(const QString &databaseAbsolutePath)
+{
+    if (mDb.isOpen()) {
+        return false;
+    }
+    if (databaseExists(databaseAbsolutePath)) {
+        return false;
+    }
+    mDb.setDatabaseName(databaseAbsolutePath);
+    if (!mDb.open()) {
+    }
+    return createQuestionTable();
 }
 
 bool DatabaseManager::closeDatabase()
@@ -31,12 +40,13 @@ bool DatabaseManager::closeDatabase()
 
 bool DatabaseManager::createQuestionTable()
 {
-    const QString tableName = "questions";
+    if (!mDb.isOpen()) {
+        return false;
+    }
+    const QString questionTableName = "questions";
 
     QSqlQuery query;
-    query.exec("DROP TABLE " + tableName);
-
-    query.exec("CREATE TABLE " + tableName +
+    query.exec("CREATE TABLE " + questionTableName +
                " ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                "question TEXT, "
@@ -50,7 +60,24 @@ bool DatabaseManager::createQuestionTable()
     return query.lastError().type() == QSqlError::ErrorType::NoError;
 }
 
+bool DatabaseManager::hasQuestionTable()
+{
+    if (!mDb.isOpen()) {
+        return false;
+    }
+    const QString questionTableName = "questions";
+    return mDb.tables().contains(questionTableName);
+}
+
 QString DatabaseManager::lastError() const
 {
+    if (!mDb.isOpen()) {
+        return {};
+    }
     return mDb.lastError().text();
+}
+
+bool DatabaseManager::databaseExists(const QString &databaseAbsolutePath) const
+{
+    return QFile::exists(databaseAbsolutePath);
 }
