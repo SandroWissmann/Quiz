@@ -16,7 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-        include/databasemanager.h \
+        include/database.h \
         include/languageselector.h \
         include/questionsproxymodel.h \
         include/questionsqltablemodel.h \
@@ -24,7 +24,7 @@ HEADERS += \
         include/randomquestionfiltermodel.h
 
 SOURCES += \
-        src/databasemanager.cpp \
+        src/database.cpp \
         src/languageselector.cpp \
         src/main.cpp \
         src/questionsproxymodel.cpp \

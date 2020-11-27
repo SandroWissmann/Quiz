@@ -1,29 +1,32 @@
-#include "../include/databasemanager.h"
+#include "../include/database.h"
 
 #include <QDebug>
 #include <QFile>
 #include <QSqlQuery>
 
-DatabaseManager::DatabaseManager(QObject *parent)
+Database::Database(QObject *parent)
     : QObject(parent), mDb{QSqlDatabase::addDatabase("QSQLITE")}
 {
 }
 
-bool DatabaseManager::openDatabase(const QString &databaseAbsolutePath)
+bool Database::open(const QString &databaseAbsolutePath)
 {
     if (mDb.isOpen()) {
+        return false;
+    }
+    if (!exists(databaseAbsolutePath)) {
         return false;
     }
     mDb.setDatabaseName(databaseAbsolutePath);
     return mDb.open();
 }
 
-bool DatabaseManager::createDatabase(const QString &databaseAbsolutePath)
+bool Database::create(const QString &databaseAbsolutePath)
 {
     if (mDb.isOpen()) {
         return false;
     }
-    if (databaseExists(databaseAbsolutePath)) {
+    if (exists(databaseAbsolutePath)) {
         return false;
     }
     mDb.setDatabaseName(databaseAbsolutePath);
@@ -32,13 +35,13 @@ bool DatabaseManager::createDatabase(const QString &databaseAbsolutePath)
     return createQuestionTable();
 }
 
-bool DatabaseManager::closeDatabase()
+bool Database::close()
 {
     mDb.close();
     return !mDb.isOpen();
 }
 
-bool DatabaseManager::createQuestionTable()
+bool Database::createQuestionTable()
 {
     if (!mDb.isOpen()) {
         return false;
@@ -60,7 +63,7 @@ bool DatabaseManager::createQuestionTable()
     return query.lastError().type() == QSqlError::ErrorType::NoError;
 }
 
-bool DatabaseManager::hasQuestionTable()
+bool Database::hasQuestionTable()
 {
     if (!mDb.isOpen()) {
         return false;
@@ -69,7 +72,7 @@ bool DatabaseManager::hasQuestionTable()
     return mDb.tables().contains(questionTableName);
 }
 
-QString DatabaseManager::lastError() const
+QString Database::lastError() const
 {
     if (!mDb.isOpen()) {
         return {};
@@ -77,7 +80,7 @@ QString DatabaseManager::lastError() const
     return mDb.lastError().text();
 }
 
-bool DatabaseManager::databaseExists(const QString &databaseAbsolutePath) const
+bool Database::exists(const QString &databaseAbsolutePath) const
 {
     return QFile::exists(databaseAbsolutePath);
 }

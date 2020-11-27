@@ -27,7 +27,7 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 
-#include "include/databasemanager.h"
+#include "include/database.h"
 #include "include/languageselector.h"
 #include "include/questionsproxymodel.h"
 #include "include/questionsqlcolumnnames.h"
@@ -53,21 +53,17 @@ int main(int argc, char *argv[])
     static constexpr auto database_name = "quiz.db";
     auto database_path = createPath(database_name);
 
-    DatabaseManager databaseManager;
+    qDebug() << database_path;
 
-    auto databaseExists = databaseManager.databaseExists(database_path);
+    Database database;
 
-    if (!databaseManager.openDatabase(database_path)) {
-        qDebug() << databaseManager.lastError();
-        return -1;
-    }
-
-    if (!databaseExists) {
-        databaseManager.createQuestionTable();
-        auto lastError = databaseManager.lastError();
-
-        if (!lastError.isEmpty()) {
-            qDebug() << databaseManager.lastError();
+    if (!database.open(database_path)) {
+        if (!database.lastError().isEmpty()) {
+            qDebug() << database.lastError();
+            return -1;
+        }
+        if (!database.create(database_path)) {
+            qDebug() << database.lastError();
             return -1;
         }
     }

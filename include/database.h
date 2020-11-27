@@ -1,5 +1,5 @@
-#ifndef DATABASEMANAGER_H
-#define DATABASEMANAGER_H
+#ifndef DATABASE_H
+#define DATABASE_H
 
 #include <QObject>
 #include <QSqlDatabase>
@@ -7,25 +7,26 @@
 
 class QSqlDatabase;
 
-class DatabaseManager : public QObject {
+class Database : public QObject {
     Q_OBJECT
 public:
-    explicit DatabaseManager(QObject *parent = nullptr);
+    explicit Database(QObject *parent = nullptr);
 
     /*
     Open an existing Database. Does not succeed if there is already a
     database opened. Use closeDatabase() before opening annother database.
+    Does not succed if path does not point to an existing database
     */
-    Q_INVOKABLE bool openDatabase(const QString &databaseAbsolutePath);
+    Q_INVOKABLE bool open(const QString &databaseAbsolutePath);
 
     /*
-    Creates an existing Database. Does not succeed if there is already a
+    Creates a new Database. Does not succeed if there is already a
     database opened. Use closeDatabase() before opening annother database.
     Does not succed if there exisst already a database with that name.
     */
-    Q_INVOKABLE bool createDatabase(const QString &databaseAbsolutePath);
+    Q_INVOKABLE bool create(const QString &databaseAbsolutePath);
 
-    Q_INVOKABLE bool closeDatabase();
+    Q_INVOKABLE bool close();
 
     /*
     Checks if currently open database is a valid database with a quiz table.
@@ -40,7 +41,7 @@ private:
     /*
     Checks if database exists at path.
     */
-    bool databaseExists(const QString &databaseAbsolutePath) const;
+    bool exists(const QString &databaseAbsolutePath) const;
 
     /*
     Create a table in the currently open database to hold the question data.
