@@ -22,6 +22,20 @@
 #include <QSortFilterProxyModel>
 #include <QVector>
 
+/*
+This class should be installed on a source model with the following columns:
+        0 - id
+        1 - askedQuestion
+        2 - answer1
+        3 - answer2
+        4 - answer3
+        5 - answer4
+        6 - correctAnswer
+        7 - picture
+The function generateRandomQuestions(int count) selects n random rows from the
+source model and forwards them to RandomQuestionFilterModel.
+Then from QML only the random selected entries are visible.
+*/
 class RandomQuestionFilterModel : public QSortFilterProxyModel {
     Q_OBJECT
 
