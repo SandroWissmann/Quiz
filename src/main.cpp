@@ -76,8 +76,6 @@ int main(int argc, char *argv[])
     auto randomQuestionFilterModel = new RandomQuestionFilterModel{};
     randomQuestionFilterModel->setSourceModel(questionsProxyModel);
 
-    QQuickStyle::setStyle("Material");
-
     QScopedPointer<LanguageSelector> languageSelector(new LanguageSelector);
 
     QQmlApplicationEngine engine;
