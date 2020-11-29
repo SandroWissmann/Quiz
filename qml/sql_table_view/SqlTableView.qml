@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -21,6 +22,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
 import QtQuick.Controls.Material 2.15
+
+import QuestionsProxyModels 1.0
 
 import "delegates"
 import "header_model"
@@ -48,7 +51,7 @@ Item {
             return columnWidths[column]
         }
 
-        model: questionsProxyModel
+        model: QuestionsProxyModel
 
         delegate: DelegateChooser {
             id: chooser

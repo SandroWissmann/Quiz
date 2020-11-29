@@ -25,6 +25,8 @@ import Qt.labs.settings 1.0
 import QtQuick.Controls.Material 2.15
 
 import LanguageSelectors 1.0
+import QuestionsProxyModels 1.0
+import RandomQuestionFilterModels 1.0
 
 import "add_new_question_dialog"
 import "sql_table_view"
@@ -105,7 +107,7 @@ ApplicationWindow {
                 icon.name: "address-book-new"
                 onClicked: {
                     root.width = root.__defaultWidth
-                    randomQuestionFilterModel.generateRandomQuestions(
+                    RandomQuestionFilterModel.generateRandomQuestions(
                                 countOfQuestions)
                     loader.setSource(root.__newQuizPath)
                 }
@@ -190,8 +192,8 @@ ApplicationWindow {
     }
 
     function showButtonsIfConditionsAreMet() {
-        showTableButton.enabled = questionsProxyModel.rowCount() !== 0
-        newQuizButton.enabled = questionsProxyModel.rowCount(
+        showTableButton.enabled = QuestionsProxyModel.rowCount() !== 0
+        newQuizButton.enabled = QuestionsProxyModel.rowCount(
                     ) >= root.countOfQuestions
     }
 

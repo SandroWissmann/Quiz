@@ -70,20 +70,25 @@ int main(int argc, char *argv[])
 
     auto questionSqlTableModel = new QuestionSqlTableModel{};
 
-    auto questionsProxyModel = new QuestionsProxyModel{};
+    QScopedPointer<QuestionsProxyModel> questionsProxyModel{
+        new QuestionsProxyModel};
     questionsProxyModel->setSourceModel(questionSqlTableModel);
 
-    auto randomQuestionFilterModel = new RandomQuestionFilterModel{};
-    randomQuestionFilterModel->setSourceModel(questionsProxyModel);
+    QScopedPointer<RandomQuestionFilterModel> randomQuestionFilterModel{
+        new RandomQuestionFilterModel{}};
+    randomQuestionFilterModel->setSourceModel(questionsProxyModel.get());
 
     QScopedPointer<LanguageSelector> languageSelector(new LanguageSelector);
 
     QQmlApplicationEngine engine;
 
-    auto context = engine.rootContext();
-    context->setContextProperty("questionsProxyModel", questionsProxyModel);
-    context->setContextProperty("randomQuestionFilterModel",
-                                randomQuestionFilterModel);
+    qmlRegisterSingletonInstance<QuestionsProxyModel>(
+        "QuestionsProxyModels", 1, 0, "QuestionsProxyModel",
+        questionsProxyModel.get());
+
+    qmlRegisterSingletonInstance<RandomQuestionFilterModel>(
+        "RandomQuestionFilterModels", 1, 0, "RandomQuestionFilterModel",
+        randomQuestionFilterModel.get());
 
     qmlRegisterSingletonInstance<LanguageSelector>(
         "LanguageSelectors", 1, 0, "LanguageSelector", languageSelector.get());

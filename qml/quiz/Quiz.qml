@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -20,6 +21,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import RandomQuestionFilterModels 1.0
+
 Page {
     id: quiz
 
@@ -41,7 +44,7 @@ Page {
 
         Repeater {
             id: quizPageRepeater
-            model: randomQuestionFilterModel
+            model: RandomQuestionFilterModel
             delegate: QuizPage {
                 questionId: model.id
                 askedQuestion: model.askedQuestion
