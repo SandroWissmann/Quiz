@@ -76,7 +76,7 @@ ApplicationWindow {
         anchors.fill: parent
         onLoaded: {
             if (source == root.__newQuizPath) {
-                showTableButton.enabled = false
+                databaseButton.enabled = false
                 addQuestionButton.enabled = false
                 newQuizButton.enabled = false
                 settingsButton.enabled = false
@@ -113,14 +113,41 @@ ApplicationWindow {
                 }
             }
             ToolButton {
-                id: showTableButton
+                id: databaseButton
                 text: qsTr("Database")
                 icon.name: "document-open"
+
                 onClicked: {
-                    root.width = root.__showTableWidth
-                    loader.setSource(root.__newShowTablePath)
+                    databaseMenu.popup()
+                }
+
+                Menu {
+                    id: databaseMenu
+                    MenuItem {
+                        text: qsTr("Show Current")
+
+                        onClicked: {
+                            root.width = root.__showTableWidth
+                            loader.setSource(root.__newShowTablePath)
+                        }
+                    }
+                    MenuItem {
+                        text: qsTr("Close Current")
+
+                        onClicked: {
+                            root.width = root.__defaultWidth
+                            loader.setSource("")
+                        }
+                    }
+                    MenuItem {
+                        text: qsTr("Open Existing")
+                    }
+                    MenuItem {
+                        text: qsTr("Create New")
+                    }
                 }
             }
+
             ToolButton {
                 id: addQuestionButton
                 text: qsTr("Add Question")
@@ -192,7 +219,7 @@ ApplicationWindow {
     }
 
     function showButtonsIfConditionsAreMet() {
-        showTableButton.enabled = QuestionsProxyModel.rowCount() !== 0
+        databaseButton.enabled = QuestionsProxyModel.rowCount() !== 0
         newQuizButton.enabled = QuestionsProxyModel.rowCount(
                     ) >= root.countOfQuestions
     }
