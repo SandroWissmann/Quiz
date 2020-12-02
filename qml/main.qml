@@ -24,6 +24,9 @@ import Qt.labs.qmlmodels 1.0
 import Qt.labs.settings 1.0
 import QtQuick.Controls.Material 2.15
 
+import QtQuick.Dialogs 1.2
+
+import DatabaseManagers 1.0
 import LanguageSelectors 1.0
 import QuestionsProxyModels 1.0
 import RandomQuestionFilterModels 1.0
@@ -44,6 +47,7 @@ ApplicationWindow {
 
     property int countOfQuestions
     property bool darkModeOn
+    property url currentDatabasePath
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
     readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
@@ -56,23 +60,30 @@ ApplicationWindow {
         property int language: LanguageSelector.German
         property int countOfQuestions: 10
         property bool darkModeOn: false
+        property url currentDatabasePath: ""
     }
     Component.onCompleted: {
         showButtonsIfConditionsAreMet()
         LanguageSelector.language = settings.language
         root.countOfQuestions = settings.countOfQuestions
         root.darkModeOn = settings.darkModeOn
+        root.currentDatabasePath = settings.currentDatabasePath
         selectColorMode()
+
+        if (currentDatabasePath != "") {
+            DatabaseManager.changeDatabaseConnection(root.currentDatabasePath)
+        }
     }
 
     Component.onDestruction: {
         settings.language = LanguageSelector.language
         settings.countOfQuestions = root.countOfQuestions
         settings.darkModeOn = root.darkModeOn
+        settings.currentDatabasePath = root.currentDatabasePath
     }
 
     Loader {
-        id: loader
+        id: contentLoader
         anchors.fill: parent
         onLoaded: {
             if (source == root.__newQuizPath) {
@@ -103,13 +114,14 @@ ApplicationWindow {
             anchors.fill: parent
             ToolButton {
                 id: newQuizButton
+
                 text: qsTr("New Quiz")
                 icon.name: "address-book-new"
                 onClicked: {
                     root.width = root.__defaultWidth
                     RandomQuestionFilterModel.generateRandomQuestions(
                                 countOfQuestions)
-                    loader.setSource(root.__newQuizPath)
+                    contentLoader.setSource(root.__newQuizPath)
                 }
             }
             ToolButton {
@@ -124,26 +136,75 @@ ApplicationWindow {
                 Menu {
                     id: databaseMenu
                     MenuItem {
-                        text: qsTr("Show Current")
+                        text: qsTr("Show current")
+                        enabled: root.currentDatabasePath != ""
 
                         onClicked: {
                             root.width = root.__showTableWidth
-                            loader.setSource(root.__newShowTablePath)
+                            contentLoader.setSource(root.__newShowTablePath)
                         }
                     }
                     MenuItem {
-                        text: qsTr("Close Current")
+                        text: qsTr("Close current")
+                        enabled: root.currentDatabasePath != ""
 
                         onClicked: {
                             root.width = root.__defaultWidth
-                            loader.setSource("")
+                            contentLoader.setSource("")
+                            root.currentDatabasePath = ""
                         }
                     }
                     MenuItem {
-                        text: qsTr("Open Existing")
+                        text: qsTr("Open existing")
+                        enabled: root.currentDatabasePath == ""
+
+                        onClicked: {
+                            selectDatabaseFileDialog.open()
+                        }
+
+                        FileDialog {
+                            id: selectDatabaseFileDialog
+                            title: qsTr("Please choose an existing database")
+                            folder: shortcuts.home
+                            nameFilters: [qsTr("Database (*.db)")]
+                            selectExisting: true
+                            selectMultiple: false
+                            selectFolder: false
+
+                            onAccepted: {
+                                root.currentDatabasePath = selectDatabaseFileDialog.fileUrl
+                                if (currentDatabasePath != "") {
+                                    DatabaseManager.changeDatabaseConnection(
+                                                root.currentDatabasePath)
+                                }
+                            }
+                        }
                     }
                     MenuItem {
-                        text: qsTr("Create New")
+                        text: qsTr("Create new")
+                        enabled: root.currentDatabasePath == ""
+
+                        onClicked: {
+                            newDatabaseFileDialog.open()
+                        }
+
+                        FileDialog {
+                            id: newDatabaseFileDialog
+                            title: qsTr("Please create a new database")
+                            folder: shortcuts.home
+                            nameFilters: [qsTr("Database (*.db)")]
+                            selectExisting: false
+                            selectMultiple: false
+                            selectFolder: false
+
+                            onAccepted: {
+                                root.currentDatabasePath = newDatabaseFileDialog.fileUrl
+                                if (currentDatabasePath != "") {
+                                    DatabaseManager.changeDatabaseConnection(
+                                                root.currentDatabasePath)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -182,23 +243,28 @@ ApplicationWindow {
         }
     }
 
+    footer: Label {
+        id: openDatabaseLabel
+        text: qsTr("Database: %1").arg(currentDatabasePath)
+    }
+
     Connections {
         id: quizConnections
-        target: loader.item
-        ignoreUnknownSignals: loader.source !== root.__newQuizPath
+        target: contentLoader.item
+        ignoreUnknownSignals: contentLoader.source !== root.__newQuizPath
 
         function onFinnished(correctAnswers) {
-            loader.setSource(root.__resultPath, {
-                                 "correctAnswers": correctAnswers,
-                                 "countOfQuestions": countOfQuestions
-                             })
+            contentLoader.setSource(root.__resultPath, {
+                                        "correctAnswers": correctAnswers,
+                                        "countOfQuestions": countOfQuestions
+                                    })
         }
     }
 
     Connections {
         id: settingsDialogConnections
         target: settingsloader.item
-        ignoreUnknownSignals: loader.source !== root.__settingsDialogPath
+        ignoreUnknownSignals: contentLoader.source !== root.__settingsDialogPath
 
         function onCountOfQuestionsChanged() {
             root.countOfQuestions = settingsloader.item.countOfQuestions
@@ -211,7 +277,7 @@ ApplicationWindow {
     Connections {
         id: addNewQuestionDialogConnections
         target: addNewQuestionloader.item
-        ignoreUnknownSignals: loader.source !== root.__newAddNewQuestionDialog
+        ignoreUnknownSignals: contentLoader.source !== root.__newAddNewQuestionDialog
 
         function onAccepted() {
             showButtonsIfConditionsAreMet()
@@ -219,7 +285,6 @@ ApplicationWindow {
     }
 
     function showButtonsIfConditionsAreMet() {
-        databaseButton.enabled = QuestionsProxyModel.rowCount() !== 0
         newQuizButton.enabled = QuestionsProxyModel.rowCount(
                     ) >= root.countOfQuestions
     }
