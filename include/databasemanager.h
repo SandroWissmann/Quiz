@@ -32,16 +32,20 @@ class DatabaseManager : public QObject {
 public:
     explicit DatabaseManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE void changeDatabaseConnection(const QUrl &databasePath);
+    Q_INVOKABLE bool changeDatabaseConnection(const QUrl &databasePath);
+
+    Q_INVOKABLE QString lastError() const;
 
     QuestionsProxyModel *questionsProxyModel() const;
     RandomQuestionFilterModel *randomQuestionFilterModel() const;
 
 private:
     QString mCurrentConnectionName;
+    QString mLastError;
     bool databaseExists(const QUrl &dbPath) const;
     bool createQuestionTable(QSqlDatabase &db);
     QString getNewConnectionName() const;
+    void validateDatabase(const QSqlDatabase &db);
 
     QuestionSqlTableModel *mQuestionsSqlTableModel{nullptr};
     QuestionsProxyModel *mQuestionsProxModel{nullptr};

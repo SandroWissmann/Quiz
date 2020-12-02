@@ -31,6 +31,7 @@ import LanguageSelectors 1.0
 import QuestionsProxyModels 1.0
 import RandomQuestionFilterModels 1.0
 
+import "info_dialog"
 import "add_new_question_dialog"
 import "sql_table_view"
 import "settings_dialog"
@@ -66,11 +67,25 @@ ApplicationWindow {
     Component.onCompleted: {
         loadSettings()
         selectColorMode()
-
-        if (currentDatabasePath != "") {
-            DatabaseManager.changeDatabaseConnection(root.currentDatabasePath)
-        }
+        loadDatabaseFromPath()
         reevaluateNewQuizButtonEnabled()
+    }
+
+    function loadDatabaseFromPath() {
+        if (currentDatabasePath != "") {
+            if (!DatabaseManager.changeDatabaseConnection(
+                        root.currentDatabasePath)) {
+                currentDatabasePath = ""
+                databaseErrorInfoDialog.text = DatabaseManager.lastError()
+                databaseErrorInfoDialog.open()
+                databaseErrorPopup.open()
+            }
+        }
+    }
+
+    InfoDialog {
+        id: databaseErrorInfoDialog
+        title: qsTr("Database loading error")
     }
 
     Component.onDestruction: {
@@ -162,11 +177,7 @@ ApplicationWindow {
 
                             onAccepted: {
                                 root.currentDatabasePath = selectDatabaseFileDialog.fileUrl
-                                if (currentDatabasePath != "") {
-                                    DatabaseManager.changeDatabaseConnection(
-                                                root.currentDatabasePath)
-                                    reevaluateNewQuizButtonEnabled()
-                                }
+                                loadDatabaseFromPath()
                             }
                         }
                     }
@@ -189,11 +200,7 @@ ApplicationWindow {
 
                             onAccepted: {
                                 root.currentDatabasePath = newDatabaseFileDialog.fileUrl
-                                if (currentDatabasePath != "") {
-                                    DatabaseManager.changeDatabaseConnection(
-                                                root.currentDatabasePath)
-                                    reevaluateNewQuizButtonEnabled()
-                                }
+                                loadDatabaseFromPath()
                             }
                         }
                     }
@@ -236,7 +243,15 @@ ApplicationWindow {
 
     footer: Label {
         id: openDatabaseLabel
-        text: qsTr("Database: %1").arg(currentDatabasePath)
+        text: getOpenDatabaseLabelText()
+    }
+
+    onCurrentDatabasePathChanged: {
+        openDatabaseLabel.text = getOpenDatabaseLabelText()
+    }
+
+    function getOpenDatabaseLabelText() {
+        return qsTr("Database: %1").arg(currentDatabasePath)
     }
 
     Connections {
@@ -272,7 +287,7 @@ ApplicationWindow {
         ignoreUnknownSignals: contentLoader.source !== root.__newAddNewQuestionDialog
 
         function onAccepted() {
-            showButtonsIfConditionsAreMet()
+            reevaluateNewQuizButtonEnabled()
         }
     }
 

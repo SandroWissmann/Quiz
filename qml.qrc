@@ -30,5 +30,6 @@
         <file>qml/sql_table_view/header_model/HeaderModel.qml</file>
         <file>qml/settings_dialog/SettingsDialog.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>qml/info_dialog/InfoDialog.qml</file>
     </qresource>
 </RCC>
