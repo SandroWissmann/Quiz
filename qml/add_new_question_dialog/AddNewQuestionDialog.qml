@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -19,6 +20,8 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
+
+import QuestionsProxyModels 1.0
 
 Dialog {
     id: dialog
@@ -172,11 +175,10 @@ Dialog {
     standardButtons: Dialog.Ok | Dialog.Cancel
 
     onAccepted: {
-
         var imagePath = imagePathTextField.text
         imagePath = imagePath.replace("file://", "")
 
-        var added = questionsProxyModel.addNewEntry(questionTextField.text,
+        var added = QuestionsProxyModel.addNewEntry(questionTextField.text,
                                                     answer1TextField.text,
                                                     answer2TextField.text,
                                                     answer3TextField.text,
