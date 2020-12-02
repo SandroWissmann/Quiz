@@ -27,20 +27,10 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 
-#include "include/database.h"
+#include "include/databasemanager.h"
 #include "include/languageselector.h"
 #include "include/questionsproxymodel.h"
-#include "include/questionsqlcolumnnames.h"
-#include "include/questionsqltablemodel.h"
 #include "include/randomquestionfiltermodel.h"
-
-QString createPath(const QString &database_filename)
-{
-    QString path{QStandardPaths::writableLocation(
-        QStandardPaths::StandardLocation::DesktopLocation)};
-    path.append(QDir::separator()).append(database_filename);
-    return QDir::toNativeSeparators(path);
-}
 
 int main(int argc, char *argv[])
 {
@@ -50,45 +40,22 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Sandro Wißmann");
     app.setOrganizationDomain("Sandro Wißmann Private");
 
-    static constexpr auto database_name = "quiz.db";
-    auto database_path = createPath(database_name);
-
-    qDebug() << database_path;
-
-    Database database;
-
-    if (!database.open(database_path)) {
-        if (!database.lastError().isEmpty()) {
-            qDebug() << database.lastError();
-            return -1;
-        }
-        if (!database.create(database_path)) {
-            qDebug() << database.lastError();
-            return -1;
-        }
-    }
-
-    auto questionSqlTableModel = new QuestionSqlTableModel{};
-
-    QScopedPointer<QuestionsProxyModel> questionsProxyModel{
-        new QuestionsProxyModel};
-    questionsProxyModel->setSourceModel(questionSqlTableModel);
-
-    QScopedPointer<RandomQuestionFilterModel> randomQuestionFilterModel{
-        new RandomQuestionFilterModel{}};
-    randomQuestionFilterModel->setSourceModel(questionsProxyModel.get());
+    QScopedPointer<DatabaseManager> databaseManager{new DatabaseManager};
 
     QScopedPointer<LanguageSelector> languageSelector(new LanguageSelector);
 
     QQmlApplicationEngine engine;
 
+    qmlRegisterSingletonInstance<DatabaseManager>(
+        "DatabaseManagers", 1, 0, "DatabaseManager", databaseManager.get());
+
     qmlRegisterSingletonInstance<QuestionsProxyModel>(
         "QuestionsProxyModels", 1, 0, "QuestionsProxyModel",
-        questionsProxyModel.get());
+        databaseManager->questionsProxyModel());
 
     qmlRegisterSingletonInstance<RandomQuestionFilterModel>(
         "RandomQuestionFilterModels", 1, 0, "RandomQuestionFilterModel",
-        randomQuestionFilterModel.get());
+        databaseManager->randomQuestionFilterModel());
 
     qmlRegisterSingletonInstance<LanguageSelector>(
         "LanguageSelectors", 1, 0, "LanguageSelector", languageSelector.get());
