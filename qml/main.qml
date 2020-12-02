@@ -62,40 +62,29 @@ ApplicationWindow {
         property bool darkModeOn: false
         property url currentDatabasePath: ""
     }
+
     Component.onCompleted: {
-        showButtonsIfConditionsAreMet()
-        LanguageSelector.language = settings.language
-        root.countOfQuestions = settings.countOfQuestions
-        root.darkModeOn = settings.darkModeOn
-        root.currentDatabasePath = settings.currentDatabasePath
+        loadSettings()
         selectColorMode()
 
         if (currentDatabasePath != "") {
             DatabaseManager.changeDatabaseConnection(root.currentDatabasePath)
         }
+        reevaluateNewQuizButtonEnabled()
     }
 
     Component.onDestruction: {
-        settings.language = LanguageSelector.language
-        settings.countOfQuestions = root.countOfQuestions
-        settings.darkModeOn = root.darkModeOn
-        settings.currentDatabasePath = root.currentDatabasePath
+        saveSettings()
     }
 
     Loader {
         id: contentLoader
         anchors.fill: parent
         onLoaded: {
-            if (source == root.__newQuizPath) {
-                databaseButton.enabled = false
-                addQuestionButton.enabled = false
-                newQuizButton.enabled = false
-                settingsButton.enabled = false
-            } else if (source == root.__resultPath) {
-                showButtonsIfConditionsAreMet()
-                addQuestionButton.enabled = true
-                settingsButton.enabled = true
-            }
+            reevaluateNewQuizButtonEnabled()
+            reevaluateDatabaseButtonEnabled()
+            reevaluateAddQuestionButtonEnabled()
+            reevaluateSettingsButtonEnabled()
         }
     }
 
@@ -176,6 +165,7 @@ ApplicationWindow {
                                 if (currentDatabasePath != "") {
                                     DatabaseManager.changeDatabaseConnection(
                                                 root.currentDatabasePath)
+                                    reevaluateNewQuizButtonEnabled()
                                 }
                             }
                         }
@@ -202,6 +192,7 @@ ApplicationWindow {
                                 if (currentDatabasePath != "") {
                                     DatabaseManager.changeDatabaseConnection(
                                                 root.currentDatabasePath)
+                                    reevaluateNewQuizButtonEnabled()
                                 }
                             }
                         }
@@ -268,6 +259,7 @@ ApplicationWindow {
 
         function onCountOfQuestionsChanged() {
             root.countOfQuestions = settingsloader.item.countOfQuestions
+            reevaluateNewQuizButtonEnabled()
         }
         function onDarkModeOnChanged() {
             root.darkModeOn = settingsloader.item.darkModeOn
@@ -284,9 +276,11 @@ ApplicationWindow {
         }
     }
 
-    function showButtonsIfConditionsAreMet() {
-        newQuizButton.enabled = QuestionsProxyModel.rowCount(
-                    ) >= root.countOfQuestions
+    function loadSettings() {
+        LanguageSelector.language = settings.language
+        root.countOfQuestions = settings.countOfQuestions
+        root.darkModeOn = settings.darkModeOn
+        root.currentDatabasePath = settings.currentDatabasePath
     }
 
     function selectColorMode() {
@@ -295,5 +289,41 @@ ApplicationWindow {
         } else {
             Material.theme = Material.Light
         }
+    }
+
+    function saveSettings() {
+        settings.language = LanguageSelector.language
+        settings.countOfQuestions = root.countOfQuestions
+        settings.darkModeOn = root.darkModeOn
+        settings.currentDatabasePath = root.currentDatabasePath
+    }
+
+    function reevaluateNewQuizButtonEnabled() {
+        if (root.countOfQuestions == 0) {
+            newQuizButton.enabled = false
+            return
+        }
+        if (root.currentDatabasePath == "") {
+            newQuizButton.enabled = false
+            return
+        }
+        if (contentLoader.source == root.__newQuizPath) {
+            newQuizButton.enabled = false
+            return
+        }
+        newQuizButton.enabled = QuestionsProxyModel.rowCount(
+                    ) >= root.countOfQuestions
+    }
+
+    function reevaluateDatabaseButtonEnabled() {
+        databaseButton.enabled = contentLoader.source != root.__newQuizPath
+    }
+
+    function reevaluateAddQuestionButtonEnabled() {
+        addQuestionButton.enabled = contentLoader.source != root.__newQuizPath
+    }
+
+    function reevaluateSettingsButtonEnabled() {
+        settingsButton.enabled = contentLoader.source != root.__newQuizPath
     }
 }
