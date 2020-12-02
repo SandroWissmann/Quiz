@@ -35,7 +35,9 @@ QuestionSqlTableModel::QuestionSqlTableModel(QObject *parent,
 {
     setTable("questions");
     setSort(QuestionColumn::id, Qt::AscendingOrder);
-    select();
+    if (!select()) {
+        qDebug() << "QuestionSqlTableModel: Select table questions failed";
+    }
     setEditStrategy(EditStrategy::OnFieldChange);
 }
 
