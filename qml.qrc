@@ -31,5 +31,7 @@
         <file>qml/settings_dialog/SettingsDialog.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>qml/info_dialog/InfoDialog.qml</file>
+        <file>qml/database/CreateDatabaseDialog.qml</file>
+        <file>qml/database/ChooseDatabaseDialog.qml</file>
     </qresource>
 </RCC>

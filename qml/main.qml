@@ -24,8 +24,6 @@ import Qt.labs.qmlmodels 1.0
 import Qt.labs.settings 1.0
 import QtQuick.Controls.Material 2.15
 
-import QtQuick.Dialogs 1.2
-
 import DatabaseManagers 1.0
 import LanguageSelectors 1.0
 import QuestionsProxyModels 1.0
@@ -33,6 +31,7 @@ import RandomQuestionFilterModels 1.0
 
 import "info_dialog"
 import "add_new_question_dialog"
+import "database"
 import "sql_table_view"
 import "settings_dialog"
 
@@ -166,17 +165,11 @@ ApplicationWindow {
                             selectDatabaseFileDialog.open()
                         }
 
-                        FileDialog {
-                            id: selectDatabaseFileDialog
-                            title: qsTr("Please choose an existing database")
-                            folder: shortcuts.home
-                            nameFilters: [qsTr("Database (*.db)")]
-                            selectExisting: true
-                            selectMultiple: false
-                            selectFolder: false
+                        ChooseDatabaseDialog {
+                            id: chooseDatabaseDialog
 
                             onAccepted: {
-                                root.currentDatabasePath = selectDatabaseFileDialog.fileUrl
+                                root.currentDatabasePath = chooseDatabaseDialog.fileUrl
                                 loadDatabaseFromPath()
                             }
                         }
@@ -189,17 +182,11 @@ ApplicationWindow {
                             newDatabaseFileDialog.open()
                         }
 
-                        FileDialog {
-                            id: newDatabaseFileDialog
-                            title: qsTr("Please create a new database")
-                            folder: shortcuts.home
-                            nameFilters: [qsTr("Database (*.db)")]
-                            selectExisting: false
-                            selectMultiple: false
-                            selectFolder: false
+                        CreateDatabaseDialog {
+                            id: createDatabaseDialog
 
                             onAccepted: {
-                                root.currentDatabasePath = newDatabaseFileDialog.fileUrl
+                                root.currentDatabasePath = createDatabaseDialog.fileUrl
                                 loadDatabaseFromPath()
                             }
                         }
