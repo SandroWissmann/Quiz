@@ -35,8 +35,4 @@ Dialog {
         wrapMode: TextArea.WordWrap
     }
     standardButtons: Dialog.Close
-
-    onTextChanged: {
-        console.log(text)
-    }
 }
