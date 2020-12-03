@@ -40,6 +40,11 @@ DatabaseManager::DatabaseManager(QObject *parent) : QObject(parent)
     mRandomQuestionFilterModel->setSourceModel(mQuestionsProxModel);
 }
 
+DatabaseManager::~DatabaseManager()
+{
+    QSqlDatabase::removeDatabase(mCurrentConnectionName);
+}
+
 bool DatabaseManager::changeDatabaseConnection(const QUrl &databasePath)
 {
     auto connectionName = getNewConnectionName();
