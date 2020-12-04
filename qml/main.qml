@@ -165,44 +165,6 @@ ApplicationWindow {
         }
     }
 
-    function showNewQuiz() {
-        root.width = root.__defaultWidth
-        RandomQuestionFilterModel.generateRandomQuestions(countOfQuestions)
-        contentLoader.setSource(root.__newQuizPath)
-    }
-
-    function showDatabase() {
-        root.width = root.__showTableWidth
-        contentLoader.setSource(root.__newShowDatabasePath)
-    }
-
-    function closeDatabase() {
-        root.width = root.__defaultWidth
-        contentLoader.setSource("")
-        root.currentDatabasePath = ""
-    }
-
-    function showAddNewQuestionDialog() {
-        addNewQuestionloader.active = false
-        addNewQuestionloader.active = true
-        if (addNewQuestionloader.source !== root.__newAddNewQuestionDialog) {
-            addNewQuestionloader.setSource(root.__newAddNewQuestionDialog)
-        }
-        addNewQuestionloader.item.open()
-    }
-
-    function showSettingsDialog() {
-        settingsloader.active = false
-        settingsloader.active = true
-        if (settingsloader.source !== root.__settingsDialogPath) {
-            settingsloader.setSource(root.__settingsDialogPath, {
-                                         "countOfQuestions": root.countOfQuestions,
-                                         "darkModeOn": root.darkModeOn
-                                     })
-        }
-        settingsloader.item.open()
-    }
-
     footer: Label {
         id: openDatabaseLabel
         text: getOpenDatabaseLabelText()
@@ -211,23 +173,6 @@ ApplicationWindow {
     onCurrentDatabasePathChanged: {
         openDatabaseLabel.text = getOpenDatabaseLabelText()
         loadDatabaseFromPath()
-    }
-
-    function getOpenDatabaseLabelText() {
-        return qsTr("Database: %1").arg(currentDatabasePath)
-    }
-
-    function loadDatabaseFromPath() {
-        if (root.currentDatabasePath != "") {
-            if (!DatabaseManager.changeDatabaseConnection(
-                        root.currentDatabasePath)) {
-                root.currentDatabasePath = ""
-                reevaluateNewQuizButtonEnabled()
-                reevaluateAddQuestionButtonEnabled()
-                databaseErrorInfoDialog.text = DatabaseManager.lastError()
-                databaseErrorInfoDialog.open()
-            }
-        }
     }
 
     InfoDialog {
@@ -281,14 +226,6 @@ ApplicationWindow {
         root.currentDatabasePath = settings.currentDatabasePath
     }
 
-    function selectColorMode() {
-        if (root.darkModeOn) {
-            Material.theme = Material.Dark
-        } else {
-            Material.theme = Material.Light
-        }
-    }
-
     function saveSettings() {
         settings.language = LanguageSelector.language
         settings.countOfQuestions = root.countOfQuestions
@@ -327,5 +264,68 @@ ApplicationWindow {
 
     function reevaluateSettingsButtonEnabled() {
         settingsButton.enabled = contentLoader.source != root.__newQuizPath
+    }
+
+    function showNewQuiz() {
+        root.width = root.__defaultWidth
+        RandomQuestionFilterModel.generateRandomQuestions(countOfQuestions)
+        contentLoader.setSource(root.__newQuizPath)
+    }
+
+    function showDatabase() {
+        root.width = root.__showTableWidth
+        contentLoader.setSource(root.__newShowDatabasePath)
+    }
+
+    function closeDatabase() {
+        root.width = root.__defaultWidth
+        contentLoader.setSource("")
+        root.currentDatabasePath = ""
+    }
+
+    function showAddNewQuestionDialog() {
+        addNewQuestionloader.active = false
+        addNewQuestionloader.active = true
+        if (addNewQuestionloader.source !== root.__newAddNewQuestionDialog) {
+            addNewQuestionloader.setSource(root.__newAddNewQuestionDialog)
+        }
+        addNewQuestionloader.item.open()
+    }
+
+    function showSettingsDialog() {
+        settingsloader.active = false
+        settingsloader.active = true
+        if (settingsloader.source !== root.__settingsDialogPath) {
+            settingsloader.setSource(root.__settingsDialogPath, {
+                                         "countOfQuestions": root.countOfQuestions,
+                                         "darkModeOn": root.darkModeOn
+                                     })
+        }
+        settingsloader.item.open()
+    }
+
+    function getOpenDatabaseLabelText() {
+        return qsTr("Database: %1").arg(currentDatabasePath)
+    }
+
+    function loadDatabaseFromPath() {
+        if (root.currentDatabasePath != "") {
+            if (!DatabaseManager.changeDatabaseConnection(
+                        root.currentDatabasePath)) {
+                root.currentDatabasePath = ""
+                reevaluateNewQuizButtonEnabled()
+                reevaluateAddQuestionButtonEnabled()
+                databaseErrorInfoDialog.text = DatabaseManager.lastError()
+                databaseErrorInfoDialog.open()
+            }
+        }
+    }
+
+    function selectColorMode() {
+        if (root.darkModeOn) {
+            Material.theme = Material.Dark
+        } else {
+            Material.theme = Material.Light
+        }
     }
 }
