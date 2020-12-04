@@ -22,6 +22,19 @@
 #include <QIdentityProxyModel>
 #include <QObject>
 
+/*
+This class maps QML of access by role name to access by column in
+QSqlTableModel.
+The source model must provide a table with the defined columns:
+        0 - id
+        1 - askedQuestion
+        2 - answer1
+        3 - answer2
+        4 - answer3
+        5 - answer4
+        6 - correctAnswer
+        7 - picture
+*/
 class QuestionsProxyModel : public QIdentityProxyModel {
     Q_OBJECT
 

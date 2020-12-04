@@ -3,8 +3,6 @@
         <file>qml/main.qml</file>
         <file>qml/add_new_question_dialog/AddNewQuestionDialog.qml</file>
         <file>qml/add_new_question_dialog/PictureFileDialog.qml</file>
-        <file>qml/sql_table_view/SqlTableView.qml</file>
-        <file>qml/sql_table_view/delegates/TextFieldDelegate.qml</file>
         <file>qml/quiz/Quiz.qml</file>
         <file>qml/quiz/QuizPage.qml</file>
         <file>qml/result/Result.qml</file>
@@ -18,17 +16,22 @@
         <file>ressources/images/star.png</file>
         <file>qml/result/VeryGoodAnimation.qml</file>
         <file>qml/result/GoodAnimation.qml</file>
-        <file>qml/sql_table_view/delegates/Answer1Delegate.qml</file>
-        <file>qml/sql_table_view/delegates/Answer2Delegate.qml</file>
-        <file>qml/sql_table_view/delegates/Answer3Delegate.qml</file>
-        <file>qml/sql_table_view/delegates/Answer4Delegate.qml</file>
-        <file>qml/sql_table_view/delegates/AskedQuestionDelegate.qml</file>
-        <file>qml/sql_table_view/delegates/CorrectAnswerDelegate.qml</file>
-        <file>qml/sql_table_view/delegates/PictureDelegate.qml</file>
-        <file>qml/sql_table_view/delegates/QuestionIdDelegate.qml</file>
-        <file>qml/sql_table_view/header_model/Cell.qml</file>
-        <file>qml/sql_table_view/header_model/HeaderModel.qml</file>
         <file>qml/settings_dialog/SettingsDialog.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>qml/info_dialog/InfoDialog.qml</file>
+        <file>qml/database/CreateDatabaseDialog.qml</file>
+        <file>qml/database/ChooseDatabaseDialog.qml</file>
+        <file>qml/database/sql_table_view/delegates/Answer1Delegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/Answer2Delegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/Answer3Delegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/Answer4Delegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/AskedQuestionDelegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/CorrectAnswerDelegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/PictureDelegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/QuestionIdDelegate.qml</file>
+        <file>qml/database/sql_table_view/delegates/TextFieldDelegate.qml</file>
+        <file>qml/database/sql_table_view/header_model/Cell.qml</file>
+        <file>qml/database/sql_table_view/header_model/HeaderModel.qml</file>
+        <file>qml/database/sql_table_view/SqlTableView.qml</file>
     </qresource>
 </RCC>

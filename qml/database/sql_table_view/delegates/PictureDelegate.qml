@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -19,7 +20,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "../../add_new_question_dialog"
+import "../../../add_new_question_dialog"
 
 Frame {
     property string picture

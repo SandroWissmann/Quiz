@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -36,7 +37,7 @@ Frame {
         Keys.onTabPressed: nextItemInFocusChain().forceActiveFocus(
                                Qt.TabFocusReason)
 
-        wrapMode: TextArea.WordWrap
+        wrapMode: TextArea.Wrap
         selectByMouse: true
         padding: 8
     }

@@ -4,7 +4,7 @@
 <context>
     <name>AddNewQuestionDialog</name>
     <message>
-        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="+15"/>
+        <location filename="../qml/add_new_question_dialog/AddNewQuestionDialog.qml" line="+36"/>
         <source>Enter new Question</source>
         <translation type="unfinished"></translation>
     </message>
@@ -50,6 +50,19 @@
     </message>
 </context>
 <context>
+    <name>ChooseDatabaseDialog</name>
+    <message>
+        <location filename="../qml/database/ChooseDatabaseDialog.qml" line="+24"/>
+        <source>Please choose an existing database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Database (*.db)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CloseButton</name>
     <message>
         <source>Close Tab</source>
@@ -57,9 +70,125 @@
     </message>
 </context>
 <context>
+    <name>CreateDatabaseDialog</name>
+    <message>
+        <location filename="../qml/database/CreateDatabaseDialog.qml" line="+24"/>
+        <source>Please create a new database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Database (*.db)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DatabaseManager</name>
+    <message>
+        <location filename="../src/databasemanager.cpp" line="+57"/>
+        <source>Database could not be opened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Creating question table failed. Error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+75"/>
+        <source>Database does not contain valid questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Questions table has invalid count of columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column id does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Column question does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Column answer1 does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Column answer2 does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Column answer3 does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Column answer4 does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column correct_answer does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Column picture does not exists in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column id is not of type int in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column question is not of type string in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column answer1 is not of type string in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column answer2 is not of type string in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column answer3 is not of type string in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column answer4 is not of type string in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column correct_answer is not of type int in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Column picture is not of type byteArray in questions table</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HeaderModel</name>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="+6"/>
+        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="+24"/>
         <source>Id</source>
         <translation type="unfinished"></translation>
     </message>
@@ -102,7 +231,7 @@
 <context>
     <name>LanguageSelector</name>
     <message>
-        <location filename="../src/languageselector.cpp" line="+52"/>
+        <location filename="../src/languageselector.cpp" line="+70"/>
         <source>load app translator language %1 failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -151,7 +280,7 @@
 <context>
     <name>PictureDelegate</name>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="+70"/>
+        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="+88"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -169,7 +298,7 @@
 <context>
     <name>PictureFileDialog</name>
     <message>
-        <location filename="../qml/add_new_question_dialog/PictureFileDialog.qml" line="+5"/>
+        <location filename="../qml/add_new_question_dialog/PictureFileDialog.qml" line="+23"/>
         <source>Please choose a Picture</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3102,14 +3231,6 @@ Möchten Sie die Datei trotzdem löschen?</translation>
     <message>
         <source>Unable to bind variable</source>
         <translation type="vanished">Die Variable konnte nicht gebunden werden</translation>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message>
-        <location filename="../src/main.cpp" line="+31"/>
-        <source>Database Error</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7864,7 +7985,7 @@ Die minimal erforderliche Version von Direct2D ist %1 Die auf diesem System inst
 <context>
     <name>Quiz</name>
     <message>
-        <location filename="../qml/quiz/Quiz.qml" line="+45"/>
+        <location filename="../qml/quiz/Quiz.qml" line="+66"/>
         <source>Question %1 / %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7872,12 +7993,12 @@ Die minimal erforderliche Version von Direct2D ist %1 Die auf diesem System inst
 <context>
     <name>QuizPage</name>
     <message>
-        <location filename="../qml/quiz/QuizPage.qml" line="+40"/>
+        <location filename="../qml/quiz/QuizPage.qml" line="+57"/>
         <source>Question: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+38"/>
         <source>Check Answer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7895,7 +8016,7 @@ Die minimal erforderliche Version von Direct2D ist %1 Die auf diesem System inst
 <context>
     <name>Result</name>
     <message>
-        <location filename="../qml/result/Result.qml" line="+30"/>
+        <location filename="../qml/result/Result.qml" line="+48"/>
         <source>You answered %1 out of %2 questions correct.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7903,7 +8024,7 @@ Die minimal erforderliche Version von Direct2D ist %1 Die auf diesem System inst
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="+17"/>
+        <location filename="../qml/settings_dialog/SettingsDialog.qml" line="+35"/>
         <source>Settings</source>
         <translation type="unfinished">Einstellungen</translation>
     </message>
@@ -7941,27 +8062,57 @@ Die minimal erforderliche Version von Direct2D ist %1 Die auf diesem System inst
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="+19"/>
+        <location filename="../qml/main.qml" line="+43"/>
         <source>Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+46"/>
+        <source>Database loading error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
         <source>New Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>Show Table</source>
+        <location line="+6"/>
+        <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+7"/>
+        <source>Show current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Close current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Open existing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Create new</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+88"/>
+        <source>Database: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-79"/>
         <source>Add Question</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+6"/>
         <source>Settings</source>
         <translation type="unfinished">Einstellungen</translation>
     </message>

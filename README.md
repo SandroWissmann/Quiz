@@ -12,8 +12,15 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
   </tr>
  </table>
 
-* View and modify questions from a database:
+* Open, close, show and create a database:
+<table>
+  <tr>
+    <td><img src="docs/Pictures/DatabaseSelectLight.png"></td>
+    <td><img src="docs/Pictures/DatabaseSelectDark.png" ></td>
+  </tr>
+ </table>
 
+* View and modify questions from a database:
 <table>
   <tr>
     <td><img src="docs/Pictures/DatabaseLight.png" width=880></td>
@@ -24,7 +31,6 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
  </table>
 
 * Add new questions to the databse:
-
 <table>
   <tr>
     <td><img src="docs/Pictures/AddNewQuestionLight.png" width=880></td>
@@ -62,10 +68,16 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
   </tr>
  </table>
 
-## Loading the database
+## Loading a database
 
-* If you want to try out the app, you can copy from the folder `Quiz/databases` the file `quiz.db` to your desktop. Currently the database gets always loaded on startup from the desktop. If there is none, a new empty database is created, which needs to be filled with questions via the app to play the quiz.
+* If you want to try out the app, you use the file `quiz.db` from the folder `Quiz/databases`.
 
+* You can open this database by choosing `Database->Open existing` in the toolbar.
+
+* Also you can create a new database by choosing `Database->Create new`. 
+
+* Once a database is loaded and if it contains enough questions, a new quiz can be
+  started from the `Quiz` button in the toolbar
 
 ## Dependencies for Running Locally
 
@@ -78,5 +90,4 @@ This project is licensed under the GPL3 License - see the [LICENSE.md](LICENSE.m
 
 
 ## Planed Features
-* Switching the database during runtime
-* Delete Questions from database
+* Delete Questions from a database

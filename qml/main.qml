@@ -24,10 +24,15 @@ import Qt.labs.qmlmodels 1.0
 import Qt.labs.settings 1.0
 import QtQuick.Controls.Material 2.15
 
+import DatabaseManagers 1.0
 import LanguageSelectors 1.0
+import QuestionsProxyModels 1.0
+import RandomQuestionFilterModels 1.0
 
+import "info_dialog"
 import "add_new_question_dialog"
-import "sql_table_view"
+import "database"
+import "database/sql_table_view"
 import "settings_dialog"
 
 ApplicationWindow {
@@ -42,9 +47,10 @@ ApplicationWindow {
 
     property int countOfQuestions
     property bool darkModeOn
+    property url currentDatabasePath
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
-    readonly property string __newShowTablePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
+    readonly property string __newShowDatabasePath: "qrc:/qml/database/sql_table_view/SqlTableView.qml"
     readonly property string __newAddNewQuestionDialog: "qrc:/qml/add_new_question_dialog/AddNewQuestionDialog.qml"
     readonly property string __resultPath: "qrc:/qml/result/Result.qml"
     readonly property string __settingsDialogPath: "qrc:/qml/settings_dialog/SettingsDialog.qml"
@@ -54,35 +60,27 @@ ApplicationWindow {
         property int language: LanguageSelector.German
         property int countOfQuestions: 10
         property bool darkModeOn: false
+        property url currentDatabasePath: ""
     }
+
     Component.onCompleted: {
-        showButtonsIfConditionsAreMet()
-        LanguageSelector.language = settings.language
-        root.countOfQuestions = settings.countOfQuestions
-        root.darkModeOn = settings.darkModeOn
-        selectColorMode()
+        loadSettings()
+        reevaluateNewQuizButtonEnabled()
+        reevaluateAddQuestionButtonEnabled()
     }
 
     Component.onDestruction: {
-        settings.language = LanguageSelector.language
-        settings.countOfQuestions = root.countOfQuestions
-        settings.darkModeOn = root.darkModeOn
+        saveSettings()
     }
 
     Loader {
-        id: loader
+        id: contentLoader
         anchors.fill: parent
         onLoaded: {
-            if (source == root.__newQuizPath) {
-                showTableButton.enabled = false
-                addQuestionButton.enabled = false
-                newQuizButton.enabled = false
-                settingsButton.enabled = false
-            } else if (source == root.__resultPath) {
-                showButtonsIfConditionsAreMet()
-                addQuestionButton.enabled = true
-                settingsButton.enabled = true
-            }
+            reevaluateNewQuizButtonEnabled()
+            reevaluateDatabaseButtonEnabled()
+            reevaluateAddQuestionButtonEnabled()
+            reevaluateSettingsButtonEnabled()
         }
     }
 
@@ -103,76 +101,108 @@ ApplicationWindow {
                 id: newQuizButton
                 text: qsTr("New Quiz")
                 icon.name: "address-book-new"
-                onClicked: {
-                    root.width = root.__defaultWidth
-                    randomQuestionFilterModel.generateRandomQuestions(
-                                countOfQuestions)
-                    loader.setSource(root.__newQuizPath)
-                }
+                onClicked: showNewQuiz()
             }
             ToolButton {
-                id: showTableButton
+                id: databaseButton
                 text: qsTr("Database")
                 icon.name: "document-open"
-                onClicked: {
-                    root.width = root.__showTableWidth
-                    loader.setSource(root.__newShowTablePath)
+                onClicked: databaseMenu.popup()
+
+                Menu {
+                    id: databaseMenu
+                    MenuItem {
+                        text: qsTr("Show current")
+                        enabled: root.currentDatabasePath != ""
+                        onClicked: showDatabase()
+                    }
+                    MenuItem {
+                        text: qsTr("Close current")
+                        enabled: root.currentDatabasePath != ""
+                        onClicked: closeDatabase()
+                    }
+                    MenuItem {
+                        text: qsTr("Open existing")
+                        enabled: root.currentDatabasePath == ""
+                        onClicked: chooseDatabaseDialog.open()
+                    }
+                    MenuItem {
+                        text: qsTr("Create new")
+                        enabled: root.currentDatabasePath == ""
+                        onClicked: createDatabaseDialog.open()
+                    }
                 }
             }
+
             ToolButton {
                 id: addQuestionButton
                 text: qsTr("Add Question")
                 icon.name: "document-new"
-                onClicked: {
-                    addNewQuestionloader.active = false
-                    addNewQuestionloader.active = true
-                    if (addNewQuestionloader.source !== root.__newAddNewQuestionDialog) {
-                        addNewQuestionloader.setSource(
-                                    root.__newAddNewQuestionDialog)
-                    }
-                    addNewQuestionloader.item.open()
-                }
+                onClicked: showAddNewQuestionDialog()
             }
             ToolButton {
                 id: settingsButton
                 text: qsTr("Settings")
                 icon.name: "help-about"
-
-                onClicked: {
-                    settingsloader.active = false
-                    settingsloader.active = true
-                    if (settingsloader.source !== root.__settingsDialogPath) {
-                        settingsloader.setSource(root.__settingsDialogPath, {
-                                                     "countOfQuestions": root.countOfQuestions,
-                                                     "darkModeOn": root.darkModeOn
-                                                 })
-                    }
-                    settingsloader.item.open()
-                }
+                onClicked: showSettingsDialog()
             }
         }
     }
 
+    ChooseDatabaseDialog {
+        id: chooseDatabaseDialog
+
+        onAccepted: {
+            root.currentDatabasePath = chooseDatabaseDialog.fileUrl
+        }
+    }
+
+    CreateDatabaseDialog {
+        id: createDatabaseDialog
+
+        onAccepted: {
+            root.currentDatabasePath = createDatabaseDialog.fileUrl
+        }
+    }
+
+    footer: Label {
+        id: openDatabaseLabel
+        text: getOpenDatabaseLabelText()
+    }
+
+    onCurrentDatabasePathChanged: {
+        openDatabaseLabel.text = getOpenDatabaseLabelText()
+        loadDatabaseFromPath()
+    }
+
+    InfoDialog {
+        id: databaseErrorInfoDialog
+        title: qsTr("Database loading error")
+    }
+
+    onDarkModeOnChanged: selectColorMode()
+
     Connections {
         id: quizConnections
-        target: loader.item
-        ignoreUnknownSignals: loader.source !== root.__newQuizPath
+        target: contentLoader.item
+        ignoreUnknownSignals: contentLoader.source !== root.__newQuizPath
 
         function onFinnished(correctAnswers) {
-            loader.setSource(root.__resultPath, {
-                                 "correctAnswers": correctAnswers,
-                                 "countOfQuestions": countOfQuestions
-                             })
+            contentLoader.setSource(root.__resultPath, {
+                                        "correctAnswers": correctAnswers,
+                                        "countOfQuestions": countOfQuestions
+                                    })
         }
     }
 
     Connections {
         id: settingsDialogConnections
         target: settingsloader.item
-        ignoreUnknownSignals: loader.source !== root.__settingsDialogPath
+        ignoreUnknownSignals: contentLoader.source !== root.__settingsDialogPath
 
         function onCountOfQuestionsChanged() {
             root.countOfQuestions = settingsloader.item.countOfQuestions
+            reevaluateNewQuizButtonEnabled()
         }
         function onDarkModeOnChanged() {
             root.darkModeOn = settingsloader.item.darkModeOn
@@ -182,17 +212,113 @@ ApplicationWindow {
     Connections {
         id: addNewQuestionDialogConnections
         target: addNewQuestionloader.item
-        ignoreUnknownSignals: loader.source !== root.__newAddNewQuestionDialog
+        ignoreUnknownSignals: contentLoader.source !== root.__newAddNewQuestionDialog
 
         function onAccepted() {
-            showButtonsIfConditionsAreMet()
+            reevaluateNewQuizButtonEnabled()
         }
     }
 
-    function showButtonsIfConditionsAreMet() {
-        showTableButton.enabled = questionsProxyModel.rowCount() !== 0
-        newQuizButton.enabled = questionsProxyModel.rowCount(
+    function loadSettings() {
+        LanguageSelector.language = settings.language
+        root.countOfQuestions = settings.countOfQuestions
+        root.darkModeOn = settings.darkModeOn
+        root.currentDatabasePath = settings.currentDatabasePath
+    }
+
+    function saveSettings() {
+        settings.language = LanguageSelector.language
+        settings.countOfQuestions = root.countOfQuestions
+        settings.darkModeOn = root.darkModeOn
+        settings.currentDatabasePath = root.currentDatabasePath
+    }
+
+    function reevaluateNewQuizButtonEnabled() {
+        if (root.countOfQuestions == 0) {
+            newQuizButton.enabled = false
+            return
+        }
+        if (root.currentDatabasePath == "") {
+            newQuizButton.enabled = false
+            return
+        }
+        if (contentLoader.source == root.__newQuizPath) {
+            newQuizButton.enabled = false
+            return
+        }
+        newQuizButton.enabled = QuestionsProxyModel.rowCount(
                     ) >= root.countOfQuestions
+    }
+
+    function reevaluateDatabaseButtonEnabled() {
+        databaseButton.enabled = contentLoader.source != root.__newQuizPath
+    }
+
+    function reevaluateAddQuestionButtonEnabled() {
+        if (root.currentDatabasePath == "") {
+            addQuestionButton.enabled = false
+            return
+        }
+        addQuestionButton.enabled = contentLoader.source != root.__newQuizPath
+    }
+
+    function reevaluateSettingsButtonEnabled() {
+        settingsButton.enabled = contentLoader.source != root.__newQuizPath
+    }
+
+    function showNewQuiz() {
+        root.width = root.__defaultWidth
+        RandomQuestionFilterModel.generateRandomQuestions(countOfQuestions)
+        contentLoader.setSource(root.__newQuizPath)
+    }
+
+    function showDatabase() {
+        root.width = root.__showTableWidth
+        contentLoader.setSource(root.__newShowDatabasePath)
+    }
+
+    function closeDatabase() {
+        root.width = root.__defaultWidth
+        contentLoader.setSource("")
+        root.currentDatabasePath = ""
+    }
+
+    function showAddNewQuestionDialog() {
+        addNewQuestionloader.active = false
+        addNewQuestionloader.active = true
+        if (addNewQuestionloader.source !== root.__newAddNewQuestionDialog) {
+            addNewQuestionloader.setSource(root.__newAddNewQuestionDialog)
+        }
+        addNewQuestionloader.item.open()
+    }
+
+    function showSettingsDialog() {
+        settingsloader.active = false
+        settingsloader.active = true
+        if (settingsloader.source !== root.__settingsDialogPath) {
+            settingsloader.setSource(root.__settingsDialogPath, {
+                                         "countOfQuestions": root.countOfQuestions,
+                                         "darkModeOn": root.darkModeOn
+                                     })
+        }
+        settingsloader.item.open()
+    }
+
+    function getOpenDatabaseLabelText() {
+        return qsTr("Database: %1").arg(currentDatabasePath)
+    }
+
+    function loadDatabaseFromPath() {
+        if (root.currentDatabasePath != "") {
+            if (!DatabaseManager.changeDatabaseConnection(
+                        root.currentDatabasePath)) {
+                root.currentDatabasePath = ""
+                reevaluateNewQuizButtonEnabled()
+                reevaluateAddQuestionButtonEnabled()
+                databaseErrorInfoDialog.text = DatabaseManager.lastError()
+                databaseErrorInfoDialog.open()
+            }
+        }
     }
 
     function selectColorMode() {
