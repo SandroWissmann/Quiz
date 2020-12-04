@@ -40,11 +40,6 @@ DatabaseManager::DatabaseManager(QObject *parent) : QObject(parent)
     mRandomQuestionFilterModel->setSourceModel(mQuestionsProxModel);
 }
 
-DatabaseManager::~DatabaseManager()
-{
-    QSqlDatabase::removeDatabase(mCurrentConnectionName);
-}
-
 bool DatabaseManager::changeDatabaseConnection(const QUrl &databasePath)
 {
     auto connectionName = getNewConnectionName();
@@ -141,7 +136,7 @@ void DatabaseManager::validateDatabase(const QSqlDatabase &db)
     auto record = driver->record("questions");
 
     if (record.count() != 8) {
-        mLastError = tr("Questions table has invalid count");
+        mLastError = tr("Questions table has invalid count of columns");
         return;
     }
 
