@@ -65,7 +65,6 @@ ApplicationWindow {
 
     Component.onCompleted: {
         loadSettings()
-        selectColorMode()
         reevaluateNewQuizButtonEnabled()
         reevaluateAddQuestionButtonEnabled()
     }
@@ -210,7 +209,6 @@ ApplicationWindow {
     }
 
     onCurrentDatabasePathChanged: {
-        console.log("called")
         openDatabaseLabel.text = getOpenDatabaseLabelText()
         loadDatabaseFromPath()
     }
@@ -236,6 +234,8 @@ ApplicationWindow {
         id: databaseErrorInfoDialog
         title: qsTr("Database loading error")
     }
+
+    onDarkModeOnChanged: selectColorMode()
 
     Connections {
         id: quizConnections
