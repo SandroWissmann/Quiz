@@ -27,9 +27,4 @@ FileDialog {
     selectExisting: true
     selectMultiple: false
     selectFolder: false
-
-    onAccepted: {
-        root.currentDatabasePath = selectDatabaseFileDialog.fileUrl
-        loadDatabaseFromPath()
-    }
 }
