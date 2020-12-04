@@ -31,12 +31,6 @@ class DatabaseManager : public QObject {
     Q_OBJECT
 public:
     explicit DatabaseManager(QObject *parent = nullptr);
-    ~DatabaseManager();
-
-    DatabaseManager(const DatabaseManager &other) = delete;
-    DatabaseManager(DatabaseManager &&other) = delete;
-    DatabaseManager &operator=(const DatabaseManager &other) = delete;
-    DatabaseManager &operator=(DatabaseManager &&other) = delete;
 
     Q_INVOKABLE bool changeDatabaseConnection(const QUrl &databasePath);
 
