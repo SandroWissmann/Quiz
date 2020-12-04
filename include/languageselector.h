@@ -24,6 +24,11 @@
 
 class QTranslator;
 
+/*
+This class is designed to change the current application language at runtime
+from QML
+*/
+
 class LanguageSelector : public QObject {
     Q_OBJECT
     Q_PROPERTY(Language language READ language WRITE setLanguage NOTIFY

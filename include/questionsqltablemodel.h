@@ -21,6 +21,21 @@
 
 #include <QSqlTableModel>
 
+/*
+This class contains a model which connects to an sql database which whould
+contain:
+
+A table "questions" with the columns / types:
+    0 - id  INTEGER
+    1 - askedQuestion TEXT
+    2 - answer1 TEXT
+    3 - answer2 TEXT
+    4 - answer3 TEXT
+    5 - answer4 TEXT
+    6 - correctAnswer INTEGER
+    7 - picture BLOB
+*/
+
 class QuestionSqlTableModel : public QSqlTableModel {
     Q_OBJECT
 public:

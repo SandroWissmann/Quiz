@@ -24,14 +24,14 @@
 
 /*
 This class should be installed on a source model with the following columns:
-        0 - id
-        1 - askedQuestion
-        2 - answer1
-        3 - answer2
-        4 - answer3
-        5 - answer4
-        6 - correctAnswer
-        7 - picture
+    0 - id  INTEGER
+    1 - askedQuestion TEXT
+    2 - answer1 TEXT
+    3 - answer2 TEXT
+    4 - answer3 TEXT
+    5 - answer4 TEXT
+    6 - correctAnswer INTEGER
+    7 - picture BLOB
 The function generateRandomQuestions(int count) selects n random rows from the
 source model and forwards them to RandomQuestionFilterModel.
 Then from QML only the random selected entries are visible.
@@ -56,6 +56,9 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
+    /*
+    Resets the model to select count new random questions from the source model
+    */
     Q_INVOKABLE void generateRandomQuestions(int count);
 
 protected:

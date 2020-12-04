@@ -27,15 +27,69 @@ class QuestionSqlTableModel;
 class QuestionsProxyModel;
 class RandomQuestionFilterModel;
 
+/*
+This class allows changing the questions databases at runtime.
+
+Therefore it holds references to all models connecting to the database with
+the questions:
+
+QuestionSqlTableModel:
+-> takes the database connection directly as its data source.
+
+QuestionsProxyModel:
+-> Uses QuestionSqlTableModel as a source of data. Its used as an adapter
+to map the Qt Widget table access (access by column numbers) to the
+QML Table acces scheme (Access by user defined roles).
+
+RandomQuestionFilterModel:
+-> Uses QuestionsProxyModel as its source of data and filters to only provide
+n random questions.
+
+So in short the data is forwarded like this:
+Database -> QuestionSqlTableModel -> QuestionsProxyModel ->
+RandomQuestionFilterModel
+
+The current database can be changed with the function
+changeDatabaseConnection(). Since QuestionSqlTableModel database cannot be
+changed at runtime the model is replaced with a new instance. Then
+QuestionsProxyModel changes it data source to the new instance of
+QuestionsProxyModel.
+*/
+
 class DatabaseManager : public QObject {
     Q_OBJECT
 public:
     explicit DatabaseManager(QObject *parent = nullptr);
 
+    /*
+    Takes a path and creates a new database connection to it.
+    If the path does not exist a new database with the correct questions table
+    is created.
+    If a database exists in path the database is validated if it is a correct
+    database only containing a single questions table.
+
+    On success true is returned. If there should be an error the old connection
+    is keept and false is returned.
+
+    For details of the error the method lastError() can be called
+    */
     Q_INVOKABLE bool changeDatabaseConnection(const QUrl &databasePath);
 
+    /*
+    Reports the last occured error.
+    Possible errors:
+    - Database could not be opened
+    - Creating question table failed. Error: "lastError from DB"
+    - Database does not contain valid questions table
+    - Questions table has invalid count of columns
+    - Column x does not exists in questions table
+    - Column x is not of type y in questions table
+    */
     Q_INVOKABLE QString lastError() const;
 
+    /*
+    Returns the models which are designed to be exposed to QML.
+    */
     QuestionsProxyModel *questionsProxyModel() const;
     RandomQuestionFilterModel *randomQuestionFilterModel() const;
 
