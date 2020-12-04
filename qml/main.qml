@@ -32,7 +32,7 @@ import RandomQuestionFilterModels 1.0
 import "info_dialog"
 import "add_new_question_dialog"
 import "database"
-import "sql_table_view"
+import "database/sql_table_view"
 import "settings_dialog"
 
 ApplicationWindow {
@@ -50,7 +50,7 @@ ApplicationWindow {
     property url currentDatabasePath
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
-    readonly property string __newShowDatabasePath: "qrc:/qml/sql_table_view/SqlTableView.qml"
+    readonly property string __newShowDatabasePath: "qrc:/qml/database/sql_table_view/SqlTableView.qml"
     readonly property string __newAddNewQuestionDialog: "qrc:/qml/add_new_question_dialog/AddNewQuestionDialog.qml"
     readonly property string __resultPath: "qrc:/qml/result/Result.qml"
     readonly property string __settingsDialogPath: "qrc:/qml/settings_dialog/SettingsDialog.qml"
