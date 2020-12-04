@@ -66,27 +66,8 @@ ApplicationWindow {
     Component.onCompleted: {
         loadSettings()
         selectColorMode()
-        loadDatabaseFromPath()
         reevaluateNewQuizButtonEnabled()
         reevaluateAddQuestionButtonEnabled()
-    }
-
-    function loadDatabaseFromPath() {
-        if (currentDatabasePath != "") {
-            if (!DatabaseManager.changeDatabaseConnection(
-                        root.currentDatabasePath)) {
-                currentDatabasePath = ""
-                reevaluateNewQuizButtonEnabled()
-                reevaluateAddQuestionButtonEnabled()
-                databaseErrorInfoDialog.text = DatabaseManager.lastError()
-                databaseErrorInfoDialog.open()
-            }
-        }
-    }
-
-    InfoDialog {
-        id: databaseErrorInfoDialog
-        title: qsTr("Database loading error")
     }
 
     Component.onDestruction: {
@@ -174,7 +155,6 @@ ApplicationWindow {
 
         onAccepted: {
             root.currentDatabasePath = chooseDatabaseDialog.fileUrl
-            loadDatabaseFromPath()
         }
     }
 
@@ -183,7 +163,6 @@ ApplicationWindow {
 
         onAccepted: {
             root.currentDatabasePath = createDatabaseDialog.fileUrl
-            loadDatabaseFromPath()
         }
     }
 
@@ -231,11 +210,31 @@ ApplicationWindow {
     }
 
     onCurrentDatabasePathChanged: {
+        console.log("called")
         openDatabaseLabel.text = getOpenDatabaseLabelText()
+        loadDatabaseFromPath()
     }
 
     function getOpenDatabaseLabelText() {
         return qsTr("Database: %1").arg(currentDatabasePath)
+    }
+
+    function loadDatabaseFromPath() {
+        if (root.currentDatabasePath != "") {
+            if (!DatabaseManager.changeDatabaseConnection(
+                        root.currentDatabasePath)) {
+                root.currentDatabasePath = ""
+                reevaluateNewQuizButtonEnabled()
+                reevaluateAddQuestionButtonEnabled()
+                databaseErrorInfoDialog.text = DatabaseManager.lastError()
+                databaseErrorInfoDialog.open()
+            }
+        }
+    }
+
+    InfoDialog {
+        id: databaseErrorInfoDialog
+        title: qsTr("Database loading error")
     }
 
     Connections {
