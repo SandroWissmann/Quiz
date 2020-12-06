@@ -45,7 +45,7 @@ ApplicationWindow {
     readonly property int __showTableWidth: 1460
     readonly property int __defaultWidth: 880
 
-    property int countOfQuestions
+    property int countOfQuestions: 10
     property bool darkModeOn
     property url currentDatabasePath
 
