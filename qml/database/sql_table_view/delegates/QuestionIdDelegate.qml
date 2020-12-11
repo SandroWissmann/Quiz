@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -20,6 +21,12 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 TextField {
+    property int row
+
+    signal markForDelete(int row)
+
+    id: root
+
     implicitHeight: 100
 
     horizontalAlignment: Text.AlignHCenter
@@ -28,4 +35,31 @@ TextField {
     readOnly: true
 
     background: Frame {}
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+
+        onClicked: {
+            eraseContextMenu.popup(root, 0, mouseArea.mouseY + 10)
+        }
+    }
+
+    Menu {
+        id: eraseContextMenu
+        y: root.y
+        MenuItem {
+            text: qsTr("Delete entry")
+            onTriggered: {
+                markForDelete(root.row)
+            }
+        }
+        MenuItem {
+            text: qsTr("Cancel")
+            onTriggered: {
+                eraseContextMenu.close()
+            }
+        }
+    }
 }

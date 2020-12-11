@@ -69,6 +69,12 @@ Item {
                     id: questionIdDelegate
                     width: tableView.columnWidthProvider(column)
                     text: model.id
+                    row: model.row
+
+                    Component.onCompleted: {
+                        questionIdDelegate.markForDelete.connect(
+                                    tableView.deleteRowFromDatabase)
+                    }
                 }
             }
             DelegateChoice {
@@ -181,8 +187,29 @@ Item {
         }
         ScrollBar.vertical: ScrollBar {}
 
+        Menu {
+            id: eraseContextMenu
+            y: root.y
+            MenuItem {
+                text: qsTr("Delete entry")
+                onTriggered: {
+                    markForDelete(root.row)
+                }
+            }
+            MenuItem {
+                text: qsTr("Cancel")
+                onTriggered: {
+                    eraseContextMenu.close()
+                }
+            }
+        }
+
         function saveToDatabase(row, value, role) {
             tableView.model.edit(row, value, role)
+        }
+
+        function deleteRowFromDatabase(row) {
+            console.log("delte row " + row)
         }
     }
 }
