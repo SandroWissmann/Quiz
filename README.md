@@ -70,7 +70,7 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
 
 ## Loading a database
 
-* If you want to try out the app, you use the file `quiz.db` from the folder `Quiz/databases`.
+* If you want to try out the app, you can use the file `quiz.db` from the folder `Quiz/databases`.
 
 * You can open this database by choosing `Database->Open existing` in the toolbar.
 
