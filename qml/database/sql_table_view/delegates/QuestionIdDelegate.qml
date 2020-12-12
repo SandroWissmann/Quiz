@@ -52,7 +52,8 @@ TextField {
         MenuItem {
             text: qsTr("Delete entry")
             onTriggered: {
-                markForDelete(root.row)
+                eraseDialog.open()
+                eraseContextMenu.close()
             }
         }
         MenuItem {
@@ -61,5 +62,24 @@ TextField {
                 eraseContextMenu.close()
             }
         }
+    }
+
+    Dialog {
+        id: eraseDialog
+        title: qsTr("Delete database entry")
+        modal: true
+        focus: true
+
+        contentItem: Label {
+            id: label
+            text: qsTr("Do you really want to erase the entry with id %1?").arg(
+                      root.text)
+        }
+
+        onAccepted: {
+            markForDelete(root.row)
+        }
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
     }
 }
