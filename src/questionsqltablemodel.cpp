@@ -61,6 +61,16 @@ bool QuestionSqlTableModel::setData(const QModelIndex &index,
     return QSqlTableModel::setData(index, value, role);
 }
 
+bool QuestionSqlTableModel::removeRows(int row, int count,
+                                       const QModelIndex &parent)
+{
+    auto result = QSqlTableModel::removeRows(row, count, parent);
+    if (result) {
+        select(); // row is not deleted from sql database until select is called
+    }
+    return result;
+}
+
 QByteArray
 QuestionSqlTableModel::picturePathToByteArray(const QString &picturePath) const
 {

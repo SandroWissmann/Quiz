@@ -97,7 +97,7 @@ Item {
                 delegate: Answer1Delegate {
                     id: answer1Delegate
                     width: tableView.columnWidthProvider(column)
-                    text: answer1
+                    text: model.answer1
                     color: model.correctAnswer
                            === 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
@@ -187,29 +187,14 @@ Item {
         }
         ScrollBar.vertical: ScrollBar {}
 
-        Menu {
-            id: eraseContextMenu
-            y: root.y
-            MenuItem {
-                text: qsTr("Delete entry")
-                onTriggered: {
-                    markForDelete(root.row)
-                }
-            }
-            MenuItem {
-                text: qsTr("Cancel")
-                onTriggered: {
-                    eraseContextMenu.close()
-                }
-            }
-        }
-
         function saveToDatabase(row, value, role) {
             tableView.model.edit(row, value, role)
         }
 
         function deleteRowFromDatabase(row) {
-            console.log("delte row " + row)
+            if (!tableView.model.removeEntry(row)) {
+                console.log(qsTr("remove row %1 failed").arg(row))
+            }
         }
     }
 }

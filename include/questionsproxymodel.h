@@ -67,6 +67,8 @@ public:
 
     Q_INVOKABLE void edit(int row, const QVariant &value, const QString &role);
 
+    Q_INVOKABLE bool removeEntry(int row);
+
 private:
     QModelIndex mapIndex(const QModelIndex &index, int role) const;
 

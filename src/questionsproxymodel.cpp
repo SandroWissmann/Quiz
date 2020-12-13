@@ -138,6 +138,11 @@ void QuestionsProxyModel::edit(int row, const QVariant &value,
     setData(createIndex(row, 0), value, roleNames().key(role.toUtf8()));
 }
 
+bool QuestionsProxyModel::removeEntry(int row)
+{
+    return removeRows(row, 1);
+}
+
 QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source,
                                           int role) const
 {
