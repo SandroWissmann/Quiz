@@ -66,6 +66,17 @@ bool QuestionSqlTableModel::removeRows(int row, int count,
 {
     auto result = QSqlTableModel::removeRows(row, count, parent);
     if (result) {
+        select(); // row is not deleted from sql database until select
+        //        is called
+    }
+    else {
+        return result;
+    }
+    for (auto i = 0; i < rowCount(); ++i) {
+        QSqlTableModel::setData(createIndex(i, QuestionColumn::id), i + 1);
+    }
+    submitAll();
+    if (result) {
         select(); // row is not deleted from sql database until select is called
     }
     return result;

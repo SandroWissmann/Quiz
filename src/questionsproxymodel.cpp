@@ -143,6 +143,11 @@ bool QuestionsProxyModel::removeEntry(int row)
     return removeRows(row, 1);
 }
 
+int QuestionsProxyModel::countOfRows() const
+{
+    return rowCount();
+}
+
 QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source,
                                           int role) const
 {

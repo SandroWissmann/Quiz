@@ -188,13 +188,18 @@ Item {
         ScrollBar.vertical: ScrollBar {}
 
         function saveToDatabase(row, value, role) {
-            tableView.model.edit(row, value, role)
+            model.edit(row, value, role)
         }
 
         function deleteRowFromDatabase(row) {
-            if (!tableView.model.removeEntry(row)) {
+            console.log("before" + model.countOfRows())
+
+            if (!model.removeEntry(row)) {
                 console.log(qsTr("remove row %1 failed").arg(row))
             }
+
+            model = QuestionsProxyModel
+            console.log("after" + model.countOfRows())
         }
     }
 }

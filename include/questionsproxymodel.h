@@ -69,6 +69,8 @@ public:
 
     Q_INVOKABLE bool removeEntry(int row);
 
+    Q_INVOKABLE int countOfRows() const;
+
 private:
     QModelIndex mapIndex(const QModelIndex &index, int role) const;
 
