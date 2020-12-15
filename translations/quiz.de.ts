@@ -78,104 +78,104 @@
 <context>
     <name>DatabaseManager</name>
     <message>
-        <location filename="../src/databasemanager.cpp" line="57"/>
+        <location filename="../src/databasemanager.cpp" line="52"/>
         <source>Database could not be opened</source>
         <translation>Datenbank konnte nicht geöffnet werden</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="61"/>
+        <location filename="../src/databasemanager.cpp" line="56"/>
         <source>Creating question table failed. Error: %1</source>
         <translation>Erstellung von question Tabelle fehlgeschlagen. Fehler: %1</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="136"/>
+        <location filename="../src/databasemanager.cpp" line="131"/>
         <source>Database does not contain valid questions table</source>
         <translation>Datenbank hat keine gültige questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="144"/>
+        <location filename="../src/databasemanager.cpp" line="139"/>
         <source>Questions table has invalid count of columns</source>
         <translation>questions Tabelle hat ungültige Anzahl an Spalten</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="149"/>
+        <location filename="../src/databasemanager.cpp" line="144"/>
         <source>Column id does not exists in questions table</source>
         <translation>Spalte id existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="153"/>
+        <location filename="../src/databasemanager.cpp" line="148"/>
         <source>Column question does not exists in questions table</source>
         <translation>Spalte questions existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="157"/>
+        <location filename="../src/databasemanager.cpp" line="152"/>
         <source>Column answer1 does not exists in questions table</source>
         <translation>Spalte answer1 existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="161"/>
+        <location filename="../src/databasemanager.cpp" line="156"/>
         <source>Column answer2 does not exists in questions table</source>
         <translation>Spalte answer2 existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="165"/>
+        <location filename="../src/databasemanager.cpp" line="160"/>
         <source>Column answer3 does not exists in questions table</source>
         <translation>Spalte answer3 existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="169"/>
+        <location filename="../src/databasemanager.cpp" line="164"/>
         <source>Column answer4 does not exists in questions table</source>
         <translation>Spalte answer4 existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="174"/>
+        <location filename="../src/databasemanager.cpp" line="169"/>
         <source>Column correct_answer does not exists in questions table</source>
         <translation>Spalte column_answer existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="178"/>
+        <location filename="../src/databasemanager.cpp" line="173"/>
         <source>Column picture does not exists in questions table</source>
         <translation>Spalte picture existiert nicht in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="183"/>
+        <location filename="../src/databasemanager.cpp" line="178"/>
         <source>Column id is not of type int in questions table</source>
         <translatorcomment>Spalte id ist nicht vom typ int in questions Tabelle</translatorcomment>
         <translation>Spalte id ist nicht vom typ int in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="188"/>
+        <location filename="../src/databasemanager.cpp" line="183"/>
         <source>Column question is not of type string in questions table</source>
         <translatorcomment>Spalte questions ist nicht vom typ string in questions Tabelle</translatorcomment>
         <translation>Spalte questions ist nicht vom typ string in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="193"/>
+        <location filename="../src/databasemanager.cpp" line="188"/>
         <source>Column answer1 is not of type string in questions table</source>
         <translation>Spalte answer1 ist nicht vom typ string in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="198"/>
+        <location filename="../src/databasemanager.cpp" line="193"/>
         <source>Column answer2 is not of type string in questions table</source>
         <translation>Spalte answer2 ist nicht vom typ string in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="203"/>
+        <location filename="../src/databasemanager.cpp" line="198"/>
         <source>Column answer3 is not of type string in questions table</source>
         <translation>Spalte answer3 ist nicht vom typ string in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="208"/>
+        <location filename="../src/databasemanager.cpp" line="203"/>
         <source>Column answer4 is not of type string in questions table</source>
         <translation>Spalte answer4 ist nicht vom typ string in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="213"/>
+        <location filename="../src/databasemanager.cpp" line="208"/>
         <source>Column correct_answer is not of type int in questions table</source>
         <translation>Spalte correct_answer ist nicht vom typ int in questions Tabelle</translation>
     </message>
     <message>
-        <location filename="../src/databasemanager.cpp" line="218"/>
+        <location filename="../src/databasemanager.cpp" line="213"/>
         <source>Column picture is not of type byteArray in questions table</source>
         <translation>Spalte picture ist nicht vom typ byteArray in questions Tabelle</translation>
     </message>
@@ -183,42 +183,42 @@
 <context>
     <name>HeaderModel</name>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="24"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="24"/>
         <source>Id</source>
         <translation>Id</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="27"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="27"/>
         <source>Question</source>
         <translation>Frage</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="30"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="30"/>
         <source>Answer 1</source>
         <translation>Antwort 1</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="33"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="33"/>
         <source>Answer 2</source>
         <translation>Antwort 2</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="36"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="36"/>
         <source>Answer 3</source>
         <translation>Antwort 3</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="39"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="39"/>
         <source>Answer 4</source>
         <translation>Antwort 4</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="42"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="42"/>
         <source>Correct Answer</source>
         <translation>Richtige Antwort</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="45"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="45"/>
         <source>Picture</source>
         <translation>Bild</translation>
     </message>
@@ -248,17 +248,17 @@
 <context>
     <name>PictureDelegate</name>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="88"/>
+        <location filename="../qml/database/sql_table_view/delegates/PictureDelegate.qml" line="89"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="88"/>
+        <location filename="../qml/database/sql_table_view/delegates/PictureDelegate.qml" line="89"/>
         <source>Replace</source>
         <translation>Ersetzen</translation>
     </message>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="94"/>
+        <location filename="../qml/database/sql_table_view/delegates/PictureDelegate.qml" line="95"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
@@ -285,6 +285,29 @@
     <message>
         <source>Install translator failed</source>
         <translation type="vanished">Translator installieren fehlgeschlagen</translation>
+    </message>
+</context>
+<context>
+    <name>QuestionIdDelegate</name>
+    <message>
+        <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="53"/>
+        <source>Delete entry</source>
+        <translation>Eintrag löschen</translation>
+    </message>
+    <message>
+        <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="60"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="69"/>
+        <source>Delete database entry</source>
+        <translation>Datenbankeintrag löschen</translation>
+    </message>
+    <message>
+        <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="75"/>
+        <source>Do you really want to erase the entry with id %1?</source>
+        <translation>Möchten Sie den Eintrag mit Id %1 wirklich löschen?</translation>
     </message>
 </context>
 <context>
@@ -373,6 +396,14 @@
     </message>
 </context>
 <context>
+    <name>SqlTableView</name>
+    <message>
+        <location filename="../qml/database/sql_table_view/SqlTableView.qml" line="198"/>
+        <source>remove row %1 failed</source>
+        <translation>Löschen von Zeile %1 fehlgeschlagen</translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
         <location filename="../qml/main.qml" line="43"/>
@@ -380,42 +411,42 @@
         <translation>Quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="89"/>
+        <location filename="../qml/main.qml" line="180"/>
         <source>Database loading error</source>
         <translation>Datenbank laden fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="122"/>
+        <location filename="../qml/main.qml" line="102"/>
         <source>New Quiz</source>
         <translation>Neues Quiz</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="128"/>
+        <location filename="../qml/main.qml" line="108"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="135"/>
+        <location filename="../qml/main.qml" line="115"/>
         <source>Show current</source>
         <translation>Zeige aktuelle</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="140"/>
+        <location filename="../qml/main.qml" line="120"/>
         <source>Close current</source>
         <translation>Schließe aktuelle</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="145"/>
+        <location filename="../qml/main.qml" line="125"/>
         <source>Open existing</source>
         <translation>Öffne existierende</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="150"/>
+        <location filename="../qml/main.qml" line="130"/>
         <source>Create new</source>
         <translation>Erstelle neue</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="238"/>
+        <location filename="../qml/main.qml" line="308"/>
         <source>Database: %1</source>
         <translation>Datenbank: %1</translation>
     </message>
@@ -424,12 +455,12 @@
         <translation type="vanished">Fragen anzeigen</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="159"/>
+        <location filename="../qml/main.qml" line="139"/>
         <source>Add Question</source>
         <translation>Fragen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="165"/>
+        <location filename="../qml/main.qml" line="145"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
