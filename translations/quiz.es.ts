@@ -294,22 +294,22 @@
     <message>
         <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="53"/>
         <source>Delete entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar la entrada</translation>
     </message>
     <message>
         <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="60"/>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="69"/>
         <source>Delete database entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar entrada de base de datos</translation>
     </message>
     <message>
         <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="75"/>
         <source>Do you really want to erase the entry with id %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Realmente desea borrar la entrada con la identificación %1?</translation>
     </message>
 </context>
 <context>
@@ -398,7 +398,7 @@
     <message>
         <location filename="../qml/database/sql_table_view/SqlTableView.qml" line="198"/>
         <source>remove row %1 failed</source>
-        <translation type="unfinished"></translation>
+        <translation>no se pudo eliminar la fila %1</translation>
     </message>
 </context>
 <context>
