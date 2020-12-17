@@ -72,7 +72,7 @@ public:
     Q_INVOKABLE int countOfRows() const;
 
 private:
-    QModelIndex mapIndex(const QModelIndex &index, int role) const;
+    QModelIndex mapIndex(const QModelIndex &source, int role) const;
 
     bool saveIfIsSQLDatabase();
 };
