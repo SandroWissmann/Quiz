@@ -16,16 +16,9 @@
  *
  * Web-Site: https://github.com/SandroWissmann/Quiz
  */
-#include <QDebug>
-#include <QDir>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
 #include <QQuickStyle>
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QStandardPaths>
 
 #include "include/databasemanager.h"
 #include "include/languageselector.h"
