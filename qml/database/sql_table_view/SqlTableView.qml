@@ -68,7 +68,7 @@ Item {
                 delegate: QuestionIdDelegate {
                     id: questionIdDelegate
                     width: tableView.columnWidthProvider(column)
-                    text: model.id
+                    text: model.id === undefined ? "" : model.id
                     row: model.row
 
                     Component.onCompleted: {
@@ -82,7 +82,7 @@ Item {
                 delegate: AskedQuestionDelegate {
                     id: askedQuestionDelegate
                     width: tableView.columnWidthProvider(column)
-                    text: model.askedQuestion
+                    text: model.askedQuestion === undefined ? "" : model.askedQuestion
                     color: chooser.askedQuestionColor
                     row: model.row
 
@@ -97,7 +97,7 @@ Item {
                 delegate: Answer1Delegate {
                     id: answer1Delegate
                     width: tableView.columnWidthProvider(column)
-                    text: model.answer1
+                    text: model.answer1 === undefined ? "" : model.answer1
                     color: model.correctAnswer
                            === 1 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
@@ -113,7 +113,7 @@ Item {
                 delegate: Answer2Delegate {
                     id: answer2Delegate
                     width: tableView.columnWidthProvider(column)
-                    text: model.answer2
+                    text: model.answer2 === undefined ? "" : model.answer2
                     color: model.correctAnswer
                            === 2 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
@@ -129,7 +129,7 @@ Item {
                 delegate: Answer3Delegate {
                     id: answer3Delegate
                     width: tableView.columnWidthProvider(column)
-                    text: model.answer3
+                    text: model.answer3 === undefined ? "" : model.answer3
                     color: model.correctAnswer
                            === 3 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
@@ -145,7 +145,7 @@ Item {
                 delegate: Answer4Delegate {
                     id: answer4Delegate
                     width: tableView.columnWidthProvider(column)
-                    text: model.answer4
+                    text: model.answer4 === undefined ? "" : model.answer4
                     color: model.correctAnswer
                            === 4 ? chooser.correctAnswerColor : chooser.wrongAnswerColor
                     row: model.row
@@ -161,7 +161,7 @@ Item {
                 delegate: CorrectAnswerDelegate {
                     id: correctAnswerDelegate
                     width: tableView.columnWidthProvider(column)
-                    value: model.correctAnswer
+                    value: model.correctAnswer === undefined ? 1 : model.correctAnswer
                     row: model.row
 
                     Component.onCompleted: {
@@ -175,7 +175,7 @@ Item {
                 delegate: PictureDelegate {
                     id: pictureDelegate
                     width: tableView.columnWidthProvider(column)
-                    picture: model.picture
+                    picture: model.picture === undefined ? "" : model.picture
                     row: model.row
 
                     Component.onCompleted: {
