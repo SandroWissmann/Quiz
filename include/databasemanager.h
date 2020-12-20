@@ -20,8 +20,9 @@
 #define DATABASEMANAGER_H
 
 #include <QObject>
-#include <QSqlDatabase>
-#include <QUrl>
+
+class QUrl;
+class QSqlDatabase;
 
 class QuestionSqlTableModel;
 class QuestionsProxyModel;

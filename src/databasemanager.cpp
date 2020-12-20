@@ -26,6 +26,7 @@
 #include <QSqlField>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include <QUrl>
 
 #include <QDebug>
 
