@@ -68,7 +68,7 @@ Item {
                 delegate: QuestionIdDelegate {
                     id: questionIdDelegate
                     width: tableView.columnWidthProvider(column)
-                    text: model.id === undefined ? "" : model.id
+                    text: model.idx === undefined ? "" : model.idx
                     row: model.row
 
                     Component.onCompleted: {

@@ -46,7 +46,7 @@ Page {
             id: quizPageRepeater
             model: RandomQuestionFilterModel
             delegate: QuizPage {
-                questionId: model.id
+                questionId: model.idx
                 askedQuestion: model.askedQuestion
                 answer1: model.answer1
                 answer2: model.answer2
