@@ -20,7 +20,6 @@
 #define QUESTIONSPROXYMODEL_H
 
 #include <QIdentityProxyModel>
-#include <QObject>
 
 /*
 This class maps QML of access by role name to access by column in
@@ -67,9 +66,8 @@ public:
 
     Q_INVOKABLE void edit(int row, const QVariant &value, const QString &role);
 
-    Q_INVOKABLE bool removeEntry(int row);
-
-    Q_INVOKABLE int countOfRows() const;
+public slots:
+    bool removeEntry(int row);
 
 private:
     QModelIndex mapIndex(const QModelIndex &source, int role) const;
