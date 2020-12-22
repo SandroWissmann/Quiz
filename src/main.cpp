@@ -19,6 +19,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
+#include <QQuickWindow>
 
 #include "include/databasemanager.h"
 #include "include/languageselector.h"
@@ -64,7 +65,13 @@ int main(int argc, char *argv[])
 
     QObject::connect(languageSelector.get(), &LanguageSelector::languageChanged,
                      &engine, &QQmlApplicationEngine::retranslate);
+
     engine.load(url);
+
+    QObject *object = engine.rootObjects().first();
+    QObject::connect(object, SIGNAL(deleteRowFromDatabase(int)),
+                     databaseManager->questionsProxyModel(),
+                     SLOT(removeEntry(int)));
 
     return app.exec();
 }

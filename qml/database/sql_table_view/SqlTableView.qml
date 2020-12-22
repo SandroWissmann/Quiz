@@ -29,6 +29,8 @@ import "delegates"
 import "header_model"
 
 Item {
+    signal deleteRow(int row)
+
     id: root
     HorizontalHeaderView {
         id: horizontalHeaderView
@@ -72,8 +74,7 @@ Item {
                     row: model.row
 
                     Component.onCompleted: {
-                        questionIdDelegate.markForDelete.connect(
-                                    tableView.deleteRowFromDatabase)
+                        questionIdDelegate.markForDelete.connect(root.deleteRow)
                     }
                 }
             }
@@ -189,17 +190,6 @@ Item {
 
         function saveToDatabase(row, value, role) {
             model.edit(row, value, role)
-        }
-
-        function deleteRowFromDatabase(row) {
-            console.log("before" + model.countOfRows())
-
-            if (!model.removeEntry(row)) {
-                console.log(qsTr("remove row %1 failed").arg(row))
-            }
-
-            model = QuestionsProxyModel
-            console.log("after" + model.countOfRows())
         }
     }
 }
