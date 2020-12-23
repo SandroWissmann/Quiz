@@ -69,9 +69,15 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     QObject *object = engine.rootObjects().first();
+
     QObject::connect(object, SIGNAL(deleteRowFromDatabase(int)),
                      databaseManager->questionsProxyModel(),
                      SLOT(removeEntry(int)));
+
+    QObject::connect(object,
+                     SIGNAL(updateValueInDatabase(int, QVariant, QString)),
+                     databaseManager->questionsProxyModel(),
+                     SLOT(changeValue(int, QVariant, QString)));
 
     return app.exec();
 }

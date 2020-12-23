@@ -132,8 +132,8 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
     return saveIfIsSQLDatabase();
 }
 
-void QuestionsProxyModel::edit(int row, const QVariant &value,
-                               const QString &role)
+void QuestionsProxyModel::changeValue(int row, const QVariant &value,
+                                      const QString &role)
 {
     setData(createIndex(row, 0), value, roleNames().key(role.toUtf8()));
 }

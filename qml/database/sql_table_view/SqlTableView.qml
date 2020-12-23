@@ -30,6 +30,7 @@ import "header_model"
 
 Item {
     signal deleteRow(int row)
+    signal valueChanged(int row, var value, string role)
 
     id: root
     HorizontalHeaderView {
@@ -89,7 +90,7 @@ Item {
 
                     Component.onCompleted: {
                         askedQuestionDelegate.valueChanged.connect(
-                                    tableView.saveToDatabase)
+                                    root.valueChanged)
                     }
                 }
             }
@@ -105,7 +106,7 @@ Item {
 
                     Component.onCompleted: {
                         answer1Delegate.valueChanged.connect(
-                                    tableView.saveToDatabase)
+                                    root.valueChanged)
                     }
                 }
             }
@@ -121,7 +122,7 @@ Item {
 
                     Component.onCompleted: {
                         answer2Delegate.valueChanged.connect(
-                                    tableView.saveToDatabase)
+                                    root.valueChanged)
                     }
                 }
             }
@@ -137,7 +138,7 @@ Item {
 
                     Component.onCompleted: {
                         answer3Delegate.valueChanged.connect(
-                                    tableView.saveToDatabase)
+                                    root.valueChanged)
                     }
                 }
             }
@@ -153,7 +154,7 @@ Item {
 
                     Component.onCompleted: {
                         answer4Delegate.valueChanged.connect(
-                                    tableView.saveToDatabase)
+                                    root.valueChanged)
                     }
                 }
             }
@@ -167,7 +168,7 @@ Item {
 
                     Component.onCompleted: {
                         correctAnswerDelegate.correctAnswerChanged.connect(
-                                    tableView.saveToDatabase)
+                                    root.valueChanged)
                     }
                 }
             }
@@ -181,15 +182,11 @@ Item {
 
                     Component.onCompleted: {
                         pictureDelegate.valueChanged.connect(
-                                    tableView.saveToDatabase)
+                                    root.valueChanged)
                     }
                 }
             }
         }
         ScrollBar.vertical: ScrollBar {}
-
-        function saveToDatabase(row, value, role) {
-            model.edit(row, value, role)
-        }
     }
 }

@@ -64,9 +64,8 @@ public:
                                  const QString &answer3, const QString &answer4,
                                  int correctAnswer, const QString &picturePath);
 
-    Q_INVOKABLE void edit(int row, const QVariant &value, const QString &role);
-
 public slots:
+    void changeValue(int row, const QVariant &value, const QString &role);
     bool removeEntry(int row);
 
 private:

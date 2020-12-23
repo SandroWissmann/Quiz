@@ -43,6 +43,7 @@ ApplicationWindow {
     title: qsTr("Quiz")
 
     signal deleteRowFromDatabase(int row)
+    signal updateValueInDatabase(int row, var value, string role)
 
     readonly property int __showTableWidth: 1460
     readonly property int __defaultWidth: 880
@@ -204,6 +205,10 @@ ApplicationWindow {
 
         function onDeleteRow(row) {
             deleteRowFromDatabase(row)
+        }
+
+        function onValueChanged(row, value, role) {
+            updateValueInDatabase(row, value, role)
         }
     }
 
