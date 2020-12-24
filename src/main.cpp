@@ -70,14 +70,14 @@ int main(int argc, char *argv[])
 
     QObject *object = engine.rootObjects().first();
 
-    QObject::connect(object, SIGNAL(deleteRowFromDatabase(int)),
+    QObject::connect(object, SIGNAL(rowMarkedForDeleteFromDatabase(int)),
                      databaseManager->questionsProxyModel(),
                      SLOT(removeEntry(int)));
 
-    QObject::connect(object,
-                     SIGNAL(updateValueInDatabase(int, QVariant, QString)),
-                     databaseManager->questionsProxyModel(),
-                     SLOT(changeValue(int, QVariant, QString)));
+    QObject::connect(
+        object, SIGNAL(valueMarkedForUpdateInDatabase(int, QVariant, QString)),
+        databaseManager->questionsProxyModel(),
+        SLOT(changeValue(int, QVariant, QString)));
 
     return app.exec();
 }

@@ -42,8 +42,8 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
-    signal deleteRowFromDatabase(int row)
-    signal updateValueInDatabase(int row, var value, string role)
+    signal rowMarkedForDeleteFromDatabase(int row)
+    signal valueMarkedForUpdateInDatabase(int row, var value, string role)
 
     readonly property int __showTableWidth: 1460
     readonly property int __defaultWidth: 880
@@ -204,11 +204,11 @@ ApplicationWindow {
         ignoreUnknownSignals: contentLoader.source !== root.__showDatabasePath
 
         function onDeleteRow(row) {
-            deleteRowFromDatabase(row)
+            rowMarkedForDeleteFromDatabase(row)
         }
 
         function onValueChanged(row, value, role) {
-            updateValueInDatabase(row, value, role)
+            valueMarkedForUpdateInDatabase(row, value, role)
         }
     }
 
