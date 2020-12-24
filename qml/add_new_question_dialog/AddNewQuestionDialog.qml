@@ -24,6 +24,8 @@ import QtQuick.Controls 2.15
 import QuestionsProxyModels 1.0
 
 Dialog {
+    signal newEntryData(string question, string answer1, string answer2, string answer3, string answer4, int correctAnswer, string picturePath)
+
     id: dialog
     x: 100
     y: 100
@@ -178,16 +180,10 @@ Dialog {
         var imagePath = imagePathTextField.text
         imagePath = imagePath.replace("file://", "")
 
-        var added = QuestionsProxyModel.addNewEntry(questionTextField.text,
-                                                    answer1TextField.text,
-                                                    answer2TextField.text,
-                                                    answer3TextField.text,
-                                                    answer4TextField.text,
-                                                    correctAnswerAsInt(),
-                                                    imagePath)
-        if (!added) {
-            console.log("Could not add to database")
-        }
+        newEntryData(questionTextField.text, answer1TextField.text,
+                                answer2TextField.text, answer3TextField.text,
+                                answer4TextField.text, correctAnswerAsInt(),
+                                imagePath)
     }
 
     function dataIsValid() {

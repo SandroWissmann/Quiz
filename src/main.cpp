@@ -70,6 +70,14 @@ int main(int argc, char *argv[])
 
     QObject *object = engine.rootObjects().first();
 
+    QObject::connect(
+        object,
+        SIGNAL(newEntryDataForDatabase(QString, QString, QString, QString,
+                                       QString, int, QString)),
+        databaseManager->questionsProxyModel(),
+        SLOT(addEntry(QString, QString, QString, QString, QString, int,
+                      QString)));
+
     QObject::connect(object, SIGNAL(rowMarkedForDeleteFromDatabase(int)),
                      databaseManager->questionsProxyModel(),
                      SLOT(removeEntry(int)));

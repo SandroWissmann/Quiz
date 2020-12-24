@@ -75,12 +75,12 @@ bool QuestionsProxyModel::setData(const QModelIndex &index,
     return QIdentityProxyModel::setData(newIndex, value, role);
 }
 
-bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
-                                      const QString &answer1,
-                                      const QString &answer2,
-                                      const QString &answer3,
-                                      const QString &answer4, int correctAnswer,
-                                      const QString &picturePath)
+bool QuestionsProxyModel::addEntry(const QString &askedQuestion,
+                                   const QString &answer1,
+                                   const QString &answer2,
+                                   const QString &answer3,
+                                   const QString &answer4, int correctAnswer,
+                                   const QString &picturePath)
 {
     Q_ASSERT(!askedQuestion.isEmpty());
     Q_ASSERT(!answer1.isEmpty());

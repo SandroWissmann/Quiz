@@ -44,6 +44,7 @@ ApplicationWindow {
 
     signal rowMarkedForDeleteFromDatabase(int row)
     signal valueMarkedForUpdateInDatabase(int row, var value, string role)
+    signal newEntryDataForDatabase(string question, string answer1, string answer2, string answer3, string answer4, int correctAnswer, string picturePath)
 
     readonly property int __showTableWidth: 1460
     readonly property int __defaultWidth: 880
@@ -230,6 +231,11 @@ ApplicationWindow {
         id: addNewQuestionDialogConnections
         target: addNewQuestionloader.item
         ignoreUnknownSignals: contentLoader.source !== root.__addNewQuestionDialog
+
+        function onNewEntryData(question, answer1, answer2, answer3, answer4, correctAnswer, picturePath) {
+            newEntryDataForDatabase(question, answer1, answer2, answer3,
+                                    answer4, correctAnswer, picturePath)
+        }
 
         function onAccepted() {
             reevaluateNewQuizButtonEnabled()

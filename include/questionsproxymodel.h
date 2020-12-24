@@ -59,12 +59,11 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value,
                  int role = Qt::EditRole) override;
 
-    Q_INVOKABLE bool addNewEntry(const QString &askedQuestion,
-                                 const QString &answer1, const QString &answer2,
-                                 const QString &answer3, const QString &answer4,
-                                 int correctAnswer, const QString &picturePath);
-
 public slots:
+    bool addEntry(const QString &askedQuestion, const QString &answer1,
+                  const QString &answer2, const QString &answer3,
+                  const QString &answer4, int correctAnswer,
+                  const QString &picturePath);
     void changeValue(int row, const QVariant &value, const QString &role);
     bool removeEntry(int row);
 
