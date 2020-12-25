@@ -66,6 +66,7 @@ TextField {
 
     Dialog {
         id: eraseDialog
+        implicitWidth: 400
         title: qsTr("Delete database entry")
         modal: true
         focus: true
