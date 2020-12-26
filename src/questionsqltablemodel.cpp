@@ -26,6 +26,7 @@
 
 #include <QSqlError>
 #include <QSqlField>
+#include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
 
@@ -64,21 +65,31 @@ bool QuestionSqlTableModel::setData(const QModelIndex &index,
 bool QuestionSqlTableModel::removeRows(int row, int count,
                                        const QModelIndex &parent)
 {
+    beginRemoveRows(parent, row, row);
     auto result = QSqlTableModel::removeRows(row, count, parent);
-    if (result) {
-        select(); // row is not deleted from sql database until select
-        //        is called
-    }
-    else {
-        return result;
-    }
-    for (auto i = 0; i < rowCount(); ++i) {
-        QSqlTableModel::setData(createIndex(i, QuestionColumn::id), i + 1);
-    }
-    submitAll();
     if (result) {
         select(); // row is not deleted from sql database until select is called
     }
+    else {
+        endRemoveRows();
+        return result;
+    }
+
+    QSqlQuery query{database()};
+    query.prepare("SELECT COUNT (*) FROM questions");
+    query.exec();
+    int rows = 0;
+    if (query.next()) {
+        rows = query.value(0).toInt();
+    }
+
+    qDebug() << rows;
+    for (auto i = 0; i < rows; ++i) {
+        QSqlTableModel::setData(createIndex(i, QuestionColumn::id), i + 1);
+    }
+    submitAll();
+    select();
+    endRemoveRows();
     return result;
 }
 
