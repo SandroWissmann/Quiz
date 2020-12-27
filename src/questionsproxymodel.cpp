@@ -89,7 +89,16 @@ bool QuestionsProxyModel::addEntry(const QString &askedQuestion,
     Q_ASSERT(!answer4.isEmpty());
     Q_ASSERT(correctAnswer >= 1 && correctAnswer <= 4);
 
+    auto sqlModel = qobject_cast<QSqlTableModel *>(sourceModel());
+    if (!sqlModel) {
+        return false;
+    }
+    while (sqlModel->canFetchMore()) {
+        sqlModel->fetchMore();
+    }
+
     auto newRow = rowCount();
+    qDebug() << "newRow" << newRow;
 
     if (!insertRows(newRow, 1)) {
         return false;
@@ -129,7 +138,12 @@ bool QuestionsProxyModel::addEntry(const QString &askedQuestion,
         return false;
     }
 
-    return saveIfIsSQLDatabase();
+    if (!sqlModel->submit()) {
+        auto error = sqlModel->lastError();
+        qDebug() << error.text();
+        return false;
+    }
+    return true;
 }
 
 void QuestionsProxyModel::changeValue(int row, const QVariant &value,
@@ -165,18 +179,4 @@ QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source,
         return createIndex(source.row(), QuestionColumn::picture);
     }
     return source;
-}
-
-bool QuestionsProxyModel::saveIfIsSQLDatabase()
-{
-    auto sqlModel = qobject_cast<QSqlTableModel *>(sourceModel());
-    if (!sqlModel) {
-        return false;
-    }
-    if (!sqlModel->submit()) {
-        auto error = sqlModel->lastError();
-        qDebug() << error.text();
-        return false;
-    }
-    return true;
 }

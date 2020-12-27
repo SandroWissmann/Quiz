@@ -69,8 +69,6 @@ public slots:
 
 private:
     QModelIndex mapIndex(const QModelIndex &source, int role) const;
-
-    bool saveIfIsSQLDatabase();
 };
 
 #endif // QUESTIONSPROXYQML_H
