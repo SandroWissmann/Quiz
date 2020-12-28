@@ -75,16 +75,12 @@ bool QuestionSqlTableModel::removeRows(int row, int count,
         return result;
     }
 
-    QSqlQuery query{database()};
-    query.prepare("SELECT COUNT (*) FROM questions");
-    query.exec();
-    int rows = 0;
-    if (query.next()) {
-        rows = query.value(0).toInt();
+    while (canFetchMore()) {
+        fetchMore();
     }
 
-    qDebug() << rows;
-    for (auto i = 0; i < rows; ++i) {
+    qDebug() << rowCount();
+    for (auto i = 0; i < rowCount(); ++i) {
         QSqlTableModel::setData(createIndex(i, QuestionColumn::id), i + 1);
     }
     submitAll();

@@ -98,7 +98,6 @@ bool QuestionsProxyModel::addEntry(const QString &askedQuestion,
     }
 
     auto newRow = rowCount();
-    qDebug() << "newRow" << newRow;
 
     if (!insertRows(newRow, 1)) {
         return false;
