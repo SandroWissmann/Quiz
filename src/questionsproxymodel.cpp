@@ -37,7 +37,7 @@ QuestionsProxyModel::QuestionsProxyModel(QObject *parent)
 QHash<int, QByteArray> QuestionsProxyModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[idRole] = "id";
+    roles[idRole] = "idx";
     roles[askedQuestionRole] = "askedQuestion";
     roles[answer1Role] = "answer1";
     roles[answer2Role] = "answer2";
@@ -75,12 +75,12 @@ bool QuestionsProxyModel::setData(const QModelIndex &index,
     return QIdentityProxyModel::setData(newIndex, value, role);
 }
 
-bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
-                                      const QString &answer1,
-                                      const QString &answer2,
-                                      const QString &answer3,
-                                      const QString &answer4, int correctAnswer,
-                                      const QString &picturePath)
+bool QuestionsProxyModel::addEntry(const QString &askedQuestion,
+                                   const QString &answer1,
+                                   const QString &answer2,
+                                   const QString &answer3,
+                                   const QString &answer4, int correctAnswer,
+                                   const QString &picturePath)
 {
     Q_ASSERT(!askedQuestion.isEmpty());
     Q_ASSERT(!answer1.isEmpty());
@@ -88,6 +88,14 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
     Q_ASSERT(!answer3.isEmpty());
     Q_ASSERT(!answer4.isEmpty());
     Q_ASSERT(correctAnswer >= 1 && correctAnswer <= 4);
+
+    auto sqlModel = qobject_cast<QSqlTableModel *>(sourceModel());
+    if (!sqlModel) {
+        return false;
+    }
+    while (sqlModel->canFetchMore()) {
+        sqlModel->fetchMore();
+    }
 
     auto newRow = rowCount();
 
@@ -129,13 +137,23 @@ bool QuestionsProxyModel::addNewEntry(const QString &askedQuestion,
         return false;
     }
 
-    return saveIfIsSQLDatabase();
+    if (!sqlModel->submit()) {
+        auto error = sqlModel->lastError();
+        qDebug() << error.text();
+        return false;
+    }
+    return true;
 }
 
-void QuestionsProxyModel::edit(int row, const QVariant &value,
-                               const QString &role)
+void QuestionsProxyModel::changeValue(int row, const QVariant &value,
+                                      const QString &role)
 {
     setData(createIndex(row, 0), value, roleNames().key(role.toUtf8()));
+}
+
+bool QuestionsProxyModel::removeEntry(int row)
+{
+    return removeRows(row, 1);
 }
 
 QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source,
@@ -160,18 +178,4 @@ QModelIndex QuestionsProxyModel::mapIndex(const QModelIndex &source,
         return createIndex(source.row(), QuestionColumn::picture);
     }
     return source;
-}
-
-bool QuestionsProxyModel::saveIfIsSQLDatabase()
-{
-    auto sqlModel = qobject_cast<QSqlTableModel *>(sourceModel());
-    if (!sqlModel) {
-        return false;
-    }
-    if (!sqlModel->submit()) {
-        auto error = sqlModel->lastError();
-        qDebug() << error.text();
-        return false;
-    }
-    return true;
 }

@@ -30,11 +30,19 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
   </tr>
  </table>
 
-* Add new questions to the databse:
+* Add new questions to the database:
 <table>
   <tr>
     <td><img src="docs/Pictures/AddNewQuestionLight.png" width=880></td>
     <td><img src="docs/Pictures/AddNewQuestionDark.png" width=880></td>
+  </tr>
+ </table>
+
+ * Delete questions from the database (Right click on id field):
+<table>
+  <tr>
+    <td><img src="docs/Pictures/DeleteQuestionLight.png" width=880></td>
+    <td><img src="docs/Pictures/DeleteQuestionDark.png" width=880></td>
   </tr>
  </table>
 
@@ -87,7 +95,3 @@ Multiple choice quiz application using C++ with SQLite as backend and QML as fro
 ## License
 
 This project is licensed under the GPL3 License - see the [LICENSE.md](LICENSE.md) file for details
-
-
-## Planed Features
-* Delete Questions from a database

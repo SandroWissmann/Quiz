@@ -42,6 +42,10 @@ ApplicationWindow {
     height: 800
     title: qsTr("Quiz")
 
+    signal rowMarkedForDeleteFromDatabase(int row)
+    signal valueMarkedForUpdateInDatabase(int row, var value, string role)
+    signal newEntryDataForDatabase(string question, string answer1, string answer2, string answer3, string answer4, int correctAnswer, string picturePath)
+
     readonly property int __showTableWidth: 1460
     readonly property int __defaultWidth: 880
 
@@ -50,8 +54,8 @@ ApplicationWindow {
     property url currentDatabasePath
 
     readonly property string __newQuizPath: "qrc:/qml/quiz/Quiz.qml"
-    readonly property string __newShowDatabasePath: "qrc:/qml/database/sql_table_view/SqlTableView.qml"
-    readonly property string __newAddNewQuestionDialog: "qrc:/qml/add_new_question_dialog/AddNewQuestionDialog.qml"
+    readonly property string __showDatabasePath: "qrc:/qml/database/sql_table_view/SqlTableView.qml"
+    readonly property string __addNewQuestionDialog: "qrc:/qml/add_new_question_dialog/AddNewQuestionDialog.qml"
     readonly property string __resultPath: "qrc:/qml/result/Result.qml"
     readonly property string __settingsDialogPath: "qrc:/qml/settings_dialog/SettingsDialog.qml"
 
@@ -196,6 +200,20 @@ ApplicationWindow {
     }
 
     Connections {
+        id: databaseConnections
+        target: contentLoader.item
+        ignoreUnknownSignals: contentLoader.source !== root.__showDatabasePath
+
+        function onDeleteRow(row) {
+            rowMarkedForDeleteFromDatabase(row)
+        }
+
+        function onValueChanged(row, value, role) {
+            valueMarkedForUpdateInDatabase(row, value, role)
+        }
+    }
+
+    Connections {
         id: settingsDialogConnections
         target: settingsloader.item
         ignoreUnknownSignals: contentLoader.source !== root.__settingsDialogPath
@@ -212,7 +230,12 @@ ApplicationWindow {
     Connections {
         id: addNewQuestionDialogConnections
         target: addNewQuestionloader.item
-        ignoreUnknownSignals: contentLoader.source !== root.__newAddNewQuestionDialog
+        ignoreUnknownSignals: contentLoader.source !== root.__addNewQuestionDialog
+
+        function onNewEntryData(question, answer1, answer2, answer3, answer4, correctAnswer, picturePath) {
+            newEntryDataForDatabase(question, answer1, answer2, answer3,
+                                    answer4, correctAnswer, picturePath)
+        }
 
         function onAccepted() {
             reevaluateNewQuizButtonEnabled()
@@ -274,7 +297,7 @@ ApplicationWindow {
 
     function showDatabase() {
         root.width = root.__showTableWidth
-        contentLoader.setSource(root.__newShowDatabasePath)
+        contentLoader.setSource(root.__showDatabasePath)
     }
 
     function closeDatabase() {
@@ -286,8 +309,8 @@ ApplicationWindow {
     function showAddNewQuestionDialog() {
         addNewQuestionloader.active = false
         addNewQuestionloader.active = true
-        if (addNewQuestionloader.source !== root.__newAddNewQuestionDialog) {
-            addNewQuestionloader.setSource(root.__newAddNewQuestionDialog)
+        if (addNewQuestionloader.source !== root.__addNewQuestionDialog) {
+            addNewQuestionloader.setSource(root.__addNewQuestionDialog)
         }
         addNewQuestionloader.item.open()
     }

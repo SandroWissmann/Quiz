@@ -31,7 +31,7 @@ RandomQuestionFilterModel::RandomQuestionFilterModel(QObject *parent)
 QHash<int, QByteArray> RandomQuestionFilterModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[idRole] = "id";
+    roles[idRole] = "idx";
     roles[askedQuestionRole] = "askedQuestion";
     roles[answer1Role] = "answer1";
     roles[answer2Role] = "answer2";

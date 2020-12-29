@@ -85,7 +85,7 @@
 <context>
     <name>DatabaseManager</name>
     <message>
-        <location filename="../src/databasemanager.cpp" line="+57"/>
+        <location filename="../src/databasemanager.cpp" line="+52"/>
         <source>Database could not be opened</source>
         <translation type="unfinished"></translation>
     </message>
@@ -188,7 +188,7 @@
 <context>
     <name>HeaderModel</name>
     <message>
-        <location filename="../qml/sql_table_view/header_model/HeaderModel.qml" line="+24"/>
+        <location filename="../qml/database/sql_table_view/header_model/HeaderModel.qml" line="+24"/>
         <source>Id</source>
         <translation type="unfinished"></translation>
     </message>
@@ -280,7 +280,7 @@
 <context>
     <name>PictureDelegate</name>
     <message>
-        <location filename="../qml/sql_table_view/delegates/PictureDelegate.qml" line="+88"/>
+        <location filename="../qml/database/sql_table_view/delegates/PictureDelegate.qml" line="+89"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6964,6 +6964,29 @@ La versión mínima de Direct2D requerida es %1.%2.%3.%4. Y la versión de Direc
     </message>
 </context>
 <context>
+    <name>QuestionIdDelegate</name>
+    <message>
+        <location filename="../qml/database/sql_table_view/delegates/QuestionIdDelegate.qml" line="+53"/>
+        <source>Delete entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Delete database entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Do you really want to erase the entry with id %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Quiz</name>
     <message>
         <location filename="../qml/quiz/Quiz.qml" line="+66"/>
@@ -7041,6 +7064,14 @@ La versión mínima de Direct2D requerida es %1.%2.%3.%4. Y la versión de Direc
     </message>
 </context>
 <context>
+    <name>SqlTableView</name>
+    <message>
+        <location filename="../qml/database/sql_table_view/SqlTableView.qml" line="+198"/>
+        <source>remove row %1 failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
         <location filename="../qml/main.qml" line="+43"/>
@@ -7048,12 +7079,12 @@ La versión mínima de Direct2D requerida es %1.%2.%3.%4. Y la versión de Direc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+137"/>
         <source>Database loading error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-78"/>
         <source>New Quiz</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7083,12 +7114,12 @@ La versión mínima de Direct2D requerida es %1.%2.%3.%4. Y la versión de Direc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+178"/>
         <source>Database: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-79"/>
+        <location line="-169"/>
         <source>Add Question</source>
         <translation type="unfinished"></translation>
     </message>

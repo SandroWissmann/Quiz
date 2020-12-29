@@ -20,7 +20,6 @@
 #define QUESTIONSPROXYMODEL_H
 
 #include <QIdentityProxyModel>
-#include <QObject>
 
 /*
 This class maps QML of access by role name to access by column in
@@ -60,17 +59,16 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value,
                  int role = Qt::EditRole) override;
 
-    Q_INVOKABLE bool addNewEntry(const QString &askedQuestion,
-                                 const QString &answer1, const QString &answer2,
-                                 const QString &answer3, const QString &answer4,
-                                 int correctAnswer, const QString &picturePath);
-
-    Q_INVOKABLE void edit(int row, const QVariant &value, const QString &role);
+public slots:
+    bool addEntry(const QString &askedQuestion, const QString &answer1,
+                  const QString &answer2, const QString &answer3,
+                  const QString &answer4, int correctAnswer,
+                  const QString &picturePath);
+    void changeValue(int row, const QVariant &value, const QString &role);
+    bool removeEntry(int row);
 
 private:
-    QModelIndex mapIndex(const QModelIndex &index, int role) const;
-
-    bool saveIfIsSQLDatabase();
+    QModelIndex mapIndex(const QModelIndex &source, int role) const;
 };
 
 #endif // QUESTIONSPROXYQML_H

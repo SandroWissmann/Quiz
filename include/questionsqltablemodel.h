@@ -47,6 +47,8 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value,
                  int role) override;
 
+    bool removeRows(int row, int count, const QModelIndex &parent) override;
+
 private:
     QByteArray picturePathToByteArray(const QString &picturePath) const;
 };

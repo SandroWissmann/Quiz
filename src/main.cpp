@@ -16,16 +16,10 @@
  *
  * Web-Site: https://github.com/SandroWissmann/Quiz
  */
-#include <QDebug>
-#include <QDir>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
 #include <QQuickStyle>
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QStandardPaths>
+#include <QQuickWindow>
 
 #include "include/databasemanager.h"
 #include "include/languageselector.h"
@@ -71,7 +65,27 @@ int main(int argc, char *argv[])
 
     QObject::connect(languageSelector.get(), &LanguageSelector::languageChanged,
                      &engine, &QQmlApplicationEngine::retranslate);
+
     engine.load(url);
+
+    QObject *object = engine.rootObjects().first();
+
+    QObject::connect(
+        object,
+        SIGNAL(newEntryDataForDatabase(QString, QString, QString, QString,
+                                       QString, int, QString)),
+        databaseManager->questionsProxyModel(),
+        SLOT(addEntry(QString, QString, QString, QString, QString, int,
+                      QString)));
+
+    QObject::connect(object, SIGNAL(rowMarkedForDeleteFromDatabase(int)),
+                     databaseManager->questionsProxyModel(),
+                     SLOT(removeEntry(int)));
+
+    QObject::connect(
+        object, SIGNAL(valueMarkedForUpdateInDatabase(int, QVariant, QString)),
+        databaseManager->questionsProxyModel(),
+        SLOT(changeValue(int, QVariant, QString)));
 
     return app.exec();
 }

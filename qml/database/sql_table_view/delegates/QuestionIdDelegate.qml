@@ -1,3 +1,4 @@
+
 /* Quiz
  * Copyright (C) 2020  Sandro Wißmann
  *
@@ -20,6 +21,12 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 TextField {
+    property int row
+
+    signal markForDelete(int row)
+
+    id: root
+
     implicitHeight: 100
 
     horizontalAlignment: Text.AlignHCenter
@@ -28,4 +35,52 @@ TextField {
     readOnly: true
 
     background: Frame {}
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+
+        onClicked: {
+            eraseContextMenu.popup(root, 0, mouseArea.mouseY + 10)
+        }
+    }
+
+    Menu {
+        id: eraseContextMenu
+        y: root.y
+        MenuItem {
+            text: qsTr("Delete entry")
+            onTriggered: {
+                eraseDialog.open()
+                eraseContextMenu.close()
+            }
+        }
+        MenuItem {
+            text: qsTr("Cancel")
+            onTriggered: {
+                eraseContextMenu.close()
+            }
+        }
+    }
+
+    Dialog {
+        id: eraseDialog
+        implicitWidth: 400
+        title: qsTr("Delete database entry")
+        modal: true
+        focus: true
+
+        contentItem: Label {
+            id: label
+            text: qsTr("Do you really want to erase the entry with id %1?").arg(
+                      root.text)
+        }
+
+        onAccepted: {
+            markForDelete(root.row)
+        }
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
+    }
 }
