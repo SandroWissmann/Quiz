@@ -79,7 +79,6 @@ bool QuestionSqlTableModel::removeRows(int row, int count,
         fetchMore();
     }
 
-    qDebug() << rowCount();
     for (auto i = 0; i < rowCount(); ++i) {
         QSqlTableModel::setData(createIndex(i, QuestionColumn::id), i + 1);
     }
